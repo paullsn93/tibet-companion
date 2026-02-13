@@ -37,3 +37,10 @@
 - [x] **文件維護**
     - [x] 將 `task.md` 與 `implementation_plan.md` 全面繁體中文化
     - [x] Git Commit & Push: "Docs: Translate all artifacts to Traditional Chinese"
+- [x] **[新增功能] V3.2 高原健康紀錄 (Health Tracker)**
+    - [x] 介面實作：在「貼心叮嚀」下方新增健康監控區塊 (Input + List)
+    - [x] 邏輯實作：使用 `localStorage` 儲存 SpO2 與 HR 紀錄
+    - [x] 功能實作：日期連動、增刪紀錄、複製文字至剪貼簿
+- [x] **備份 V3.2 功能版**
+    - [x] Git Commit: "Feat(V3.2): Add Health Tracker with LocalStorage support"
+    - [x] Git Push to Origin Main
