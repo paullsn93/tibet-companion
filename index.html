@@ -2,6 +2,25 @@
 <html lang="zh-TW">
 
 <head>
+    <script>
+        (function () {
+            // 偵測是否為 LINE 內建瀏覽器
+            var isLine = /Line/i.test(navigator.userAgent);
+            // 偵測網址是否尚未包含跳轉參數
+            var isNotExternal = window.location.href.indexOf("openExternalBrowser=1") === -1;
+
+            if (isLine && isNotExternal) {
+                // 如果是在 LINE 裡面，且還沒加參數，就強制加上參數並重新導向
+                var newUrl = window.location.href;
+                if (newUrl.indexOf("?") > -1) {
+                    newUrl += "&openExternalBrowser=1";
+                } else {
+                    newUrl += "?openExternalBrowser=1";
+                }
+                window.location.replace(newUrl);
+            }
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tibet Companion</title>
