@@ -736,326 +736,424 @@
                         <!-- Modal Body (Scrollable) -->
                         <div class="flex-1 overflow-y-auto p-6 custom-scrollbar">
                             <!-- Main Toolkit View -->
-                            <div v-if="toolkitView === 'main'" class="grid grid-cols-2 gap-4">
-                                <button @click="toolkitView = 'photo'"
-                                    class="flex flex-col items-center justify-center p-6 bg-indigo-900/50 border border-indigo-800 rounded-2xl text-white text-lg font-bold shadow-lg hover:bg-indigo-800/70 transition-all active:scale-95">
-                                    <span
-                                        class="material-icons-outlined text-4xl mb-2 text-indigo-400">photo_camera</span>
-                                    攝影與民俗
-                                </button>
-                                <button @click="toolkitView = 'tibetan'"
-                                    class="flex flex-col items-center justify-center p-6 bg-slate-800/50 border border-slate-700 rounded-2xl text-white text-lg font-bold shadow-lg hover:bg-slate-700/70 transition-all active:scale-95">
-                                    <span class="material-icons-outlined text-4xl mb-2 text-slate-400">translate</span>
-                                    藏語教學
-                                </button>
-                                <button @click="startBreathing"
-                                    class="flex flex-col items-center justify-center p-6 bg-cyan-900/50 border border-cyan-800 rounded-2xl text-white text-lg font-bold shadow-lg hover:bg-cyan-800/70 transition-all active:scale-95">
-                                    <span class="material-icons-outlined text-4xl mb-2 text-cyan-400">air</span>
-                                    呼吸練習
-                                </button>
-                                <button @click="toolkitView = 'packing'"
-                                    class="flex flex-col items-center justify-center p-6 bg-teal-900/50 border border-teal-800 rounded-2xl text-white text-lg font-bold shadow-lg hover:bg-teal-800/70 transition-all active:scale-95">
-                                    <span class="material-icons-outlined text-4xl mb-2 text-teal-400">backpack</span>
-                                    行李清單
-                                </button>
-                            </div>
+                            <button @click="toolkitView = 'tour'"
+                                class="flex flex-col items-center justify-center p-6 bg-amber-600/50 border border-amber-500/30 rounded-2xl text-white text-lg font-bold shadow-lg hover:bg-amber-500/70 transition-all active:scale-95">
+                                <span class="material-icons-outlined text-4xl mb-2 text-amber-400">info</span>
+                                團務與福利
+                            </button>
+                            <button @click="toolkitView = 'photo'"
+                                class="flex flex-col items-center justify-center p-6 bg-indigo-900/50 border border-indigo-800 rounded-2xl text-white text-lg font-bold shadow-lg hover:bg-indigo-800/70 transition-all active:scale-95">
+                                <span class="material-icons-outlined text-4xl mb-2 text-indigo-400">photo_camera</span>
+                                攝影與民俗
+                            </button>
+                            <button @click="toolkitView = 'tibetan'"
+                                class="flex flex-col items-center justify-center p-6 bg-slate-800/50 border border-slate-700 rounded-2xl text-white text-lg font-bold shadow-lg hover:bg-slate-700/70 transition-all active:scale-95">
+                                <span class="material-icons-outlined text-4xl mb-2 text-slate-400">translate</span>
+                                藏語教學
+                            </button>
+                            <button @click="startBreathing"
+                                class="flex flex-col items-center justify-center p-6 bg-cyan-900/50 border border-cyan-800 rounded-2xl text-white text-lg font-bold shadow-lg hover:bg-cyan-800/70 transition-all active:scale-95">
+                                <span class="material-icons-outlined text-4xl mb-2 text-cyan-400">air</span>
+                                呼吸練習
+                            </button>
+                            <button @click="toolkitView = 'packing'"
+                                class="flex flex-col items-center justify-center p-6 bg-teal-900/50 border border-teal-800 rounded-2xl text-white text-lg font-bold shadow-lg hover:bg-teal-800/70 transition-all active:scale-95">
+                                <span class="material-icons-outlined text-4xl mb-2 text-teal-400">backpack</span>
+                                行李清單
+                            </button>
+                        </div>
 
-                            <!-- Photo & Culture View (V11.0) -->
-                            <div v-if="toolkitView === 'photo'" class="space-y-6">
-                                <h3 class="text-xl font-bold text-indigo-400 mb-4 flex items-center gap-2">
-                                    <span class="material-icons-outlined">photo_camera</span>
-                                    攝影與民俗 Photo & Culture
-                                </h3>
+                        <!-- Tour Info View (V12.0) -->
+                        <div v-if="toolkitView === 'tour'" class="space-y-6">
+                            <h3 class="text-xl font-bold text-amber-400 mb-4 flex items-center gap-2">
+                                <span class="material-icons-outlined text-2xl">info</span>
+                                團務與福利 Tour Info
+                            </h3>
 
-                                <!-- A. Sunrise & Sunset -->
-                                <div class="bg-indigo-950/30 border border-indigo-500/20 rounded-2xl p-6 space-y-4">
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center gap-3">
-                                            <span
-                                                class="material-icons-outlined text-amber-400 text-3xl">wb_sunny</span>
-                                            <div>
-                                                <p class="text-slate-400 text-sm uppercase tracking-wider">Sunrise</p>
-                                                <p class="text-white text-3xl font-black font-mono">{{
-                                                    liveWeather?.sunrise || '---' }}</p>
-                                            </div>
-                                        </div>
-                                        <div class="flex items-center gap-3 text-right">
-                                            <div class="mr-1">
-                                                <p class="text-slate-400 text-sm uppercase tracking-wider">Sunset</p>
-                                                <p class="text-white text-3xl font-black font-mono">{{
-                                                    liveWeather?.sunset || '---' }}</p>
-                                            </div>
-                                            <span
-                                                class="material-icons-outlined text-orange-500 text-3xl">nights_stay</span>
-                                        </div>
-                                    </div>
-                                    <div class="pt-4 border-t border-indigo-500/10">
-                                        <p class="text-indigo-200 text-lg flex items-center gap-2">
-                                            <span class="material-icons-outlined text-xl">lightbulb</span>
-                                            黃金時刻：日出後/日落前 1 小時，色溫最美。
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <!-- B. Culture Do's & Don'ts -->
-                                <div class="bg-slate-800/50 border border-slate-700 rounded-2xl p-6">
-                                    <h4 class="text-white font-bold mb-4 flex items-center gap-2">
-                                        <span class="material-icons-outlined text-amber-500">gavel</span>
-                                        民俗禁忌小抄
+                            <!-- A. Commitments -->
+                            <div class="bg-amber-950/20 border border-amber-500/20 rounded-2xl p-6 space-y-6">
+                                <section>
+                                    <h4 class="text-amber-100 font-bold mb-3 flex items-center gap-2">
+                                        <span class="material-icons-outlined text-xl">payments</span>
+                                        小費與購物
                                     </h4>
-                                    <ul class="space-y-6">
-                                        <li class="flex gap-4">
-                                            <span class="text-indigo-400 font-bold text-xl shrink-0">1.</span>
-                                            <p class="text-slate-200 text-lg leading-relaxed"><strong
-                                                    class="text-white">寺廟內禁止拍照</strong>：殿內佛像與壁畫通常嚴禁攝影，請尊重規定。</p>
+                                    <ul class="space-y-2 text-slate-200">
+                                        <li class="flex items-center gap-2">
+                                            <span
+                                                class="material-icons-outlined text-emerald-400 text-sm">check_circle</span>
+                                            小費全包 (含導遊/領隊)
                                         </li>
-                                        <li class="flex gap-4">
-                                            <span class="text-indigo-400 font-bold text-xl shrink-0">2.</span>
-                                            <p class="text-slate-200 text-lg leading-relaxed"><strong
-                                                    class="text-white">轉經方向</strong>：參觀寺廟或轉經輪時，請務必順時針行進。</p>
-                                        </li>
-                                        <li class="flex gap-4">
-                                            <span class="text-indigo-400 font-bold text-xl shrink-0">3.</span>
-                                            <p class="text-slate-200 text-lg leading-relaxed"><strong
-                                                    class="text-white">摸頭禁忌</strong>：請勿隨意觸摸藏族人的頭（包括小孩），這是神聖部位。</p>
-                                        </li>
-                                        <li class="flex gap-4">
-                                            <span class="text-indigo-400 font-bold text-xl shrink-0">4.</span>
-                                            <p class="text-slate-200 text-lg leading-relaxed"><strong
-                                                    class="text-white">空拍機規定</strong>：拉薩市區（布達拉宮周邊）屬禁飛區，起飛前請先詢問導遊。</p>
-                                        </li>
-                                        <li class="flex gap-4">
-                                            <span class="text-indigo-400 font-bold text-xl shrink-0">5.</span>
-                                            <p class="text-slate-200 text-lg leading-relaxed"><strong
-                                                    class="text-white">尊重朝聖者</strong>：拍攝朝聖者時，建議保持距離或先點頭示意，勿貼臉拍攝。</p>
+                                        <li class="flex items-center gap-2">
+                                            <span
+                                                class="material-icons-outlined text-emerald-400 text-sm">check_circle</span>
+                                            全程無購物、無自費壓力
                                         </li>
                                     </ul>
-                                </div>
+                                </section>
 
-                                <button @click="toolkitView = 'main'"
-                                    class="w-full py-4 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-bold transition-colors">
-                                    返回工具箱
-                                </button>
-                            </div>
-
-                            <!-- Tibetan Phrases View -->
-                            <div v-if="toolkitView === 'tibetan'" class="space-y-4">
-                                <h3 class="text-xl font-bold text-slate-300 mb-4">常用藏語</h3>
-                                <div class="space-y-3">
-                                    <div v-for="(phrase, idx) in tibetanPhrases" :key="idx"
-                                        @click="fullscreenPhrase = phrase; speak(phrase)"
-                                        class="p-4 bg-slate-800/50 border border-slate-700 rounded-xl cursor-pointer hover:bg-slate-700/70 transition-colors">
-                                        <div class="flex justify-between items-center">
-                                            <div>
-                                                <p class="text-slate-400 text-sm">{{ phrase.ch }}</p>
-                                                <p class="text-white text-lg font-bold">{{ phrase.tib }}</p>
-                                                <p class="text-cyan-400 text-sm font-medium">發音: {{ phrase.pron }}</p>
-                                            </div>
-                                            <span class="material-icons-outlined text-slate-500">volume_up</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button @click="toolkitView = 'main'"
-                                    class="mt-6 w-full py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-bold transition-colors">
-                                    返回
-                                </button>
-                            </div>
-
-                            <!-- Breathing Exercise View -->
-                            <div v-if="toolkitView === 'breathing'"
-                                class="flex flex-col items-center justify-center h-full min-h-[300px] text-center">
-                                <div class="breathing-circle w-48 h-48 rounded-full bg-cyan-700/50 flex items-center justify-center transition-all duration-300 ease-in-out"
-                                    :class="breathingStateClass">
-                                    <span class="material-icons-outlined text-white text-6xl">{{ breathingIcon }}</span>
-                                </div>
-                                <p class="text-cyan-300 text-3xl font-bold mt-8">{{ breathingText }}</p>
-                                <p class="text-slate-400 text-lg mt-2">{{ breathingSubtext }}</p>
-                                <button @click="stopBreathing"
-                                    class="mt-8 py-3 px-6 bg-red-700 hover:bg-red-600 text-white rounded-xl font-bold transition-colors">
-                                    停止練習
-                                </button>
-                            </div>
-
-                            <!-- Packing List View (Added for V9.3) -->
-                            <div v-if="toolkitView === 'packing'" class="space-y-6">
-                                <h3 class="text-xl font-bold text-emerald-400 mb-2 flex items-center gap-2">
-                                    <span class="material-icons-outlined">backpack</span>
-                                    行李清單 Checkbox
-                                </h3>
-                                <div v-for="(group, gIndex) in packingList" :key="group.category" class="space-y-3">
-                                    <h4
-                                        class="text-slate-400 text-xs font-bold uppercase tracking-wider flex items-center gap-2 mt-4 ml-1">
-                                        <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                                        {{ group.category }}
+                                <section>
+                                    <h4 class="text-amber-100 font-bold mb-3 flex items-center gap-2">
+                                        <span class="material-icons-outlined text-xl">redeem</span>
+                                        贈送項目
                                     </h4>
-                                    <div class="grid grid-cols-1 gap-2">
-                                        <div v-for="(item, iIndex) in group.items" :key="item"
-                                            @click="togglePackingItem(group.category, item)"
-                                            class="p-4 rounded-xl border transition-all cursor-pointer flex items-center gap-3 select-none"
-                                            :class="isPacked(group.category, item) ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-100' : 'bg-slate-800/50 border-slate-700/50 text-slate-300 hover:border-slate-500'">
-                                            <span class="material-icons-outlined text-lg">
-                                                {{ isPacked(group.category, item) ? 'check_circle' :
-                                                'radio_button_unchecked' }}
-                                            </span>
-                                            <span class="font-medium">{{ item }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button @click="toolkitView = 'main'"
-                                    class="mt-8 w-full py-4 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-bold transition-colors">
-                                    返回工具箱
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </transition>
-
-            <!-- User Manual Modal (V10.0) -->
-            <transition name="fade">
-                <div v-if="isManualOpen"
-                    class="fixed inset-0 z-[120] bg-slate-950/98 backdrop-blur-xl flex flex-col overflow-hidden">
-                    <!-- Manual Header -->
-                    <div
-                        class="flex-none p-6 border-b border-white/5 flex items-center justify-between bg-slate-950/50">
-                        <div class="flex items-center gap-3">
-                            <span class="material-icons-outlined text-teal-400 text-3xl">auto_stories</span>
-                            <h2 class="text-xl font-black tracking-widest uppercase">使用手冊 Manual</h2>
-                        </div>
-                        <button @click="isManualOpen = false"
-                            class="p-2 rounded-full hover:bg-white/10 transition-colors">
-                            <span class="material-icons-outlined">close</span>
-                        </button>
-                    </div>
-
-                    <!-- Manual Content -->
-                    <div class="flex-1 overflow-y-auto p-6 md:p-12 custom-scrollbar">
-                        <div class="max-w-2xl mx-auto space-y-12 pb-20">
-                            <!-- Intro -->
-                            <section>
-                                <h3 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-                                    <span class="text-teal-500">01</span> 歡迎使用
-                                </h3>
-                                <p class="text-slate-200 leading-relaxed text-2xl">
-                                    「西藏旅伴」是專為 12 日西藏深度旅遊設計的數位助手。我們整合了行程管理、氣象更新、健康追蹤與安全工具，助您安心探索世界屋脊。
-                                </p>
-                            </section>
-
-                            <!-- Feature 1: Itinerary -->
-                            <section>
-                                <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                                    <span class="text-teal-500">02</span> 行程管理與攻略
-                                </h3>
-                                <div class="bg-slate-900/50 p-8 rounded-3xl border border-white/10 space-y-6 shadow-xl">
-                                    <p class="text-white text-xl font-medium">每一天都有專屬的座標、海拔與景點簡介：</p>
-                                    <ul class="list-disc list-inside text-slate-200 space-y-4 ml-4 text-xl">
-                                        <li><strong class="text-teal-400">開啟地圖</strong>：一鍵導航至當天目的地。</li>
-                                        <li><strong class="text-teal-400">精選攻略</strong>：點擊帶有底線的景點名稱，開啟玩家視角的圖文介紹。</li>
+                                    <ul class="space-y-3 text-slate-200">
+                                        <li class="flex items-start gap-2">
+                                            <span
+                                                class="material-icons-outlined text-emerald-400 text-sm mt-1">check_circle</span>
+                                            <div>
+                                                <p class="font-bold">免翻牆網卡</p>
+                                                <p class="text-xs text-slate-400">請確認手機是否支援，抵達後即可使用。</p>
+                                            </div>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span
+                                                class="material-icons-outlined text-emerald-400 text-sm mt-1">check_circle</span>
+                                            <div>
+                                                <p class="font-bold">氧氣充足</p>
+                                                <p class="text-xs text-slate-400">遊覽車備有鋼瓶氧氣，並贈送個人隨身氧氣瓶。</p>
+                                            </div>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span
+                                                class="material-icons-outlined text-emerald-400 text-sm mt-1">check_circle</span>
+                                            <div>
+                                                <p class="font-bold">哈達迎賓</p>
+                                                <p class="text-xs text-slate-400">抵達林芝機場時，享有藏式哈達迎賓禮。</p>
+                                            </div>
+                                        </li>
                                     </ul>
-                                </div>
-                            </section>
+                                </section>
+                            </div>
 
-                            <!-- Feature 2: Weather & Health -->
-                            <section>
-                                <h3 class="text-3xl font-bold text-white mb-4 flex items-center gap-3">
-                                    <span class="text-teal-500">03</span> 即時天氣與健康監控
-                                </h3>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div class="bg-slate-900/50 p-8 rounded-3xl border border-white/10 shadow-xl">
-                                        <h4 class="font-bold text-emerald-400 mb-3 text-2xl">氣象穿衣</h4>
-                                        <p class="text-lg text-slate-200 leading-relaxed">對接 Open-Meteo
-                                            API，顯示當前降雨機率與氣溫，並提供專業穿搭建議。</p>
-                                    </div>
-                                    <div class="bg-slate-900/50 p-8 rounded-3xl border border-white/10 shadow-xl">
-                                        <h4 class="font-bold text-cyan-400 mb-3 text-2xl">健康追蹤</h4>
-                                        <p class="text-lg text-slate-200 leading-relaxed">每日記錄血氧 (SpO2)
-                                            與心率，支援一鍵複製整日數據發送給親友。</p>
-                                    </div>
-                                </div>
-                            </section>
-
-                            <!-- Feature 3: Toolkit -->
-                            <section>
-                                <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                                    <span class="text-teal-500">04</span> 安全工具箱 (V9.0+)
-                                </h3>
-                                <div
-                                    class="bg-indigo-950/30 border border-indigo-500/20 rounded-2xl p-6 mb-8 flex items-start gap-4 shadow-xl">
-                                    <span class="material-icons-outlined text-indigo-500 text-4xl">photo_camera</span>
-                                    <div>
-                                        <h5 class="font-bold text-white text-xl">攝影與民俗 (V11.0)</h5>
-                                        <p class="text-lg text-slate-200">實時查詢日出日落時間，並提供攝影建議與西藏民俗禁忌小抄。</p>
-                                    </div>
-                                </div>
-                                <div class="space-y-8">
-                                    <div class="flex items-start gap-4">
-                                        <span class="material-icons-outlined text-amber-500 text-4xl">translate</span>
-                                        <div>
-                                            <h5 class="font-bold text-white text-xl">藏語字卡與發音</h5>
-                                            <p class="text-lg text-slate-200">點擊字卡可全螢幕顯示並發出藏式語調，方便溝通。</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start gap-4">
-                                        <span class="material-icons-outlined text-cyan-500 text-4xl">air</span>
-                                        <div>
-                                            <h5 class="font-bold text-white text-xl">4-4-4 呼吸引導</h5>
-                                            <p class="text-lg text-slate-200">跟隨圓圈律動吸氣、憋氣、吐氣，能有效穩定心跳並緩解高原反應。</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start gap-4">
-                                        <span
-                                            class="material-icons-outlined text-emerald-500 text-4xl">inventory_2</span>
-                                        <div>
-                                            <h5 class="font-bold text-white text-xl">互動式行李清單</h5>
-                                            <p class="text-lg text-slate-200">內建必備藥品與裝備清單，支援勾選並自動保存您的打包進度。</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-
-                            <!-- Tips -->
-                            <section class="bg-teal-500/10 p-8 rounded-[2.5rem] border border-teal-500/20 shadow-lg">
-                                <h4 class="text-2xl font-bold text-teal-400 mb-4 items-center flex gap-2">
-                                    <span class="material-icons-outlined">tips_and_updates</span>
-                                    安全小筆記
+                            <!-- B. Emergency Contacts -->
+                            <div class="bg-slate-800/50 border border-slate-700 rounded-2xl p-6">
+                                <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                                    <span class="material-icons-outlined text-red-500">phone_in_talk</span>
+                                    緊急聯絡 Contact
                                 </h4>
-                                <p class="text-teal-100/90 text-lg leading-relaxed">
-                                    進藏初期請避免大力活動與頻繁洗頭。若血氧低於 80% 且伴隨劇烈頭痛，請務必立即吸氧並通知領隊。祝您在雪域高原擁有一段難忘的純粹時光！
-                                </p>
-                            </section>
-
-                            <div class="flex flex-col items-center pt-8">
-                                <button @click="isManualOpen = false"
-                                    class="text-slate-400 hover:text-white transition-all underline underline-offset-8 text-lg">
-                                    回到封面 Back to Home
-                                </button>
-                                <p class="text-slate-700 text-sm mt-12 font-mono uppercase tracking-[0.2em]">© 2026
-                                    Tibet Companion v11.0</p>
+                                <div class="space-y-4">
+                                    <div
+                                        class="flex justify-between items-center bg-slate-900/50 p-3 rounded-lg border border-slate-700">
+                                        <div>
+                                            <p class="text-xs text-slate-500 uppercase">阿玩旅遊 (台中)</p>
+                                            <p class="text-white font-bold">04-2382-1077</p>
+                                        </div>
+                                        <a href="tel:0423821077" class="p-2 bg-indigo-500 rounded-full text-white">
+                                            <span class="material-icons-outlined">call</span>
+                                        </a>
+                                    </div>
+                                    <div class="p-4 bg-slate-900/30 rounded-lg border border-dashed border-slate-700">
+                                        <p class="text-slate-400 text-sm">領隊/導遊電話：</p>
+                                        <p class="text-slate-500 italic mt-1">(請於出發說明會後手動填入)</p>
+                                    </div>
+                                </div>
                             </div>
+
+                            <button @click="toolkitView = 'main'"
+                                class="w-full py-4 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-bold transition-colors">
+                                返回工具箱
+                            </button>
+                        </div>
+
+                        <!-- Photo & Culture View (V11.0) -->
+                        <div v-if="toolkitView === 'photo'" class="space-y-6">
+                            <h3 class="text-xl font-bold text-indigo-400 mb-4 flex items-center gap-2">
+                                <span class="material-icons-outlined">photo_camera</span>
+                                攝影與民俗 Photo & Culture
+                            </h3>
+
+                            <!-- A. Sunrise & Sunset -->
+                            <div class="bg-indigo-950/30 border border-indigo-500/20 rounded-2xl p-6 space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <span class="material-icons-outlined text-amber-400 text-3xl">wb_sunny</span>
+                                        <div>
+                                            <p class="text-slate-400 text-sm uppercase tracking-wider">Sunrise</p>
+                                            <p class="text-white text-3xl font-black font-mono">{{
+                                                liveWeather?.sunrise || '---' }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-right">
+                                        <div class="mr-1">
+                                            <p class="text-slate-400 text-sm uppercase tracking-wider">Sunset</p>
+                                            <p class="text-white text-3xl font-black font-mono">{{
+                                                liveWeather?.sunset || '---' }}</p>
+                                        </div>
+                                        <span
+                                            class="material-icons-outlined text-orange-500 text-3xl">nights_stay</span>
+                                    </div>
+                                </div>
+                                <div class="pt-4 border-t border-indigo-500/10">
+                                    <p class="text-indigo-200 text-lg flex items-center gap-2">
+                                        <span class="material-icons-outlined text-xl">lightbulb</span>
+                                        黃金時刻：日出後/日落前 1 小時，色溫最美。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- B. Culture Do's & Don'ts -->
+                            <div class="bg-slate-800/50 border border-slate-700 rounded-2xl p-6">
+                                <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                                    <span class="material-icons-outlined text-amber-500">gavel</span>
+                                    民俗禁忌小抄
+                                </h4>
+                                <ul class="space-y-6">
+                                    <li class="flex gap-4">
+                                        <span class="text-indigo-400 font-bold text-xl shrink-0">1.</span>
+                                        <p class="text-slate-200 text-lg leading-relaxed"><strong
+                                                class="text-white">寺廟內禁止拍照</strong>：殿內佛像與壁畫通常嚴禁攝影，請尊重規定。</p>
+                                    </li>
+                                    <li class="flex gap-4">
+                                        <span class="text-indigo-400 font-bold text-xl shrink-0">2.</span>
+                                        <p class="text-slate-200 text-lg leading-relaxed"><strong
+                                                class="text-white">轉經方向</strong>：參觀寺廟或轉經輪時，請務必順時針行進。</p>
+                                    </li>
+                                    <li class="flex gap-4">
+                                        <span class="text-indigo-400 font-bold text-xl shrink-0">3.</span>
+                                        <p class="text-slate-200 text-lg leading-relaxed"><strong
+                                                class="text-white">摸頭禁忌</strong>：請勿隨意觸摸藏族人的頭（包括小孩），這是神聖部位。</p>
+                                    </li>
+                                    <li class="flex gap-4">
+                                        <span class="text-indigo-400 font-bold text-xl shrink-0">4.</span>
+                                        <p class="text-slate-200 text-lg leading-relaxed"><strong
+                                                class="text-white">空拍機規定</strong>：拉薩市區（布達拉宮周邊）屬禁飛區，起飛前請先詢問導遊。</p>
+                                    </li>
+                                    <li class="flex gap-4">
+                                        <span class="text-indigo-400 font-bold text-xl shrink-0">5.</span>
+                                        <p class="text-slate-200 text-lg leading-relaxed"><strong
+                                                class="text-white">尊重朝聖者</strong>：拍攝朝聖者時，建議保持距離或先點頭示意，勿貼臉拍攝。</p>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <button @click="toolkitView = 'main'"
+                                class="w-full py-4 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-bold transition-colors">
+                                返回工具箱
+                            </button>
+                        </div>
+
+                        <!-- Tibetan Phrases View -->
+                        <div v-if="toolkitView === 'tibetan'" class="space-y-4">
+                            <h3 class="text-xl font-bold text-slate-300 mb-4">常用藏語</h3>
+                            <div class="space-y-3">
+                                <div v-for="(phrase, idx) in tibetanPhrases" :key="idx"
+                                    @click="fullscreenPhrase = phrase; speak(phrase)"
+                                    class="p-4 bg-slate-800/50 border border-slate-700 rounded-xl cursor-pointer hover:bg-slate-700/70 transition-colors">
+                                    <div class="flex justify-between items-center">
+                                        <div>
+                                            <p class="text-slate-400 text-sm">{{ phrase.ch }}</p>
+                                            <p class="text-white text-lg font-bold">{{ phrase.tib }}</p>
+                                            <p class="text-cyan-400 text-sm font-medium">發音: {{ phrase.pron }}</p>
+                                        </div>
+                                        <span class="material-icons-outlined text-slate-500">volume_up</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button @click="toolkitView = 'main'"
+                                class="mt-6 w-full py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-bold transition-colors">
+                                返回
+                            </button>
+                        </div>
+
+                        <!-- Breathing Exercise View -->
+                        <div v-if="toolkitView === 'breathing'"
+                            class="flex flex-col items-center justify-center h-full min-h-[300px] text-center">
+                            <div class="breathing-circle w-48 h-48 rounded-full bg-cyan-700/50 flex items-center justify-center transition-all duration-300 ease-in-out"
+                                :class="breathingStateClass">
+                                <span class="material-icons-outlined text-white text-6xl">{{ breathingIcon }}</span>
+                            </div>
+                            <p class="text-cyan-300 text-3xl font-bold mt-8">{{ breathingText }}</p>
+                            <p class="text-slate-400 text-lg mt-2">{{ breathingSubtext }}</p>
+                            <button @click="stopBreathing"
+                                class="mt-8 py-3 px-6 bg-red-700 hover:bg-red-600 text-white rounded-xl font-bold transition-colors">
+                                停止練習
+                            </button>
+                        </div>
+
+                        <!-- Packing List View (Added for V9.3) -->
+                        <div v-if="toolkitView === 'packing'" class="space-y-6">
+                            <h3 class="text-xl font-bold text-emerald-400 mb-2 flex items-center gap-2">
+                                <span class="material-icons-outlined">backpack</span>
+                                行李清單 Checkbox
+                            </h3>
+                            <div v-for="(group, gIndex) in packingList" :key="group.category" class="space-y-3">
+                                <h4
+                                    class="text-slate-400 text-xs font-bold uppercase tracking-wider flex items-center gap-2 mt-4 ml-1">
+                                    <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+                                    {{ group.category }}
+                                </h4>
+                                <div class="grid grid-cols-1 gap-2">
+                                    <div v-for="(item, iIndex) in group.items" :key="item"
+                                        @click="togglePackingItem(group.category, item)"
+                                        class="p-4 rounded-xl border transition-all cursor-pointer flex items-center gap-3 select-none"
+                                        :class="isPacked(group.category, item) ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-100' : 'bg-slate-800/50 border-slate-700/50 text-slate-300 hover:border-slate-500'">
+                                        <span class="material-icons-outlined text-lg">
+                                            {{ isPacked(group.category, item) ? 'check_circle' :
+                                            'radio_button_unchecked' }}
+                                        </span>
+                                        <span class="font-medium">{{ item }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button @click="toolkitView = 'main'"
+                                class="mt-8 w-full py-4 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-bold transition-colors">
+                                返回工具箱
+                            </button>
                         </div>
                     </div>
                 </div>
-            </transition>
+    </div>
+    </transition>
 
-            <!-- Fullscreen Phrase Display -->
-            <teleport to="body">
-                <transition name="fade">
-                    <div v-if="fullscreenPhrase"
-                        class="fixed inset-0 bg-black/90 backdrop-blur-md z-[130] flex flex-col items-center justify-center p-4"
-                        @click="fullscreenPhrase = null">
-                        <div class="text-center">
-                            <p class="text-slate-400 text-2xl mb-4">{{ fullscreenPhrase.ch }}</p>
-                            <p class="text-white text-6xl font-black mb-6">{{ fullscreenPhrase.tib }}</p>
-                            <p class="text-cyan-400 text-4xl font-bold">發音: {{ fullscreenPhrase.pron }}</p>
-                            <p v-if="fullscreenPhrase.urgent" class="text-red-500 text-xl mt-8">🚨 緊急用語</p>
+    <!-- User Manual Modal (V10.0) -->
+    <transition name="fade">
+        <div v-if="isManualOpen"
+            class="fixed inset-0 z-[120] bg-slate-950/98 backdrop-blur-xl flex flex-col overflow-hidden">
+            <!-- Manual Header -->
+            <div class="flex-none p-6 border-b border-white/5 flex items-center justify-between bg-slate-950/50">
+                <div class="flex items-center gap-3">
+                    <span class="material-icons-outlined text-teal-400 text-3xl">auto_stories</span>
+                    <h2 class="text-xl font-black tracking-widest uppercase">使用手冊 Manual</h2>
+                </div>
+                <button @click="isManualOpen = false" class="p-2 rounded-full hover:bg-white/10 transition-colors">
+                    <span class="material-icons-outlined">close</span>
+                </button>
+            </div>
+
+            <!-- Manual Content -->
+            <div class="flex-1 overflow-y-auto p-6 md:p-12 custom-scrollbar">
+                <div class="max-w-2xl mx-auto space-y-12 pb-20">
+                    <!-- Intro -->
+                    <section>
+                        <h3 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                            <span class="text-teal-500">01</span> 歡迎使用
+                        </h3>
+                        <p class="text-slate-200 leading-relaxed text-2xl">
+                            「西藏旅伴」是專為 12 日西藏深度旅遊設計的數位助手。我們整合了行程管理、氣象更新、健康追蹤與安全工具，助您安心探索世界屋脊。
+                        </p>
+                    </section>
+
+                    <!-- Feature 1: Itinerary -->
+                    <section>
+                        <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                            <span class="text-teal-500">02</span> 行程管理與攻略
+                        </h3>
+                        <div class="bg-slate-900/50 p-8 rounded-3xl border border-white/10 space-y-6 shadow-xl">
+                            <p class="text-white text-xl font-medium">每一天都有專屬的座標、海拔與景點簡介：</p>
+                            <ul class="list-disc list-inside text-slate-200 space-y-4 ml-4 text-xl">
+                                <li><strong class="text-teal-400">開啟地圖</strong>：一鍵導航至當天目的地。</li>
+                                <li><strong class="text-teal-400">精選攻略</strong>：點擊帶有底線的景點名稱，開啟玩家視角的圖文介紹。</li>
+                            </ul>
                         </div>
-                        <button @click="fullscreenPhrase = null"
-                            class="absolute top-6 right-6 text-slate-400 hover:text-white p-3 rounded-full hover:bg-slate-800 transition-colors">
-                            <span class="material-icons-outlined text-3xl">close</span>
+                    </section>
+
+                    <!-- Feature 2: Weather & Health -->
+                    <section>
+                        <h3 class="text-3xl font-bold text-white mb-4 flex items-center gap-3">
+                            <span class="text-teal-500">03</span> 即時天氣與健康監控
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-slate-900/50 p-8 rounded-3xl border border-white/10 shadow-xl">
+                                <h4 class="font-bold text-emerald-400 mb-3 text-2xl">氣象穿衣</h4>
+                                <p class="text-lg text-slate-200 leading-relaxed">對接 Open-Meteo
+                                    API，顯示當前降雨機率與氣溫，並提供專業穿搭建議。</p>
+                            </div>
+                            <div class="bg-slate-900/50 p-8 rounded-3xl border border-white/10 shadow-xl">
+                                <h4 class="font-bold text-cyan-400 mb-3 text-2xl">健康追蹤</h4>
+                                <p class="text-lg text-slate-200 leading-relaxed">每日記錄血氧 (SpO2)
+                                    與心率，支援一鍵複製整日數據發送給親友。</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Feature 3: Toolkit -->
+                    <section>
+                        <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                            <span class="text-teal-500">04</span> 安全工具箱 (V9.0+)
+                        </h3>
+                        <div
+                            class="bg-indigo-950/30 border border-indigo-500/20 rounded-2xl p-6 mb-8 flex items-start gap-4 shadow-xl">
+                            <span class="material-icons-outlined text-indigo-500 text-4xl">photo_camera</span>
+                            <div>
+                                <h5 class="font-bold text-white text-xl">攝影與民俗 (V11.0)</h5>
+                                <p class="text-lg text-slate-200">實時查詢日出日落時間，並提供攝影建議與西藏民俗禁忌小抄。</p>
+                            </div>
+                        </div>
+                        <div class="space-y-8">
+                            <div class="flex items-start gap-4">
+                                <span class="material-icons-outlined text-amber-500 text-4xl">translate</span>
+                                <div>
+                                    <h5 class="font-bold text-white text-xl">藏語字卡與發音</h5>
+                                    <p class="text-lg text-slate-200">點擊字卡可全螢幕顯示並發出藏式語調，方便溝通。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <span class="material-icons-outlined text-cyan-500 text-4xl">air</span>
+                                <div>
+                                    <h5 class="font-bold text-white text-xl">4-4-4 呼吸引導</h5>
+                                    <p class="text-lg text-slate-200">跟隨圓圈律動吸氣、憋氣、吐氣，能有效穩定心跳並緩解高原反應。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <span class="material-icons-outlined text-emerald-500 text-4xl">inventory_2</span>
+                                <div>
+                                    <h5 class="font-bold text-white text-xl">互動式行李清單</h5>
+                                    <p class="text-lg text-slate-200">內建必備藥品與裝備清單，支援勾選並自動保存您的打包進度。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <span class="material-icons-outlined text-amber-500 text-4xl">info</span>
+                                <div>
+                                    <h5 class="font-bold text-white text-xl">團務與福利 (V12.0)</h5>
+                                    <p class="text-lg text-slate-200">包含阿玩旅遊專屬福利：免翻牆網卡、氧氣瓶供應、小費全包承諾及緊急聯絡人資訊。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Tips -->
+                    <section class="bg-teal-500/10 p-8 rounded-[2.5rem] border border-teal-500/20 shadow-lg">
+                        <h4 class="text-2xl font-bold text-teal-400 mb-4 items-center flex gap-2">
+                            <span class="material-icons-outlined">tips_and_updates</span>
+                            安全小筆記
+                        </h4>
+                        <p class="text-teal-100/90 text-lg leading-relaxed">
+                            進藏初期請避免大力活動與頻繁洗頭。若血氧低於 80% 且伴隨劇烈頭痛，請務必立即吸氧並通知領隊。祝您在雪域高原擁有一段難忘的純粹時光！
+                        </p>
+                    </section>
+
+                    <div class="flex flex-col items-center pt-8">
+                        <button @click="isManualOpen = false"
+                            class="text-slate-400 hover:text-white transition-all underline underline-offset-8 text-lg">
+                            回到封面 Back to Home
                         </button>
+                        <p class="text-slate-700 text-sm mt-12 font-mono uppercase tracking-[0.2em]">© 2026
+                            Tibet Companion v11.0</p>
                     </div>
-                </transition>
-            </teleport>
+                </div>
+            </div>
+        </div>
+    </transition>
+
+    <!-- Fullscreen Phrase Display -->
+    <teleport to="body">
+        <transition name="fade">
+            <div v-if="fullscreenPhrase"
+                class="fixed inset-0 bg-black/90 backdrop-blur-md z-[130] flex flex-col items-center justify-center p-4"
+                @click="fullscreenPhrase = null">
+                <div class="text-center">
+                    <p class="text-slate-400 text-2xl mb-4">{{ fullscreenPhrase.ch }}</p>
+                    <p class="text-white text-6xl font-black mb-6">{{ fullscreenPhrase.tib }}</p>
+                    <p class="text-cyan-400 text-4xl font-bold">發音: {{ fullscreenPhrase.pron }}</p>
+                    <p v-if="fullscreenPhrase.urgent" class="text-red-500 text-xl mt-8">🚨 緊急用語</p>
+                </div>
+                <button @click="fullscreenPhrase = null"
+                    class="absolute top-6 right-6 text-slate-400 hover:text-white p-3 rounded-full hover:bg-slate-800 transition-colors">
+                    <span class="material-icons-outlined text-3xl">close</span>
+                </button>
+            </div>
+        </transition>
+    </teleport>
     </div><!-- End #app -->
 
     <style>
@@ -1532,7 +1630,7 @@
                 // Packing List Data & Logic (V4.0)
                 const packingList = ref([
                     { category: '必備證件', items: ['護照/台胞證', '入藏函 (正本)', '機票/火車票', '現金/信用卡'] },
-                    { category: '電子產品', items: ['手機 & 充電線', '行動電源 (10000mAh+)', '轉接頭 (中國規格)', '網卡/漫遊'] },
+                    { category: '電子產品', items: ['手機 & 充電線', '行動電源 (⚠️ 須有清晰容量標示)', '變壓器/轉接頭 (中國電壓220V)', '網卡/Wifi機 (旅行社已贈送)'] },
                     { category: '個人藥品', items: ['紅景天 (提前吃)', '丹木斯 (高山症)', '感冒/腸胃藥', '維他命/B群'] },
                     { category: '衣物裝備', items: ['羽絨外套 (防風防水)', '毛帽 & 圍巾', '墨鏡 (偏光)', '保暖好走鞋'] },
                     { category: '日用品', items: ['保濕乳液/護唇膏', '防曬乳 (高係數)', '保溫瓶', '濕紙巾/衛生紙'] }
@@ -1547,6 +1645,10 @@
                         const stored = localStorage.getItem('tibet_packing_v1');
                         if (stored) {
                             packedItems.value = JSON.parse(stored);
+                        } else {
+                            // V12.0 Default: Check travel agency gift
+                            packedItems.value = { "電子產品_網卡/Wifi機 (旅行社已贈送)": true };
+                            savePackingStatus();
                         }
                     } catch (e) {
                         console.error('Failed to load packing list', e);
