@@ -20,6 +20,11 @@
     "stay": "深圳凱悅嘉軒酒店",
     "tips": "今晚請早點休息，明天一早要飛往高原。阿玩旅遊承諾：若當地無素食餐廳，將會安排一般餐廳並「客製化素食餐點」，請放心用餐。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=深圳凱悅嘉軒酒店",
+    "route": {
+      "start": "桃園國際機場",
+      "end": "深圳凱悅嘉軒酒店",
+      "mode": "flight"
+    },
     "flight": {
       "code": "CZ3088",
       "from": "TPE 桃園",
@@ -62,6 +67,12 @@
     "stay": "林芝博泰林芝大酒店",
     "tips": "今日動作要慢！切記不要洗澡洗頭，多喝水。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=林芝博泰林芝大酒店",
+    "route": {
+      "start": "林芝米林機場",
+      "end": "林芝博泰林芝大酒店",
+      "waypoints": "雅尼國家濕地公園|色季拉山口|魯朗林海",
+      "mode": "driving"
+    },
     "flight": {
       "code": "CZ5417",
       "from": "SZX 深圳",
@@ -112,6 +123,12 @@
     "stay": "拉薩瑞吉度假酒店",
     "tips": "今晚入住拉薩 (3650m)，可能會頭痛，屬正常現象。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店",
+    "route": {
+      "start": "林芝博泰林芝大酒店",
+      "end": "拉薩瑞吉度假酒店",
+      "waypoints": "巴松措|米拉山口|色拉寺",
+      "mode": "driving"
+    },
     "highlights": [
       {
         "label": "林拉景觀大道"
@@ -150,6 +167,12 @@
     "stay": "拉薩瑞吉度假酒店",
     "tips": "布達拉宮階梯多，請調整呼吸，不要逞強。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩布達拉宮",
+    "route": {
+      "start": "拉薩瑞吉度假酒店",
+      "end": "拉薩瑞吉度假酒店",
+      "waypoints": "布達拉宮|大昭寺|藥王山觀景台",
+      "mode": "walking"
+    },
     "highlights": [
       {
         "label": "布達拉宮 (參觀攻略)",
@@ -188,6 +211,12 @@
     "stay": "日喀則希爾頓酒店",
     "tips": "翻越 5000m 山口，下車拍照動作要慢。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店",
+    "route": {
+      "start": "拉薩瑞吉度假酒店",
+      "end": "日喀則希爾頓酒店",
+      "waypoints": "崗巴拉山口|羊卓雍措|卡若拉冰川",
+      "mode": "driving"
+    },
     "highlights": [
       {
         "label": "崗巴拉山口"
@@ -224,6 +253,12 @@
     "stay": "珠峰大本營帳篷/民宿",
     "tips": "全程最高挑戰 5200m。隨身攜帶氧氣瓶。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=珠峰大本營",
+    "route": {
+      "start": "日喀則希爾頓酒店",
+      "end": "珠峰大本營",
+      "waypoints": "加烏拉山口|絨布寺",
+      "mode": "driving"
+    },
     "highlights": [
       {
         "label": "加烏拉山口 (8000m雪山群)",
@@ -261,6 +296,12 @@
     "stay": "日喀則希爾頓酒店",
     "tips": "回到 3840m 會覺得呼吸順暢很多，今晚好好洗澡。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店",
+    "route": {
+      "start": "珠峰大本營",
+      "end": "日喀則希爾頓酒店",
+      "waypoints": "扎什倫布寺",
+      "mode": "driving"
+    },
     "highlights": [
       {
         "label": "珠峰日出"
@@ -293,6 +334,12 @@
     "stay": "當雄四季富氧酒店",
     "tips": "當雄海拔 4200m 仍高，注意保暖。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=當雄四季富氧酒店",
+    "route": {
+      "start": "日喀則希爾頓酒店",
+      "end": "當雄四季富氧酒店",
+      "waypoints": "雪古拉山口",
+      "mode": "driving"
+    },
     "highlights": [
       {
         "label": "藏北草原風光"
@@ -328,6 +375,12 @@
     "stay": "拉薩瑞吉度假酒店",
     "tips": "行程最後的高海拔挑戰。晚上看秀注意保暖。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店",
+    "route": {
+      "start": "當雄四季富氧酒店",
+      "end": "拉薩瑞吉度假酒店",
+      "waypoints": "那根拉山口|納木措",
+      "mode": "driving"
+    },
     "highlights": [
       {
         "label": "那根拉山口"
@@ -364,6 +417,11 @@
     "stay": "青藏鐵路軟臥",
     "tips": "火車上有供氧. 放鬆欣賞窗外流動的風景大片。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩火車站",
+    "route": {
+      "start": "拉薩瑞吉度假酒店",
+      "end": "拉薩火車站",
+      "mode": "driving"
+    },
     "highlights": [
       {
         "label": "青藏鐵路 (沿途美景)",
@@ -401,6 +459,12 @@
     "stay": "廣州花都白雲國際機場逸扉酒店",
     "tips": "回到平原可能會嗜睡，好好休息。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=廣州花都白雲國際機場逸扉酒店",
+    "route": {
+      "start": "西寧火車站",
+      "end": "廣州花都白雲國際機場逸扉酒店",
+      "waypoints": "西寧曹家堡機場",
+      "mode": "mix"
+    },
     "flight": {
       "code": "CZ6394",
       "from": "XNN 西寧",
@@ -440,6 +504,11 @@
     "stay": "甜蜜的家",
     "tips": "整理照片，分享西藏回憶！",
     "map_url": "https://www.google.com/maps/search/?api=1&query=桃園國際機場",
+    "route": {
+      "start": "廣州白雲機場",
+      "end": "桃園國際機場",
+      "mode": "flight"
+    },
     "flight": {
       "code": "CZ3097",
       "from": "CAN 廣州",

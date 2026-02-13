@@ -257,7 +257,7 @@
                             </button>
 
                             <!-- Map Button (New) -->
-                            <button v-if="currentDay.map_url" @click.stop="openMap(currentDay.map_url)"
+                            <button v-if="currentDay.map_url || currentDay.route" @click.stop="openMap(currentDay)"
                                 class="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-teal-600 hover:bg-teal-500 text-white text-base md:text-lg font-bold shadow-lg shadow-teal-500/20 active:scale-95 transition-all">
                                 <span class="material-icons-outlined text-xl">map</span>
                                 開啟地圖
@@ -1835,8 +1835,43 @@
                     return currentDay.value.locations.join(' ➝ ');
                 });
 
-                const openMap = (url) => {
-                    window.open(url, '_blank');
+                const openMap = (day) => {
+                    if (!day.route) {
+                        // Fallback for objects without new route structure
+                        if (day.map_url) window.open(day.map_url, '_blank');
+                        return;
+                    }
+
+                    const origin = encodeURIComponent(day.route.start);
+                    const destination = encodeURIComponent(day.route.end);
+                    let mapUrl = '';
+
+                    if (day.route.mode === 'flight') {
+                        // Flight mode: Search for destination instead of directions
+                        mapUrl = `https://www.google.com/maps/search/?api=1&query=${destination}`;
+                    } else {
+                        const baseUrl = "https://www.google.com/maps/dir/?api=1";
+                        let params = `&origin=${origin}&destination=${destination}`;
+
+                        // Add Travel Mode
+                        if (day.route.mode === 'walking') {
+                            params += "&travelmode=walking";
+                        } else if (day.route.mode === 'driving' || day.route.mode === 'mix') {
+                            params += "&travelmode=driving";
+                        }
+
+                        // Add Waypoints
+                        if (day.route.waypoints) {
+                            const wps = day.route.waypoints.split('|')
+                                .map(wp => encodeURIComponent(wp))
+                                .join('|');
+                            params += `&waypoints=${wps}`;
+                        }
+
+                        mapUrl = baseUrl + params;
+                    }
+
+                    window.open(mapUrl, '_blank');
                 };
 
                 const changeDay = (delta) => {
