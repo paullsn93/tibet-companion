@@ -1,5 +1,8 @@
 # Tibet Companion 開發日誌
 
+## 2026-02-14
+- [x] **V11.0 每日精準移動路線 (Route with Waypoints)**：實作動態 Google Maps URL 生成邏輯。支援 `waypoints`、`travelmode` 以及特殊飛機模式搜尋。更新 1 - 12 天每一天的路由資訊，確保導航路徑精確。
+
 ## 2026-02-13
 - [x] 初始化專案日誌 (process_log.md)
 - [x] 翻譯實作計畫書 (implementation_plan.md) - 完成
