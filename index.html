@@ -7,7 +7,8 @@
     <title>Tibet Companion</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <style>
         body {
@@ -57,7 +58,8 @@
         }
     </style>
 </head>
-<!-- Body: h-screen, overflow-hidden to prevent browser scroll -->
+
+
 
 <body
     class="bg-slate-950 text-slate-100 h-screen w-screen overflow-hidden flex flex-col items-center selection:bg-cyan-500/30 touch-none">
@@ -79,20 +81,15 @@
             </div>
 
             <!-- Sidebar List -->
-            <div class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
+            <div class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar sidebar-scroll">
                 <button v-for="(day, idx) in itinerary" :key="idx" @click="selectDay(idx)"
                     class="w-full text-left p-4 rounded-xl transition-all flex items-center gap-4 group relative overflow-hidden"
                     :class="currentIndex === idx ? 'bg-cyan-900/20 border border-cyan-500/30' : 'hover:bg-slate-800/50 border border-transparent'">
-                    <!-- Selection Bar -->
                     <div v-if="currentIndex === idx" class="absolute left-0 top-0 bottom-0 w-1.5 bg-cyan-500"></div>
-
-                    <!-- Day Indicator -->
                     <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-mono font-bold text-lg transition-colors"
                         :class="currentIndex === idx ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/20' : 'bg-slate-800 text-slate-400 group-hover:bg-slate-700 group-hover:text-slate-200'">
                         {{ day.day }}
                     </div>
-
-                    <!-- Content -->
                     <div class="flex-1 min-w-0">
                         <div class="flex items-center justify-between">
                             <span class="text-base font-bold truncate"
@@ -102,7 +99,6 @@
                         </div>
                         <div class="flex items-center gap-2 text-sm mt-1">
                             <span class="text-slate-500 group-hover:text-slate-400 truncate">{{ day.title }}</span>
-                            <!-- Altitude Badge -->
                             <span
                                 class="ml-auto px-2 py-0.5 rounded bg-slate-950 text-slate-400 font-mono border border-slate-800 whitespace-nowrap text-xs"
                                 :class="{'text-amber-400 border-amber-900/30': day.altitude.sleep > 3500}">
@@ -125,107 +121,111 @@
 
         <!-- Main Content Area -->
         <main class="flex-1 w-full h-full flex flex-col relative overflow-hidden">
-            <!-- Scrollable Content Container -->
-            <!-- ADDED: touch-action: pan-y to ensure vertical scrolling works on mobile -->
-            <div class="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar pb-32 md:pb-0 px-4 pt-4 md:px-0 md:pt-0 scroll-smooth touch-pan-y"
+            <!-- Scrollable Content Container (Crucial Fix: flex-1, overflow-y-auto, touch-scrolling) -->
+            <!-- ADDED ID="main-content-scroll" to fix querySelector issue -->
+            <div id="main-content-scroll"
+                class="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar px-4 pt-4 md:px-0 md:pt-0 scroll-smooth touch-pan-y"
                 style="-webkit-overflow-scrolling: touch;">
-                <div class="max-w-4xl mx-auto space-y-8 md:space-y-10">
+                <!-- Added pb-32 to prevent bottom nav from covering content -->
+                <div class="max-w-4xl mx-auto space-y-8 md:space-y-10 pb-32 md:pb-8">
 
                     <!-- Header Section -->
                     <header
-                        class="text-center space-y-4 mt-4 md:mt-0 transition-all duration-300 cursor-pointer md:cursor-default active:scale-95 md:active:scale-100 group"
+                        class="text-center space-y-4 mt-6 md:mt-0 transition-all duration-300 cursor-pointer md:cursor-default active:scale-95 md:active:scale-100 group flex-none"
                         v-if="currentDay" @click="width < 768 ? isDrawerOpen = true : null">
-                        <!-- Top Info Bar -->
-                        <div class="flex items-center justify-center gap-3">
+                        <!-- Top Info Bar + Menu Trigger -->
+                        <div class="flex items-center justify-center gap-3 relative">
+                            <!-- Menu Trigger (Mobile) -->
                             <div
-                                class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-sm md:text-base text-slate-400 font-mono tracking-wide md:group-hover:bg-slate-900 group-hover:bg-slate-800 transition-colors shadow-lg">
-                                <span class="material-icons-outlined text-lg md:hidden">menu</span>
+                                class="md:hidden inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900 border border-slate-800 text-base text-slate-300 font-mono tracking-wide shadow-lg">
+                                <span class="material-icons-outlined text-xl">menu</span>
                                 {{ currentDay.date }}
-                                <span v-if="isToday" class="text-emerald-400 font-bold ml-2 animate-pulse">●
-                                    TODAY</span>
+                                <span v-if="isToday" class="text-emerald-400 font-bold ml-2 animate-pulse">●</span>
                             </div>
 
                             <!-- Map Button (New) -->
-                            <a :href="googleMapsLink" target="_blank" @click.stop
-                                class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-400 text-sm md:text-base font-bold hover:bg-teal-500/20 hover:border-teal-500/50 transition-all shadow-lg active:scale-95">
-                                <span class="material-icons-outlined text-lg">map</span>
-                                Map
-                            </a>
+                            <button v-if="currentDay.map_url" @click.stop="openMap(currentDay.map_url)"
+                                class="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-teal-600 hover:bg-teal-500 text-white text-base md:text-lg font-bold shadow-lg shadow-teal-500/20 active:scale-95 transition-all">
+                                <span class="material-icons-outlined text-xl">map</span>
+                                開啟地圖
+                            </button>
                         </div>
 
+                        <!-- Outdoor Mode: HUGE Titles -->
                         <h1
-                            class="text-5xl md:text-7xl font-black bg-gradient-to-br from-white via-slate-200 to-slate-500 bg-clip-text text-transparent drop-shadow-xl flex items-center justify-center gap-3 py-2">
+                            class="text-5xl md:text-7xl lg:text-8xl font-black bg-gradient-to-br from-white via-slate-200 to-slate-500 bg-clip-text text-transparent drop-shadow-xl flex items-center justify-center gap-3 py-4 md:py-6 tracking-tight leading-none">
                             Day {{ currentDay.day }}
                             <span
-                                class="material-icons-outlined text-slate-600 text-4xl group-hover:text-cyan-400 transition-colors md:hidden">expand_more</span>
+                                class="material-icons-outlined text-slate-600 text-5xl group-hover:text-cyan-400 transition-colors md:hidden">expand_more</span>
                         </h1>
 
+
                         <div class="flex items-center justify-center gap-3 text-cyan-400/90 font-medium">
-                            <span class="material-icons-outlined text-2xl">place</span>
-                            <span class="text-xl md:text-3xl tracking-wide">{{ currentDay.locations.join(' ➝ ')
-                                }}</span>
+                            <span class="material-icons-outlined text-3xl">place</span>
+                            <span class="text-2xl md:text-4xl tracking-wide font-bold">{{ formattedLocations }}</span>
                         </div>
 
                         <p
-                            class="text-slate-400 text-lg md:text-xl font-medium border-t border-slate-800/50 pt-4 mx-4 md:mx-20 leading-relaxed">
+                            class="text-slate-300 text-xl md:text-2xl font-medium border-t border-slate-800/80 pt-6 mx-4 md:mx-20 leading-relaxed tracking-wide min-h-[3rem]">
                             {{ currentDay.title }}</p>
                     </header>
 
                     <!-- Loading / Error States -->
                     <div v-if="loading" class="flex flex-col items-center justify-center h-64 gap-6 text-slate-500">
-                        <div class="w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin">
+                        <div class="w-16 h-16 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin">
                         </div>
-                        <p class="text-lg font-mono">載入行程資料中...</p>
+                        <p class="text-xl font-mono">載入行程資料中...</p>
                     </div>
 
                     <div v-else-if="error"
                         class="bg-red-950/30 border border-red-900/50 p-8 rounded-3xl text-center space-y-4 mx-4">
-                        <span class="material-icons-outlined text-red-500 text-5xl">error_outline</span>
-                        <h3 class="text-red-400 text-2xl font-bold">無法讀取資料</h3>
+                        <span class="material-icons-outlined text-red-500 text-6xl">error_outline</span>
+                        <h3 class="text-red-400 text-3xl font-bold">無法讀取資料</h3>
                         <p class="text-red-300/70 text-lg">{{ error }}</p>
                     </div>
 
                     <!-- Dashboard Grid (md:grid-cols-2) -->
-                    <div v-else-if="currentDay" class="space-y-6 md:space-y-0 md:grid md:grid-cols-2 md:gap-8 pb-8">
+                    <div v-else-if="currentDay" class="space-y-8 md:space-y-0 md:grid md:grid-cols-2 md:gap-8">
 
                         <!-- Altitude Card -->
                         <div
-                            class="bg-slate-900/80 backdrop-blur-sm rounded-[2rem] p-8 shadow-2xl border border-slate-800 relative overflow-hidden group hover:border-slate-700 transition-all duration-300 h-full">
-                            <!-- Warning Indicator -->
+                            class="bg-slate-900/80 backdrop-blur-sm rounded-[2.5rem] p-8 md:p-10 shadow-2xl border border-slate-800 relative overflow-hidden h-full">
                             <div v-if="isHighAltitude"
-                                class="absolute top-0 right-0 bg-red-500/10 text-red-400 text-xs px-4 py-2 rounded-bl-2xl font-bold border-l border-b border-red-500/20 flex items-center gap-2 backdrop-blur-md">
-                                <span class="material-icons-outlined text-sm animate-pulse">warning</span>
+                                class="absolute top-0 right-0 bg-red-500/20 text-red-400 text-sm px-5 py-2.5 rounded-bl-3xl font-bold border-l border-b border-red-500/30 flex items-center gap-2 backdrop-blur-md z-10">
+                                <span class="material-icons-outlined text-lg animate-pulse">warning</span>
                                 高海拔注意
                             </div>
 
                             <h3
-                                class="text-slate-500 text-sm font-bold uppercase tracking-[0.2em] mb-6 flex items-center gap-3">
-                                <span class="material-icons-outlined text-xl">landscape</span>
+                                class="text-slate-500 text-base font-bold uppercase tracking-[0.2em] mb-8 flex items-center gap-3">
+                                <span class="material-icons-outlined text-2xl">landscape</span>
                                 海拔監控 Altitude
                             </h3>
 
-                            <div class="grid grid-cols-2 gap-6">
-                                <div
-                                    class="text-center p-6 bg-slate-950 rounded-2xl border border-slate-800/50 group-hover:border-slate-700/50 transition-colors">
-                                    <div class="text-xs text-slate-500 uppercase tracking-wider mb-2">最高 (Max)</div>
-                                    <div class="font-mono font-bold tracking-tight leading-none" :class="[
-                                            currentDay.altitude.max > 3500 ? 'text-amber-400' : 'text-slate-200',
-                                            'text-5xl md:text-6xl lg:text-7xl'
-                                         ]">
-                                        {{ currentDay.altitude.max }}<span
-                                            class="text-lg md:text-xl ml-1 text-slate-500 align-baseline">m</span>
+                            <div class="space-y-8"> <!-- Stacked layout for mobile clarity, or grid -->
+                                <div class="grid grid-cols-1 gap-6">
+                                    <div class="text-center p-8 bg-slate-950 rounded-3xl border border-slate-800/50">
+                                        <div class="text-sm text-slate-500 uppercase tracking-widest mb-2 font-bold">最高
+                                            (Max)</div>
+                                        <div class="font-mono font-black tracking-tight leading-none" :class="[
+                                                currentDay.altitude.max > 3500 ? 'text-amber-400' : 'text-slate-200',
+                                                'text-7xl md:text-8xl'
+                                             ]">
+                                            {{ currentDay.altitude.max }}<span
+                                                class="text-2xl ml-2 text-slate-600 font-bold align-baseline">m</span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div
-                                    class="text-center p-6 bg-slate-950 rounded-2xl border border-slate-800/50 group-hover:border-slate-700/50 transition-colors relative">
-                                    <div class="text-xs text-slate-500 uppercase tracking-wider mb-2">住宿 (Sleep)</div>
-                                    <div class="font-mono font-bold tracking-tight leading-none" :class="[
-                                            currentDay.altitude.sleep > 3000 ? 'text-red-400' : 'text-emerald-400',
-                                            'text-5xl md:text-6xl lg:text-7xl'
-                                         ]">
-                                        {{ currentDay.altitude.sleep }}<span
-                                            class="text-lg md:text-xl ml-1 text-slate-500 align-baseline">m</span>
+                                    <div class="text-center p-8 bg-slate-950 rounded-3xl border border-slate-800/50">
+                                        <div class="text-sm text-slate-500 uppercase tracking-widest mb-2 font-bold">住宿
+                                            (Sleep)</div>
+                                        <div class="font-mono font-black tracking-tight leading-none" :class="[
+                                                currentDay.altitude.sleep > 3000 ? 'text-red-400' : 'text-emerald-400',
+                                                'text-7xl md:text-8xl'
+                                             ]">
+                                            {{ currentDay.altitude.sleep }}<span
+                                                class="text-2xl ml-2 text-slate-600 font-bold align-baseline">m</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -233,51 +233,51 @@
 
                         <!-- Weather Card -->
                         <div
-                            class="bg-slate-900/80 backdrop-blur-sm rounded-[2rem] p-8 shadow-2xl border border-slate-800 group hover:border-slate-700 transition-all duration-300 h-full">
+                            class="bg-slate-900/80 backdrop-blur-sm rounded-[2.5rem] p-8 md:p-10 shadow-2xl border border-slate-800 h-full flex flex-col justify-center">
                             <h3
-                                class="text-slate-500 text-sm font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-3">
-                                <span class="material-icons-outlined text-xl text-sky-400">wb_sunny</span>
+                                class="text-slate-500 text-base font-bold uppercase tracking-[0.2em] mb-6 flex items-center gap-3">
+                                <span class="material-icons-outlined text-2xl text-sky-400">wb_sunny</span>
                                 穿衣指引 Wear
                             </h3>
                             <p
-                                class="text-slate-300 text-lg md:text-xl leading-loose font-light tracking-wide border-l-4 border-sky-500/30 pl-6 py-2">
+                                class="text-slate-200 text-xl md:text-2xl leading-loose font-medium tracking-wide border-l-4 border-sky-500/50 pl-6 py-2">
                                 {{ currentDay.weather_advice }}
                             </p>
                         </div>
 
                         <!-- Highlights (Spans 2 columns on Desktop) -->
                         <div
-                            class="bg-slate-900/80 backdrop-blur-sm rounded-[2rem] p-8 shadow-2xl border border-slate-800 group hover:border-slate-700 transition-all duration-300 md:col-span-2">
+                            class="bg-slate-900/80 backdrop-blur-sm rounded-[2.5rem] p-8 md:p-10 shadow-2xl border border-slate-800 md:col-span-2">
                             <h3
-                                class="text-slate-500 text-sm font-bold uppercase tracking-[0.2em] mb-6 flex items-center gap-3">
-                                <span class="material-icons-outlined text-xl text-purple-400">auto_awesome</span>
+                                class="text-slate-500 text-base font-bold uppercase tracking-[0.2em] mb-6 flex items-center gap-3">
+                                <span class="material-icons-outlined text-2xl text-purple-400">auto_awesome</span>
                                 今日亮點 Highlights
                             </h3>
-                            <ul class="grid md:grid-cols-2 gap-4"> <!-- Grid for list items on desktop -->
+                            <ul class="grid md:grid-cols-2 gap-6">
                                 <li v-for="(item, idx) in currentDay.highlights" :key="idx"
-                                    class="flex items-start gap-5 group/item bg-slate-800/20 rounded-xl p-4 md:p-5 hover:bg-slate-800/40 transition-colors">
+                                    class="flex items-start gap-5 group/item bg-slate-800/30 rounded-2xl p-6 transition-colors">
                                     <div
-                                        class="mt-2 w-2 h-2 rounded-full bg-purple-500/50 shadow-[0_0_8px_rgba(168,85,247,0.4)] group-hover/item:bg-purple-400 transition-colors shrink-0">
+                                        class="mt-2 w-3 h-3 rounded-full bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.6)] shrink-0">
                                     </div>
-                                    <span
-                                        class="text-slate-300 text-lg md:text-xl leading-relaxed group-hover/item:text-slate-100 transition-colors">{{
-                                        item }}</span>
+                                    <span class="text-slate-200 text-xl md:text-2xl leading-relaxed font-medium">{{ item
+                                        }}</span>
                                 </li>
                             </ul>
                         </div>
 
                         <!-- Safety Tips (Spans 2 columns on Desktop) -->
                         <div
-                            class="bg-gradient-to-br from-amber-950/40 to-orange-950/20 rounded-[2rem] p-8 shadow-2xl border border-amber-900/30 group hover:border-amber-800/50 transition-all duration-300 relative overflow-hidden md:col-span-2">
-                            <div class="absolute top-0 right-0 p-6 opacity-10 pointer-events-none">
+                            class="bg-gradient-to-br from-amber-950/40 to-orange-950/20 rounded-[2.5rem] p-8 md:p-10 shadow-2xl border border-amber-900/40 relative overflow-hidden md:col-span-2">
+                            <div class="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
                                 <span class="material-icons-outlined text-9xl text-amber-500">lightbulb</span>
                             </div>
                             <h3
-                                class="text-amber-500/90 text-sm font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-3 relative z-10">
-                                <span class="material-icons-outlined text-xl">tips_and_updates</span>
+                                class="text-amber-500/90 text-base font-bold uppercase tracking-[0.2em] mb-6 flex items-center gap-3 relative z-10">
+                                <span class="material-icons-outlined text-2xl">tips_and_updates</span>
                                 貼心叮嚀 Tips
                             </h3>
-                            <p class="text-amber-100/90 text-lg md:text-xl leading-loose font-medium relative z-10">
+                            <p
+                                class="text-amber-50 text-xl md:text-2xl leading-loose font-medium relative z-10 tracking-wide">
                                 {{ currentDay.tips }}
                             </p>
                         </div>
@@ -287,23 +287,28 @@
 
             <!-- Bottom Navigation (Mobile Only) - Fixed to Bottom -->
             <footer
-                class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-md flex items-center justify-between bg-slate-900/90 backdrop-blur-xl border border-slate-700/50 p-2 rounded-full shadow-2xl z-50">
-                <button @click="changeDay(-1)" :disabled="currentIndex === 0"
-                    class="w-14 h-14 rounded-full flex items-center justify-center transition-all bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed active:scale-95">
-                    <span class="material-icons-outlined text-2xl">arrow_back</span>
-                </button>
+                class="md:hidden flex-none fixed bottom-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-xl border-t border-slate-700/50 pb-safe-area shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+                <div class="flex items-center justify-between p-4 max-w-md mx-auto w-full">
+                    <button @click="changeDay(-1)" :disabled="currentIndex === 0"
+                        class="w-16 h-16 rounded-full flex items-center justify-center transition-all bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 border border-slate-700">
+                        <span class="material-icons-outlined text-3xl">arrow_back</span>
+                    </button>
 
-                <div class="flex flex-col items-center select-none cursor-pointer active:scale-95 transition-transform px-4"
-                    @click="isDrawerOpen = true" role="button" title="開啟快速選單">
-                    <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-0.5">DAY</span>
-                    <span class="text-xl font-mono font-bold text-slate-200 leading-none">{{ currentDay ? currentDay.day
-                        : '-' }} / {{ itinerary.length }}</span>
+                    <div class="flex flex-col items-center select-none cursor-pointer active:scale-95 transition-transform px-6 py-2 rounded-2xl active:bg-slate-800"
+                        @click="isDrawerOpen = true" role="button" title="開啟快速選單">
+                        <span class="text-xs uppercase tracking-[0.2em] text-slate-500 font-bold mb-1">DAY</span>
+                        <span class="text-3xl font-mono font-black text-slate-100 leading-none">{{ currentDay ?
+                            currentDay.day : '-' }}<span class="text-lg text-slate-600 font-medium ml-1">/{{
+                                itinerary.length }}</span></span>
+                    </div>
+
+                    <button @click="changeDay(1)" :disabled="!currentDay || currentIndex === itinerary.length - 1"
+                        class="w-16 h-16 rounded-full flex items-center justify-center transition-all bg-teal-600 text-white shadow-[0_4px_16px_rgba(13,148,136,0.4)] hover:bg-teal-500 disabled:opacity-30 disabled:cursor-not-allowed disabled:shadow-none active:scale-95 border border-teal-500">
+                        <span class="material-icons-outlined text-3xl">arrow_forward</span>
+                    </button>
                 </div>
-
-                <button @click="changeDay(1)" :disabled="!currentDay || currentIndex === itinerary.length - 1"
-                    class="w-14 h-14 rounded-full flex items-center justify-center transition-all bg-cyan-600 text-white shadow-[0_4px_12px_rgba(8,145,178,0.4)] hover:bg-cyan-500 hover:shadow-[0_6px_16px_rgba(8,145,178,0.6)] disabled:opacity-30 disabled:cursor-not-allowed disabled:shadow-none active:scale-95">
-                    <span class="material-icons-outlined text-2xl">arrow_forward</span>
-                </button>
+                <!-- Safe area padding for iPhone X+ -->
+                <div class="h-6 w-full md:hidden"></div>
             </footer>
         </main>
 
@@ -312,59 +317,56 @@
             <!-- Backdrop -->
             <transition name="fade">
                 <div v-if="isDrawerOpen && width < 768" @click="isDrawerOpen = false"
-                    class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 md:hidden touch-none"></div>
+                    class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 md:hidden touch-none"></div>
             </transition>
 
             <!-- Drawer Content -->
             <transition name="drawer">
                 <div v-if="isDrawerOpen && width < 768"
-                    class="fixed bottom-0 left-0 right-0 bg-slate-900 rounded-t-3xl z-50 max-h-[85vh] h-[80vh] overflow-hidden flex flex-col shadow-[0_-4px_20px_rgba(0,0,0,0.5)] border-t border-slate-700 md:hidden">
+                    class="fixed bottom-0 left-0 right-0 bg-slate-900 rounded-t-[2.5rem] z-50 max-h-[85vh] h-[80vh] overflow-hidden flex flex-col shadow-[0_-4px_20px_rgba(0,0,0,0.5)] border-t border-slate-700 md:hidden pb-safe-area">
                     <!-- Drawer Handle -->
-                    <div class="w-full flex justify-center pt-4 pb-2" @click="isDrawerOpen = false">
-                        <div class="w-12 h-1.5 bg-slate-700 rounded-full"></div>
+                    <div class="w-full flex justify-center pt-5 pb-3" @click="isDrawerOpen = false">
+                        <div class="w-16 h-1.5 bg-slate-700 rounded-full"></div>
                     </div>
 
                     <!-- Drawer Header -->
-                    <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center shrink-0">
-                        <h2 class="text-xl font-bold text-slate-200">快速跳轉</h2>
+                    <div class="px-8 py-4 border-b border-slate-800 flex justify-between items-center shrink-0">
+                        <h2 class="text-2xl font-bold text-slate-200">快速跳轉</h2>
                         <button @click="isDrawerOpen = false"
-                            class="text-slate-400 hover:text-white transition-colors p-2">
+                            class="text-slate-400 hover:text-white transition-colors p-2 bg-slate-800/50 rounded-full">
                             <span class="material-icons-outlined text-2xl">close</span>
                         </button>
                     </div>
 
                     <!-- Scrollable List -->
-                    <div class="flex-1 overflow-y-auto p-4 space-y-3 pb-safe-area custom-scrollbar touch-pan-y"
+                    <div class="flex-1 overflow-y-auto p-6 space-y-4 pb-12 custom-scrollbar touch-pan-y"
                         style="-webkit-overflow-scrolling: touch;">
                         <button v-for="(day, idx) in itinerary" :key="idx" @click="selectDay(idx)"
-                            class="w-full text-left p-5 rounded-2xl transition-all flex items-center gap-4 group relative overflow-hidden"
-                            :class="currentIndex === idx ? 'bg-cyan-900/30 border border-cyan-500/50 shadow-[0_0_15px_rgba(8,145,178,0.2)]' : 'bg-slate-800/50 border border-slate-700 hover:bg-slate-800'">
-                            <div v-if="currentIndex === idx" class="absolute left-0 top-0 bottom-0 w-1.5 bg-cyan-500">
-                            </div>
-                            <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 font-mono font-bold text-lg"
+                            class="w-full text-left p-6 rounded-3xl transition-all flex items-center gap-5 group relative overflow-hidden"
+                            :class="currentIndex === idx ? 'bg-cyan-900/30 border-2 border-cyan-500/50 shadow-[0_0_20px_rgba(8,145,178,0.3)]' : 'bg-slate-800/50 border-2 border-slate-800 hover:bg-slate-800'">
+                            <div class="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 font-mono font-bold text-xl shadow-lg"
                                 :class="currentIndex === idx ? 'bg-cyan-500 text-white' : 'bg-slate-700 text-slate-400 group-hover:bg-slate-600 group-hover:text-slate-200'">
                                 {{ day.day }}
                             </div>
                             <div class="flex-1 min-w-0">
-                                <div class="flex items-center justify-between mb-1.5">
-                                    <span class="font-bold text-lg truncate pr-2"
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-bold text-xl truncate pr-2"
                                         :class="currentIndex === idx ? 'text-cyan-100' : 'text-slate-300 group-hover:text-white'">
                                         {{ day.locations[day.locations.length - 1] }}
                                     </span>
                                     <span
-                                        class="text-xs px-2 py-0.5 rounded bg-slate-900 text-slate-400 font-mono border border-slate-700">
+                                        class="text-sm px-3 py-1 rounded-lg bg-slate-900 text-slate-400 font-mono border border-slate-700 font-bold">
                                         {{ day.altitude.sleep }}m
                                     </span>
                                 </div>
-                                <div class="text-sm truncate w-full"
-                                    :class="currentIndex === idx ? 'text-cyan-300/70' : 'text-slate-500 group-hover:text-slate-400'">
+                                <div class="text-base truncate w-full font-medium"
+                                    :class="currentIndex === idx ? 'text-cyan-300/80' : 'text-slate-500 group-hover:text-slate-400'">
                                     {{ day.title }}
                                 </div>
                             </div>
                             <span v-if="currentIndex === idx"
-                                class="material-icons-outlined text-cyan-500 text-xl">check</span>
+                                class="material-icons-outlined text-cyan-500 text-3xl font-bold">check</span>
                         </button>
-                        <div class="h-8"></div>
                     </div>
                 </div>
             </transition>
@@ -374,11 +376,258 @@
     <script>
         const { createApp, ref, computed, onMounted, onUnmounted } = Vue;
 
+        // Inline Data to Prevent Fetch Errors or CORS issues on Mobile Browsers
+        const itineraryData = [
+            {
+                "day": 1,
+                "date": "2026-03-27",
+                "title": "啟程：前往轉機點",
+                "locations": ["桃園", "深圳"],
+                "altitude": {
+                    "avg": 50,
+                    "max": 100,
+                    "sleep": 50
+                },
+                "weather_advice": "舒適 (20°C)，穿著輕便，準備明天早起。",
+                "highlights": [
+                    "桃園機場出發 (13:40)",
+                    "抵達深圳 (15:50)",
+                    "享用當地素食晚餐"
+                ],
+                "stay": "深圳凱悅嘉軒酒店",
+                "tips": "今晚請早點休息，明天一早要飛往高原，睡眠充足是預防高反的第一步。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=深圳凱悅嘉軒酒店"
+            },
+            {
+                "day": 2,
+                "date": "2026-03-28",
+                "title": "初抵高原：西藏江南",
+                "locations": ["深圳", "林芝", "魯朗"],
+                "altitude": {
+                    "avg": 3000,
+                    "max": 4720,
+                    "sleep": 2900
+                },
+                "weather_advice": "涼爽 (5-15°C)，抵達後立刻穿上防風外套，戴帽子。",
+                "highlights": [
+                    "飛越雪山抵達林芝 (11:00)",
+                    "哈達迎賓儀式",
+                    "色季拉山口遠眺南迦巴瓦峰",
+                    "魯朗林海觀景台"
+                ],
+                "stay": "林芝博泰林芝大酒店",
+                "tips": "今日動作要慢！切記不要洗澡洗頭，多喝水，適應海拔 3000m。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=林芝博泰林芝大酒店"
+            },
+            {
+                "day": 3,
+                "date": "2026-03-29",
+                "title": "前往聖城：林拉公路",
+                "locations": ["林芝", "拉薩"],
+                "altitude": {
+                    "avg": 3200,
+                    "max": 5013,
+                    "sleep": 3650
+                },
+                "weather_advice": "日照強 (3-16°C)，洋蔥式穿搭，墨鏡必備。",
+                "highlights": [
+                    "林拉高等級公路 (最美景觀大道)",
+                    "色拉寺 (下午看辯經)",
+                    "八廓街轉經道",
+                    "藏裝旅拍體驗"
+                ],
+                "stay": "拉薩瑞吉度假酒店 (五星)",
+                "tips": "今晚入住拉薩 (3650m)，可能會感到輕微頭痛或睡不好，屬正常現象。動作放慢。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店"
+            },
+            {
+                "day": 4,
+                "date": "2026-03-30",
+                "title": "聖城巡禮：世界遺產",
+                "locations": ["拉薩"],
+                "altitude": {
+                    "avg": 3650,
+                    "max": 3700,
+                    "sleep": 3650
+                },
+                "weather_advice": "乾燥 (2-15°C)，加強保濕，注意防曬。",
+                "highlights": [
+                    "布達拉宮 (需攀爬階梯，請慢行)",
+                    "大昭寺 (覺沃佛)",
+                    "藥王山觀景台 (拍布達拉宮倒影)"
+                ],
+                "stay": "拉薩瑞吉度假酒店",
+                "tips": "布達拉宮階梯多，請調整呼吸，不要逞強。多喝水代謝乳酸。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=布達拉宮"
+            },
+            {
+                "day": 5,
+                "date": "2026-03-31",
+                "title": "聖湖與冰川：後藏之路",
+                "locations": ["拉薩", "羊卓雍措", "日喀則"],
+                "altitude": {
+                    "avg": 4000,
+                    "max": 5030,
+                    "sleep": 3840
+                },
+                "weather_advice": "風大寒冷 (0-12°C)，山口風非常大，務必戴毛帽圍巾。",
+                "highlights": [
+                    "崗巴拉山口 (俯瞰羊湖)",
+                    "羊卓雍措 (三大聖湖之一)",
+                    "卡若拉冰川 (乃欽康桑雪山)",
+                    "江孜宗山古堡 (遠眺)"
+                ],
+                "stay": "日喀則希爾頓酒店",
+                "tips": "今日車程較長，會翻越海拔 5000m 的山口，下車拍照動作要慢。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店"
+            },
+            {
+                "day": 6,
+                "date": "2026-04-01",
+                "title": "巔峰挑戰：珠峰大本營",
+                "locations": ["日喀則", "珠峰大本營"],
+                "altitude": {
+                    "avg": 4500,
+                    "max": 5200,
+                    "sleep": 5200
+                },
+                "weather_advice": "極寒 (-10 ~ 5°C)，羽絨衣、發熱褲全副武裝。",
+                "highlights": [
+                    "加烏拉山口 (觀賞 4 座 8000m 雪山)",
+                    "絨布寺 (世界最高寺廟)",
+                    "珠峰大本營 (等待日落金山)"
+                ],
+                "stay": "珠峰大本營帳篷/民宿",
+                "tips": "今晚睡在 5200m，是全程最高挑戰。隨身攜帶氧氣瓶，半夜上廁所要穿暖。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=珠峰大本營"
+            },
+            {
+                "day": 7,
+                "date": "2026-04-02",
+                "title": "告別珠峰：返回日喀則",
+                "locations": ["珠峰", "日喀則"],
+                "altitude": {
+                    "avg": 4200,
+                    "max": 5200,
+                    "sleep": 3840
+                },
+                "weather_advice": "寒冷回暖 (-5 ~ 10°C)，清晨看日出極冷。",
+                "highlights": [
+                    "珠峰日出 (視天氣)",
+                    "返回日喀則休整",
+                    "扎什倫布寺 (班禪駐錫地)"
+                ],
+                "stay": "日喀則希爾頓酒店",
+                "tips": "回到 3840m 會覺得呼吸順暢很多，今晚可以洗個熱水澡好好睡一覺。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=扎什倫布寺"
+            },
+            {
+                "day": 8,
+                "date": "2026-04-03",
+                "title": "穿越藏北：前往當雄",
+                "locations": ["日喀則", "尼木", "當雄"],
+                "altitude": {
+                    "avg": 4000,
+                    "max": 4500,
+                    "sleep": 4200
+                },
+                "weather_advice": "風大乾燥 (0-10°C)，草原風大。",
+                "highlights": [
+                    "沿途藏北草原風光",
+                    "雪古拉山口",
+                    "當雄縣城 (納木措的門戶)"
+                ],
+                "stay": "當雄四季富氧酒店",
+                "tips": "當雄海拔 4200m，比日喀則高，今晚還是要注意保暖和供氧。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=當雄四季富氧酒店"
+            },
+            {
+                "day": 9,
+                "date": "2026-04-04",
+                "title": "天湖納木措：返回拉薩",
+                "locations": ["當雄", "納木措", "拉薩"],
+                "altitude": {
+                    "avg": 4000,
+                    "max": 5190,
+                    "sleep": 3650
+                },
+                "weather_advice": "湖邊極冷 (-5 ~ 8°C)，納木措湖邊風如刀割。",
+                "highlights": [
+                    "那根拉山口 (遠眺納木措)",
+                    "納木措 (天湖，三大聖湖之首)",
+                    "文成公主實景劇 (晚上回到拉薩)"
+                ],
+                "stay": "拉薩瑞吉度假酒店",
+                "tips": "行程最後的高海拔挑戰。看完文成公主秀較晚，注意保暖。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=納木措"
+            },
+            {
+                "day": 10,
+                "date": "2026-04-05",
+                "title": "告別高原：青藏鐵路",
+                "locations": ["拉薩", "火車上"],
+                "altitude": {
+                    "avg": 4000,
+                    "max": 5072,
+                    "sleep": 3000
+                },
+                "weather_advice": "車內舒適，車外寒冷。",
+                "highlights": [
+                    "青藏鐵路軟臥體驗",
+                    "唐古拉山口 (鐵路最高點 5072m)",
+                    "可可西里無人區 (看藏羚羊)"
+                ],
+                "stay": "青藏鐵路軟臥 (四人一室)",
+                "tips": "火車上有供氧口。放鬆心情欣賞窗外流動的風景大片。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=唐古拉山口"
+            },
+            {
+                "day": 11,
+                "date": "2026-04-06",
+                "title": "抵達西寧：轉機廣州",
+                "locations": ["西寧", "廣州"],
+                "altitude": {
+                    "avg": 2200,
+                    "max": 3000,
+                    "sleep": 50
+                },
+                "weather_advice": "回暖 (15-25°C)，抵達廣州後變熱。",
+                "highlights": [
+                    "青海湖 (車窗遠眺)",
+                    "抵達西寧 (海拔 2200m)",
+                    "飛往廣州"
+                ],
+                "stay": "廣州花都白雲國際機場逸扉酒店",
+                "tips": "回到平原可能會出現「醉氧」嗜睡反應，好好休息。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=廣州白雲國際機場逸扉酒店"
+            },
+            {
+                "day": 12,
+                "date": "2026-04-07",
+                "title": "滿載而歸：返抵家園",
+                "locations": ["廣州", "桃園"],
+                "altitude": {
+                    "avg": 50,
+                    "max": 50,
+                    "sleep": 50
+                },
+                "weather_advice": "溫暖舒適 (22-28°C)。",
+                "highlights": [
+                    "廣州白雲機場",
+                    "抵達桃園機場 (13:30)",
+                    "搭高鐵回溫暖的家"
+                ],
+                "stay": "甜蜜的家",
+                "tips": "整理照片，分享西藏回憶！",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=桃園國際機場"
+            }
+        ];
+
         createApp({
             setup() {
                 const itinerary = ref([]);
                 const currentIndex = ref(0);
-                const loading = ref(true);
+                const loading = ref(true); // Still keep loading state for visual consistency
                 const error = ref(null);
                 const isDrawerOpen = ref(false);
                 const simulatedToday = '2026-04-01';
@@ -391,19 +640,16 @@
                     }
                 };
 
-                const loadItinerary = async () => {
+                // Initialize Data
+                const init = () => {
                     try {
                         loading.value = true;
-                        const response = await fetch('./itinerary_data.json');
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        const data = await response.json();
-                        itinerary.value = data;
+                        // Use inline data
+                        itinerary.value = itineraryData;
                         resetToToday();
                     } catch (e) {
-                        console.error("Loading failed:", e);
-                        error.value = e.message;
+                        console.error(e);
+                        error.value = "資料載入失敗: " + e.message;
                     } finally {
                         loading.value = false;
                     }
@@ -412,15 +658,6 @@
                 const currentDay = computed(() => {
                     if (itinerary.value.length === 0) return null;
                     return itinerary.value[currentIndex.value];
-                });
-
-                const googleMapsLink = computed(() => {
-                    if (!currentDay.value) return '#';
-                    // Generate Google Maps Search Link based on current location
-                    // Use the last location in the list for better accuracy (usually the destination)
-                    const locations = currentDay.value.locations;
-                    const destination = locations[locations.length - 1];
-                    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('西藏 ' + destination)}`;
                 });
 
                 const isHighAltitude = computed(() => {
@@ -433,11 +670,20 @@
                     return currentDay.value.date === simulatedToday;
                 });
 
+                const formattedLocations = computed(() => {
+                    if (!currentDay.value) return '';
+                    return currentDay.value.locations.join(' ➝ ');
+                });
+
+                const openMap = (url) => {
+                    window.open(url, '_blank');
+                };
+
                 const changeDay = (delta) => {
                     const newIndex = currentIndex.value + delta;
                     if (newIndex >= 0 && newIndex < itinerary.value.length) {
                         currentIndex.value = newIndex;
-                        const scrollContainer = document.querySelector('div.overflow-y-auto.custom-scrollbar.pb-32');
+                        const scrollContainer = document.getElementById('main-content-scroll');
                         if (scrollContainer) scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
                     }
                 };
@@ -445,7 +691,7 @@
                 const selectDay = (index) => {
                     currentIndex.value = index;
                     isDrawerOpen.value = false;
-                    const scrollContainer = document.querySelector('div.overflow-y-auto.custom-scrollbar.pb-32');
+                    const scrollContainer = document.getElementById('main-content-scroll');
                     if (scrollContainer) scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
                 };
 
@@ -459,7 +705,7 @@
                 };
 
                 onMounted(() => {
-                    loadItinerary();
+                    init();
                     window.addEventListener('resize', onResize);
                 });
 
@@ -478,10 +724,11 @@
                     isToday,
                     isDrawerOpen,
                     width,
-                    googleMapsLink, // Exposed
+                    openMap,
                     changeDay,
                     selectDay,
-                    resetToToday
+                    resetToToday,
+                    formattedLocations
                 };
             }
         }).mount('#app');

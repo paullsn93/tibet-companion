@@ -15,8 +15,16 @@
 - [x] 查詢手機連線方式 (Host IP: 192.168.50.54) - 完成
 - [/] 排除連線問題
     - [ ] 執行指令開啟防火牆 Port 8000 (Allow TCP 8000)
-- [x] 全域視覺與操作優化 - 完成
+- [x] 全域視覺與操作優化 (V1) - 完成
     - [x] 修復手機版捲動問題  (Flex + Overflow Fix)
     - [x] 全域字體放大 (Mobile text-lg / Desktop text-xl)
     - [x] 海拔與標題字體倍增
     - [x] 新增地圖按鈕 (Google Maps)
+- [x] 備份專案至 GitHub - 完成
+    - [x] V1.0 Push to Origin
+- [x] V2.0 改版：戶外友善與地圖整合 - 完成
+    - [x] 更新資料結構 (itinerary_data.json) - Add map_url
+    - [x] 重寫介面 (index.html) - Fix Scrolling & Outdoor Mode Fonts
+    - [x] **[Critical Fix]** 解決白畫面問題 (V2.1 - Final)
+        - [x] Inline JSON Data (排除 Fetch 錯誤)
+        - [x] **Refactor**: Remove inline JS from template (Move `join` to `computed`) - 徹底移除 template 語法風險
