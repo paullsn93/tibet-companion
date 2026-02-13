@@ -41,6 +41,12 @@
     - [x] 介面實作：在「貼心叮嚀」下方新增健康監控區塊 (Input + List)
     - [x] 邏輯實作：使用 `localStorage` 儲存 SpO2 與 HR 紀錄
     - [x] 功能實作：日期連動、增刪紀錄、複製文字至剪貼簿
-- [x] **備份 V3.2 功能版**
-    - [x] Git Commit: "Feat(V3.2): Add Health Tracker with LocalStorage support"
+- [x] **V3.2 部署**
+    - [x] Git Commit & Push: Feat(V3.2): Add Health Tracker with LocalStorage support
+- [x] **[UI 優化] V3.3 底部導航瘦身**
+    - [x] Bottom Nav 高度縮減 (Padding p-4 -> p-3)
+    - [x] 按鈕尺寸縮小 (w-16 -> w-12)
+    - [x] 調整 Main Content pb-safe-area，解決遮擋問題
+- [x] **V3.3 部署**
+    - [x] Git Commit: "Style(V3.3): Optimize Bottom Navigation height and spacing"
     - [x] Git Push to Origin Main

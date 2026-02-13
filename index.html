@@ -125,9 +125,9 @@
             <!-- ADDED ID="main-content-scroll" to fix querySelector issue -->
             <div id="main-content-scroll"
                 class="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar px-4 pt-4 md:px-0 md:pt-0 scroll-smooth touch-pan-y"
-                style="-webkit-overflow-scrolling: touch;">
+                style="-webkit-overflow-scrolling: touch; padding-bottom: 7rem;">
                 <!-- Added pb-32 to prevent bottom nav from covering content -->
-                <div class="max-w-4xl mx-auto space-y-8 md:space-y-10 pb-32 md:pb-8">
+                <div class="max-w-4xl mx-auto space-y-8 md:space-y-10 md:pb-8">
 
                     <!-- Header Section -->
                     <header
@@ -361,28 +361,28 @@
 
             <!-- Bottom Navigation (Mobile Only) - Fixed to Bottom -->
             <footer
-                class="md:hidden flex-none fixed bottom-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-xl border-t border-slate-700/50 pb-safe-area shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
-                <div class="flex items-center justify-between p-4 max-w-md mx-auto w-full">
+                class="md:hidden flex-none fixed bottom-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-xl border-t border-slate-700 pb-safe-area shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+                <div class="flex items-center justify-between p-3 max-w-md mx-auto w-full">
                     <button @click="changeDay(-1)" :disabled="currentIndex === 0"
-                        class="w-16 h-16 rounded-full flex items-center justify-center transition-all bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 border border-slate-700">
-                        <span class="material-icons-outlined text-3xl">arrow_back</span>
+                        class="w-12 h-12 rounded-full flex items-center justify-center transition-all bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 border border-slate-700">
+                        <span class="material-icons-outlined text-2xl">arrow_back</span>
                     </button>
 
-                    <div class="flex flex-col items-center select-none cursor-pointer active:scale-95 transition-transform px-6 py-2 rounded-2xl active:bg-slate-800"
+                    <div class="flex flex-col items-center select-none cursor-pointer active:scale-95 transition-transform px-6 py-1 rounded-2xl active:bg-slate-800"
                         @click="isDrawerOpen = true" role="button" title="開啟快速選單">
-                        <span class="text-xs uppercase tracking-[0.2em] text-slate-500 font-bold mb-1">DAY</span>
-                        <span class="text-3xl font-mono font-black text-slate-100 leading-none">{{ currentDay ?
-                            currentDay.day : '-' }}<span class="text-lg text-slate-600 font-medium ml-1">/{{
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold mb-0.5">DAY</span>
+                        <span class="text-xl font-mono font-black text-slate-100 leading-none">{{ currentDay ?
+                            currentDay.day : '-' }}<span class="text-sm text-slate-600 font-medium ml-1">/{{
                                 itinerary.length }}</span></span>
                     </div>
 
                     <button @click="changeDay(1)" :disabled="!currentDay || currentIndex === itinerary.length - 1"
-                        class="w-16 h-16 rounded-full flex items-center justify-center transition-all bg-teal-600 text-white shadow-[0_4px_16px_rgba(13,148,136,0.4)] hover:bg-teal-500 disabled:opacity-30 disabled:cursor-not-allowed disabled:shadow-none active:scale-95 border border-teal-500">
-                        <span class="material-icons-outlined text-3xl">arrow_forward</span>
+                        class="w-12 h-12 rounded-full flex items-center justify-center transition-all bg-teal-600 text-white shadow-[0_2px_10px_rgba(13,148,136,0.3)] hover:bg-teal-500 disabled:opacity-30 disabled:cursor-not-allowed disabled:shadow-none active:scale-95 border border-teal-500">
+                        <span class="material-icons-outlined text-2xl">arrow_forward</span>
                     </button>
                 </div>
                 <!-- Safe area padding for iPhone X+ -->
-                <div class="h-6 w-full md:hidden"></div>
+                <div class="h-4 w-full md:hidden"></div>
             </footer>
         </main>
 
