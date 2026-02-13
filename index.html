@@ -56,6 +56,59 @@
         .fade-leave-to {
             opacity: 0;
         }
+
+        /* Breathing Guide Animations */
+        @keyframes circlePulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+
+            33% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+
+            45% {
+                transform: scale(2.5);
+                opacity: 1;
+            }
+
+            66% {
+                transform: scale(2.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+        }
+
+        .breathing-circle {
+            transition: all 4s ease-in-out;
+        }
+
+        .breathing-inhale {
+            transform: scale(2.5);
+            opacity: 1;
+        }
+
+        .breathing-hold {
+            transform: scale(2.5);
+            opacity: 1;
+        }
+
+        .breathing-exhale {
+            transform: scale(1);
+            opacity: 0.3;
+        }
+
+        .toolkit-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
     </style>
 </head>
 
@@ -66,6 +119,41 @@
 
     <div id="app"
         class="w-full max-w-[1600px] h-full flex flex-col md:flex-row md:gap-8 md:p-8 relative overflow-hidden">
+        <!-- Landing Page (V5.0) -->
+        <div id="landing-page"
+            class="fixed inset-0 z-[100] bg-black flex flex-col justify-center items-center text-white bg-[url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Potala_palace23.jpg/3840px-Potala_palace23.jpg')] bg-cover bg-center bg-no-repeat">
+            <!-- Black Overlay Gradient -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/80 z-0"></div>
+
+            <!-- Content -->
+            <div class="relative z-10 flex flex-col items-center text-center p-8 animate-fade-in-up">
+                <h1 class="text-4xl md:text-5xl font-light tracking-[0.5em] mb-4 drop-shadow-2xl">西藏旅伴</h1>
+                <h2 class="text-sm md:text-base opacity-80 tracking-[0.5em] mb-12 font-medium">TIBET COMPANION</h2>
+
+                <div id="countdown-number"
+                    class="text-8xl md:text-9xl font-bold text-white drop-shadow-2xl font-mono mb-6">
+                    {{ countdown }}
+                </div>
+
+                <p id="countdown-text" class="text-xl md:text-2xl font-light tracking-wide text-slate-200">
+                    距離 2026.03.27 出發還有 {{ countdown }} 天
+                </p>
+
+                <div class="mt-16 flex flex-col items-center gap-4">
+                    <button @click="enterApp"
+                        class="w-64 px-10 py-4 rounded-full border border-teal-500/30 bg-teal-500/10 backdrop-blur-md hover:bg-teal-500/20 text-teal-400 transition-all active:scale-95 flex items-center justify-center gap-3 group">
+                        <span class="text-lg font-bold tracking-widest">開啟旅程 Enter</span>
+                        <span
+                            class="material-icons-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </button>
+                    <button @click="isManualOpen = true"
+                        class="w-64 px-8 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 text-white/70 transition-all active:scale-95 flex items-center justify-center gap-2">
+                        <span class="material-icons-outlined text-xl">auto_stories</span>
+                        <span class="text-base font-medium tracking-wider">使用手冊 Manual</span>
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <!-- Desktop Sidebar (md:block hidden) -->
         <aside
@@ -143,6 +231,12 @@
                                 <span v-if="isToday" class="text-emerald-400 font-bold ml-2 animate-pulse">●</span>
                             </div>
 
+                            <!-- Toolkit Button/Grid (V9.0) -->
+                            <button @click.stop="toggleToolkit"
+                                class="w-12 h-12 flex items-center justify-center rounded-full bg-slate-800 border border-slate-700 text-teal-400 hover:text-white hover:bg-slate-700 active:scale-95 transition-all shadow-lg">
+                                <span class="material-icons-outlined text-2xl">widgets</span>
+                            </button>
+
                             <!-- Map Button (New) -->
                             <button v-if="currentDay.map_url" @click.stop="openMap(currentDay.map_url)"
                                 class="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-teal-600 hover:bg-teal-500 text-white text-base md:text-lg font-bold shadow-lg shadow-teal-500/20 active:scale-95 transition-all">
@@ -185,7 +279,83 @@
                     </div>
 
                     <!-- Dashboard Grid (md:grid-cols-2) -->
-                    <div v-else-if="currentDay" class="space-y-8 md:space-y-0 md:grid md:grid-cols-2 md:gap-8">
+                    <div v-else-if="currentDay" class="space-y-8 md:space-y-0 md:grid md:grid-cols-2 md:gap-8 w-full">
+
+                        <!-- Flight Widget (V4.0) - Reorganized -->
+                        <div v-if="currentDay.flight"
+                            class="md:col-span-2 mb-0 bg-teal-950/30 border border-teal-500/30 rounded-3xl p-6 relative overflow-hidden group">
+                            <!-- Background Decor -->
+                            <div class="absolute -right-6 -top-6 text-teal-500/5 rotate-12 pointer-events-none">
+                                <span class="material-icons-outlined text-9xl">flight</span>
+                            </div>
+
+                            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
+                                <!-- Left: Dep -->
+                                <div
+                                    class="flex flex-row md:flex-col items-center md:items-start justify-between md:justify-start gap-4 md:gap-0 w-full md:w-auto">
+                                    <div class="text-teal-400 font-bold text-sm tracking-widest uppercase mb-1">
+                                        Departure</div>
+                                    <div class="text-4xl md:text-5xl font-black text-white font-mono tracking-tighter">
+                                        {{ currentDay.flight.dep }}</div>
+                                    <div
+                                        class="text-slate-400 font-medium text-lg mt-1 px-3 py-1 bg-slate-900/50 rounded-lg inline-block">
+                                        {{ currentDay.flight.from }}
+                                    </div>
+                                </div>
+
+                                <!-- Center: Icon & Duration -->
+                                <div
+                                    class="hidden md:flex flex-col items-center justify-end pb-2 px-4 flex-1 self-center">
+                                    <div class="flex items-baseline gap-2 mb-3">
+                                        <div
+                                            class="text-slate-400 text-sm md:text-base font-bold uppercase tracking-wider opacity-100">
+                                            {{
+                                            currentDay.flight.airline || '航空公司' }}</div>
+                                        <div class="text-teal-500 font-mono font-bold text-lg leading-none">{{
+                                            currentDay.flight.code }}</div>
+                                    </div>
+                                    <div
+                                        class="w-full h-0.5 bg-gradient-to-r from-transparent via-teal-500/50 to-transparent relative min-w-[100px]">
+                                        <span
+                                            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-950 px-2 text-teal-400 rotate-90">
+                                            <span class="material-icons-outlined text-xl">flight</span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Mobile Center Divider -->
+                                <div
+                                    class="md:hidden flex items-center justify-center gap-4 py-2 border-t border-b border-teal-500/20">
+                                    <div class="flex items-baseline gap-2">
+                                        <div
+                                            class="text-slate-500 text-sm font-bold uppercase tracking-wider opacity-100">
+                                            {{
+                                            currentDay.flight.airline || '航空公司' }}</div>
+                                        <div class="text-teal-500 font-mono font-bold text-lg leading-none">{{
+                                            currentDay.flight.code }}
+                                        </div>
+                                    </div>
+                                    <span class="material-icons-outlined text-teal-400 rotate-90">flight</span>
+                                </div>
+
+                                <!-- Right: Arr -->
+                                <div
+                                    class="flex flex-row md:flex-col items-center md:items-end justify-between md:justify-end gap-4 md:gap-0 w-full md:w-auto text-right">
+                                    <div
+                                        class="text-teal-400 font-bold text-sm tracking-widest uppercase mb-1 md:hidden">
+                                        Arrival</div>
+                                    <div class="text-4xl md:text-5xl font-black text-white font-mono tracking-tighter">
+                                        {{ currentDay.flight.arr }}</div>
+                                    <div
+                                        class="text-slate-400 font-medium text-lg mt-1 px-3 py-1 bg-slate-900/50 rounded-lg inline-block">
+                                        {{ currentDay.flight.to }}
+                                    </div>
+                                    <div
+                                        class="text-teal-400 font-bold text-sm tracking-widest uppercase mt-1 hidden md:block">
+                                        Arrival</div>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Altitude Card -->
                         <div
@@ -205,7 +375,8 @@
                             <div class="space-y-8"> <!-- Stacked layout for mobile clarity, or grid -->
                                 <div class="grid grid-cols-1 gap-6">
                                     <div class="text-center p-8 bg-slate-950 rounded-3xl border border-slate-800/50">
-                                        <div class="text-sm text-slate-500 uppercase tracking-widest mb-2 font-bold">最高
+                                        <div class="text-sm text-slate-500 uppercase tracking-widest mb-2 font-bold">
+                                            最高
                                             (Max)</div>
                                         <div class="font-mono font-black tracking-tight leading-none" :class="[
                                                 currentDay.altitude.max > 3500 ? 'text-amber-400' : 'text-slate-200',
@@ -217,7 +388,8 @@
                                     </div>
 
                                     <div class="text-center p-8 bg-slate-950 rounded-3xl border border-slate-800/50">
-                                        <div class="text-sm text-slate-500 uppercase tracking-widest mb-2 font-bold">住宿
+                                        <div class="text-sm text-slate-500 uppercase tracking-widest mb-2 font-bold">
+                                            住宿
                                             (Sleep)</div>
                                         <div class="font-mono font-black tracking-tight leading-none" :class="[
                                                 currentDay.altitude.sleep > 3000 ? 'text-red-400' : 'text-emerald-400',
@@ -232,15 +404,31 @@
                         </div>
 
                         <!-- Weather Card -->
-                        <div
-                            class="bg-slate-900/80 backdrop-blur-sm rounded-[2.5rem] p-8 md:p-10 shadow-2xl border border-slate-800 h-full flex flex-col justify-center">
+                        <!-- Wear card -->
+                        <div class="bg-slate-800/80 rounded-[2.5rem] p-6 shadow-xl border border-slate-700/50">
                             <h3
-                                class="text-slate-500 text-base font-bold uppercase tracking-[0.2em] mb-6 flex items-center gap-3">
-                                <span class="material-icons-outlined text-2xl text-sky-400">wb_sunny</span>
+                                class="text-slate-400 text-sm md:text-base font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+                                <span class="material-icons-outlined text-teal-500 text-xl">checkroom</span>
                                 穿衣指引 Wear
                             </h3>
-                            <p
-                                class="text-slate-200 text-xl md:text-2xl leading-loose font-medium tracking-wide border-l-4 border-sky-500/50 pl-6 py-2">
+
+                            <!-- Upper: Live Weather -->
+                            <div v-if="liveWeather && !weatherLoading"
+                                class="flex items-center justify-between mb-4 bg-slate-900/50 p-4 rounded-2xl border border-teal-500/10">
+                                <div class="text-3xl font-bold text-white">{{ liveWeather.temp }}°C</div>
+                                <div class="flex items-center gap-1 text-slate-300 font-bold">
+                                    <span class="material-icons-outlined text-cyan-400 text-sm">umbrella</span>
+                                    <span>{{ liveWeather.rain }}%</span>
+                                </div>
+                            </div>
+
+                            <!-- Loading state -->
+                            <div v-if="weatherLoading" class="flex items-center justify-center py-4">
+                                <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-teal-500"></div>
+                            </div>
+
+                            <!-- Lower: Static Advice -->
+                            <p class="text-slate-100 text-lg md:text-xl leading-relaxed font-medium">
                                 {{ currentDay.weather_advice }}
                             </p>
                         </div>
@@ -255,14 +443,37 @@
                             </h3>
                             <ul class="grid md:grid-cols-2 gap-6">
                                 <li v-for="(item, idx) in currentDay.highlights" :key="idx"
-                                    class="flex items-start gap-5 group/item bg-slate-800/30 rounded-2xl p-6 transition-colors">
+                                    class="flex items-start gap-5 group/item bg-slate-800/30 rounded-2xl p-6 transition-colors hover:bg-slate-800/50">
                                     <div
                                         class="mt-2 w-3 h-3 rounded-full bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.6)] shrink-0">
                                     </div>
-                                    <span class="text-slate-200 text-xl md:text-2xl leading-relaxed font-medium">{{ item
-                                        }}</span>
+                                    <div class="flex-1">
+                                        <a v-if="item.url" :href="item.url" target="_blank"
+                                            class="text-purple-300 hover:text-purple-200 text-xl md:text-2xl leading-relaxed font-medium transition-colors underline decoration-purple-500/30 hover:decoration-purple-400 underline-offset-4">
+                                            {{ item.label }}
+                                            <span
+                                                class="material-icons-outlined text-base align-middle ml-1 opacity-70">open_in_new</span>
+                                        </a>
+                                        <span v-else
+                                            class="text-slate-200 text-xl md:text-2xl leading-relaxed font-medium">
+                                            {{ item.label }}
+                                        </span>
+                                    </div>
                                 </li>
                             </ul>
+
+                            <!-- Detailed Description Accordion -->
+                            <details v-if="currentDay.description"
+                                class="mt-8 group/accordion border-t border-slate-700/50 pt-4">
+                                <summary
+                                    class="list-none flex items-center gap-2 text-slate-400 hover:text-cyan-400 cursor-pointer transition-colors font-bold select-none text-xl md:text-2xl">
+                                    <span
+                                        class="material-icons-outlined transition-transform group-open/accordion:rotate-90 text-2xl md:text-3xl">chevron_right</span>
+                                    📖 查看完整行程 (Read More)
+                                </summary>
+                                <div class="mt-4 text-slate-300 space-y-4 leading-loose tracking-wide text-2xl bg-slate-900/50 p-6 rounded-2xl prose prose-invert prose-lg max-w-none"
+                                    v-html="currentDay.description"></div>
+                            </details>
                         </div>
 
                         <!-- Safety Tips (Spans 2 columns on Desktop) -->
@@ -278,15 +489,17 @@
                             </h3>
                             <p
                                 class="text-amber-50 text-xl md:text-2xl leading-loose font-medium relative z-10 tracking-wide">
-                                {{ currentDay.tips }}
+                                {{ currentDay.tips || '今日動作請放慢，多喝水，多休息。' }}
                             </p>
                         </div>
 
                         <!-- Health Tracker (Spans 2 columns on Desktop) -->
                         <div class="bg-slate-800 rounded-[2.5rem] p-6 shadow-2xl border border-slate-700 md:col-span-2">
                             <div class="flex justify-between items-center mb-6 px-2">
-                                <h3 class="text-2xl font-bold text-slate-200 flex items-center gap-3">
-                                    <span class="material-icons-outlined text-red-500">favorite</span>
+                                <h3
+                                    class="text-base md:text-xl font-bold text-slate-200 flex items-center gap-2 md:gap-3">
+                                    <span
+                                        class="material-icons-outlined text-red-500 text-lg md:text-2xl">favorite</span>
                                     健康監控 (Health Log)
                                 </h3>
                                 <button @click="copyHealthRecords"
@@ -299,14 +512,14 @@
                             <!-- Input Group -->
                             <div class="grid grid-cols-3 gap-4 mb-8">
                                 <div class="relative">
-                                    <input v-model.number="newSpo2" type="number" placeholder="SpO2"
+                                    <input v-model.number="newSpo2" type="number" placeholder="血氧濃度"
                                         class="w-full bg-slate-900 border border-slate-600 rounded-2xl px-4 py-4 text-2xl text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 transition-colors text-center font-mono font-bold">
                                     <span
                                         class="absolute right-3 bottom-3 text-xs text-slate-500 pointer-events-none font-bold">
                                         %</span>
                                 </div>
                                 <div class="relative">
-                                    <input v-model.number="newHr" type="number" placeholder="HR"
+                                    <input v-model.number="newHr" type="number" placeholder="心率"
                                         class="w-full bg-slate-900 border border-slate-600 rounded-2xl px-4 py-4 text-2xl text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 transition-colors text-center font-mono font-bold">
                                     <span
                                         class="absolute right-3 bottom-3 text-xs text-slate-500 pointer-events-none font-bold">
@@ -357,33 +570,33 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Bottom Navigation (Mobile Only) - Fixed to Bottom -->
-            <footer
-                class="md:hidden flex-none fixed bottom-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-xl border-t border-slate-700 pb-safe-area shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
-                <div class="flex items-center justify-between p-3 max-w-md mx-auto w-full">
-                    <button @click="changeDay(-1)" :disabled="currentIndex === 0"
-                        class="w-12 h-12 rounded-full flex items-center justify-center transition-all bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 border border-slate-700">
-                        <span class="material-icons-outlined text-2xl">arrow_back</span>
-                    </button>
+                <!-- Bottom Navigation (Mobile Only) - Fixed to Bottom -->
+                <footer
+                    class="md:hidden flex-none fixed bottom-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-xl border-t border-slate-700 pb-safe-area shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+                    <div class="flex items-center justify-between p-3 max-w-md mx-auto w-full">
+                        <button @click="changeDay(-1)" :disabled="currentIndex === 0"
+                            class="w-12 h-12 rounded-full flex items-center justify-center transition-all bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 border border-slate-700">
+                            <span class="material-icons-outlined text-2xl">arrow_back</span>
+                        </button>
 
-                    <div class="flex flex-col items-center select-none cursor-pointer active:scale-95 transition-transform px-6 py-1 rounded-2xl active:bg-slate-800"
-                        @click="isDrawerOpen = true" role="button" title="開啟快速選單">
-                        <span class="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold mb-0.5">DAY</span>
-                        <span class="text-xl font-mono font-black text-slate-100 leading-none">{{ currentDay ?
-                            currentDay.day : '-' }}<span class="text-sm text-slate-600 font-medium ml-1">/{{
-                                itinerary.length }}</span></span>
+                        <div class="flex flex-col items-center select-none cursor-pointer active:scale-95 transition-transform px-6 py-1 rounded-2xl active:bg-slate-800"
+                            @click="isDrawerOpen = true" role="button" title="開啟快速選單">
+                            <span
+                                class="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold mb-0.5">DAY</span>
+                            <span class="text-xl font-mono font-black text-slate-100 leading-none">{{ currentDay ?
+                                currentDay.day : '-' }}<span class="text-sm text-slate-600 font-medium ml-1">/{{
+                                    itinerary.length }}</span></span>
+                        </div>
+
+                        <button @click="changeDay(1)" :disabled="!currentDay || currentIndex === itinerary.length - 1"
+                            class="w-12 h-12 rounded-full flex items-center justify-center transition-all bg-teal-600 text-white shadow-[0_2px_10px_rgba(13,148,136,0.3)] hover:bg-teal-500 disabled:opacity-30 disabled:cursor-not-allowed disabled:shadow-none active:scale-95 border border-teal-500">
+                            <span class="material-icons-outlined text-2xl">arrow_forward</span>
+                        </button>
                     </div>
-
-                    <button @click="changeDay(1)" :disabled="!currentDay || currentIndex === itinerary.length - 1"
-                        class="w-12 h-12 rounded-full flex items-center justify-center transition-all bg-teal-600 text-white shadow-[0_2px_10px_rgba(13,148,136,0.3)] hover:bg-teal-500 disabled:opacity-30 disabled:cursor-not-allowed disabled:shadow-none active:scale-95 border border-teal-500">
-                        <span class="material-icons-outlined text-2xl">arrow_forward</span>
-                    </button>
-                </div>
-                <!-- Safe area padding for iPhone X+ -->
-                <div class="h-4 w-full md:hidden"></div>
-            </footer>
+                    <!-- Safe area padding for iPhone X+ -->
+                    <div class="h-4 w-full md:hidden"></div>
+                </footer>
         </main>
 
         <!-- Navigation Drawer (Mobile Only Modal) -->
@@ -445,10 +658,499 @@
                 </div>
             </transition>
         </teleport>
-    </div>
+
+        <!-- Packing List Modal (V4.0) -->
+        <teleport to="body">
+            <transition name="fade">
+                <div v-if="isPackingListOpen"
+                    class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
+                    @click.self="isPackingListOpen = false">
+                    <div
+                        class="bg-slate-900 w-full max-w-lg rounded-[2rem] shadow-2xl border border-slate-700 max-h-[85vh] flex flex-col overflow-hidden">
+                        <!-- Modal Header -->
+                        <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-900">
+                            <h2 class="text-2xl font-bold text-white flex items-center gap-3">
+                                <span class="material-icons-outlined text-teal-400">backpack</span>
+                                行李清單
+                            </h2>
+                            <button @click="isPackingListOpen = false"
+                                class="text-slate-400 hover:text-white p-2 rounded-full hover:bg-slate-800 transition-colors">
+                                <span class="material-icons-outlined text-2xl">close</span>
+                            </button>
+                        </div>
+
+                        <!-- Modal Body (Scrollable) -->
+                        <div class="flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar">
+                            <div v-for="(category, catIdx) in packingList" :key="catIdx">
+                                <h3
+                                    class="text-teal-500 font-bold uppercase tracking-wider text-sm mb-4 sticky top-0 bg-slate-900 py-2 z-10">
+                                    {{ category.name }}</h3>
+                                <div class="space-y-3">
+                                    <label v-for="(item, itemIdx) in category.items" :key="itemIdx"
+                                        class="flex items-center gap-4 group cursor-pointer p-3 rounded-xl hover:bg-slate-800/50 transition-colors">
+                                        <div class="relative flex items-center">
+                                            <input type="checkbox"
+                                                class="peer appearance-none w-6 h-6 border-2 border-slate-600 rounded-md checked:bg-teal-500 checked:border-teal-500 transition-colors"
+                                                :checked="isPacked(category.name, item)"
+                                                @change="togglePackingItem(category.name, item)">
+                                            <span
+                                                class="material-icons-outlined text-white absolute opacity-0 peer-checked:opacity-100 pointer-events-none text-lg left-0.5">check</span>
+                                        </div>
+                                        <span
+                                            class="text-lg text-slate-300 font-medium peer-checked:text-slate-500 peer-checked:line-through transition-colors">{{
+                                            item }}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal Footer -->
+                        <div class="p-6 border-t border-slate-800 bg-slate-900 text-center">
+                            <p class="text-slate-500 text-sm">進度自動儲存於此裝置</p>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+        </teleport>
+
+        <!-- Toolkit Modal (V5.0) -->
+        <teleport to="body">
+            <transition name="fade">
+                <div v-if="isToolkitOpen"
+                    class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
+                    @click.self="toggleToolkit">
+                    <div
+                        class="bg-slate-900 w-full max-w-lg rounded-[2rem] shadow-2xl border border-slate-700 max-h-[85vh] flex flex-col overflow-hidden">
+                        <!-- Modal Header -->
+                        <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-900">
+                            <h2 class="text-2xl font-bold text-white flex items-center gap-3">
+                                <span class="material-icons-outlined text-cyan-400">construction</span>
+                                實用工具
+                            </h2>
+                            <button @click="toggleToolkit"
+                                class="text-slate-400 hover:text-white p-2 rounded-full hover:bg-slate-800 transition-colors">
+                                <span class="material-icons-outlined text-2xl">close</span>
+                            </button>
+                        </div>
+
+                        <!-- Modal Body (Scrollable) -->
+                        <div class="flex-1 overflow-y-auto p-6 custom-scrollbar">
+                            <!-- Main Toolkit View -->
+                            <div v-if="toolkitView === 'main'" class="grid grid-cols-2 gap-4">
+                                <button @click="toolkitView = 'photo'"
+                                    class="flex flex-col items-center justify-center p-6 bg-indigo-900/50 border border-indigo-800 rounded-2xl text-white text-lg font-bold shadow-lg hover:bg-indigo-800/70 transition-all active:scale-95">
+                                    <span
+                                        class="material-icons-outlined text-4xl mb-2 text-indigo-400">photo_camera</span>
+                                    攝影與民俗
+                                </button>
+                                <button @click="toolkitView = 'tibetan'"
+                                    class="flex flex-col items-center justify-center p-6 bg-slate-800/50 border border-slate-700 rounded-2xl text-white text-lg font-bold shadow-lg hover:bg-slate-700/70 transition-all active:scale-95">
+                                    <span class="material-icons-outlined text-4xl mb-2 text-slate-400">translate</span>
+                                    藏語教學
+                                </button>
+                                <button @click="startBreathing"
+                                    class="flex flex-col items-center justify-center p-6 bg-cyan-900/50 border border-cyan-800 rounded-2xl text-white text-lg font-bold shadow-lg hover:bg-cyan-800/70 transition-all active:scale-95">
+                                    <span class="material-icons-outlined text-4xl mb-2 text-cyan-400">air</span>
+                                    呼吸練習
+                                </button>
+                                <button @click="toolkitView = 'packing'"
+                                    class="flex flex-col items-center justify-center p-6 bg-teal-900/50 border border-teal-800 rounded-2xl text-white text-lg font-bold shadow-lg hover:bg-teal-800/70 transition-all active:scale-95">
+                                    <span class="material-icons-outlined text-4xl mb-2 text-teal-400">backpack</span>
+                                    行李清單
+                                </button>
+                            </div>
+
+                            <!-- Photo & Culture View (V11.0) -->
+                            <div v-if="toolkitView === 'photo'" class="space-y-6">
+                                <h3 class="text-xl font-bold text-indigo-400 mb-4 flex items-center gap-2">
+                                    <span class="material-icons-outlined">photo_camera</span>
+                                    攝影與民俗 Photo & Culture
+                                </h3>
+
+                                <!-- A. Sunrise & Sunset -->
+                                <div class="bg-indigo-950/30 border border-indigo-500/20 rounded-2xl p-6 space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <span
+                                                class="material-icons-outlined text-amber-400 text-3xl">wb_sunny</span>
+                                            <div>
+                                                <p class="text-slate-400 text-sm uppercase tracking-wider">Sunrise</p>
+                                                <p class="text-white text-3xl font-black font-mono">{{
+                                                    liveWeather?.sunrise || '---' }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-3 text-right">
+                                            <div class="mr-1">
+                                                <p class="text-slate-400 text-sm uppercase tracking-wider">Sunset</p>
+                                                <p class="text-white text-3xl font-black font-mono">{{
+                                                    liveWeather?.sunset || '---' }}</p>
+                                            </div>
+                                            <span
+                                                class="material-icons-outlined text-orange-500 text-3xl">nights_stay</span>
+                                        </div>
+                                    </div>
+                                    <div class="pt-4 border-t border-indigo-500/10">
+                                        <p class="text-indigo-200 text-lg flex items-center gap-2">
+                                            <span class="material-icons-outlined text-xl">lightbulb</span>
+                                            黃金時刻：日出後/日落前 1 小時，色溫最美。
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- B. Culture Do's & Don'ts -->
+                                <div class="bg-slate-800/50 border border-slate-700 rounded-2xl p-6">
+                                    <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                                        <span class="material-icons-outlined text-amber-500">gavel</span>
+                                        民俗禁忌小抄
+                                    </h4>
+                                    <ul class="space-y-6">
+                                        <li class="flex gap-4">
+                                            <span class="text-indigo-400 font-bold text-xl shrink-0">1.</span>
+                                            <p class="text-slate-200 text-lg leading-relaxed"><strong
+                                                    class="text-white">寺廟內禁止拍照</strong>：殿內佛像與壁畫通常嚴禁攝影，請尊重規定。</p>
+                                        </li>
+                                        <li class="flex gap-4">
+                                            <span class="text-indigo-400 font-bold text-xl shrink-0">2.</span>
+                                            <p class="text-slate-200 text-lg leading-relaxed"><strong
+                                                    class="text-white">轉經方向</strong>：參觀寺廟或轉經輪時，請務必順時針行進。</p>
+                                        </li>
+                                        <li class="flex gap-4">
+                                            <span class="text-indigo-400 font-bold text-xl shrink-0">3.</span>
+                                            <p class="text-slate-200 text-lg leading-relaxed"><strong
+                                                    class="text-white">摸頭禁忌</strong>：請勿隨意觸摸藏族人的頭（包括小孩），這是神聖部位。</p>
+                                        </li>
+                                        <li class="flex gap-4">
+                                            <span class="text-indigo-400 font-bold text-xl shrink-0">4.</span>
+                                            <p class="text-slate-200 text-lg leading-relaxed"><strong
+                                                    class="text-white">空拍機規定</strong>：拉薩市區（布達拉宮周邊）屬禁飛區，起飛前請先詢問導遊。</p>
+                                        </li>
+                                        <li class="flex gap-4">
+                                            <span class="text-indigo-400 font-bold text-xl shrink-0">5.</span>
+                                            <p class="text-slate-200 text-lg leading-relaxed"><strong
+                                                    class="text-white">尊重朝聖者</strong>：拍攝朝聖者時，建議保持距離或先點頭示意，勿貼臉拍攝。</p>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <button @click="toolkitView = 'main'"
+                                    class="w-full py-4 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-bold transition-colors">
+                                    返回工具箱
+                                </button>
+                            </div>
+
+                            <!-- Tibetan Phrases View -->
+                            <div v-if="toolkitView === 'tibetan'" class="space-y-4">
+                                <h3 class="text-xl font-bold text-slate-300 mb-4">常用藏語</h3>
+                                <div class="space-y-3">
+                                    <div v-for="(phrase, idx) in tibetanPhrases" :key="idx"
+                                        @click="fullscreenPhrase = phrase; speak(phrase)"
+                                        class="p-4 bg-slate-800/50 border border-slate-700 rounded-xl cursor-pointer hover:bg-slate-700/70 transition-colors">
+                                        <div class="flex justify-between items-center">
+                                            <div>
+                                                <p class="text-slate-400 text-sm">{{ phrase.ch }}</p>
+                                                <p class="text-white text-lg font-bold">{{ phrase.tib }}</p>
+                                                <p class="text-cyan-400 text-sm font-medium">發音: {{ phrase.pron }}</p>
+                                            </div>
+                                            <span class="material-icons-outlined text-slate-500">volume_up</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button @click="toolkitView = 'main'"
+                                    class="mt-6 w-full py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-bold transition-colors">
+                                    返回
+                                </button>
+                            </div>
+
+                            <!-- Breathing Exercise View -->
+                            <div v-if="toolkitView === 'breathing'"
+                                class="flex flex-col items-center justify-center h-full min-h-[300px] text-center">
+                                <div class="breathing-circle w-48 h-48 rounded-full bg-cyan-700/50 flex items-center justify-center transition-all duration-300 ease-in-out"
+                                    :class="breathingStateClass">
+                                    <span class="material-icons-outlined text-white text-6xl">{{ breathingIcon }}</span>
+                                </div>
+                                <p class="text-cyan-300 text-3xl font-bold mt-8">{{ breathingText }}</p>
+                                <p class="text-slate-400 text-lg mt-2">{{ breathingSubtext }}</p>
+                                <button @click="stopBreathing"
+                                    class="mt-8 py-3 px-6 bg-red-700 hover:bg-red-600 text-white rounded-xl font-bold transition-colors">
+                                    停止練習
+                                </button>
+                            </div>
+
+                            <!-- Packing List View (Added for V9.3) -->
+                            <div v-if="toolkitView === 'packing'" class="space-y-6">
+                                <h3 class="text-xl font-bold text-emerald-400 mb-2 flex items-center gap-2">
+                                    <span class="material-icons-outlined">backpack</span>
+                                    行李清單 Checkbox
+                                </h3>
+                                <div v-for="(group, gIndex) in packingList" :key="group.category" class="space-y-3">
+                                    <h4
+                                        class="text-slate-400 text-xs font-bold uppercase tracking-wider flex items-center gap-2 mt-4 ml-1">
+                                        <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+                                        {{ group.category }}
+                                    </h4>
+                                    <div class="grid grid-cols-1 gap-2">
+                                        <div v-for="(item, iIndex) in group.items" :key="item"
+                                            @click="togglePackingItem(group.category, item)"
+                                            class="p-4 rounded-xl border transition-all cursor-pointer flex items-center gap-3 select-none"
+                                            :class="isPacked(group.category, item) ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-100' : 'bg-slate-800/50 border-slate-700/50 text-slate-300 hover:border-slate-500'">
+                                            <span class="material-icons-outlined text-lg">
+                                                {{ isPacked(group.category, item) ? 'check_circle' :
+                                                'radio_button_unchecked' }}
+                                            </span>
+                                            <span class="font-medium">{{ item }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button @click="toolkitView = 'main'"
+                                    class="mt-8 w-full py-4 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-bold transition-colors">
+                                    返回工具箱
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+
+            <!-- User Manual Modal (V10.0) -->
+            <transition name="fade">
+                <div v-if="isManualOpen"
+                    class="fixed inset-0 z-[120] bg-slate-950/98 backdrop-blur-xl flex flex-col overflow-hidden">
+                    <!-- Manual Header -->
+                    <div
+                        class="flex-none p-6 border-b border-white/5 flex items-center justify-between bg-slate-950/50">
+                        <div class="flex items-center gap-3">
+                            <span class="material-icons-outlined text-teal-400 text-3xl">auto_stories</span>
+                            <h2 class="text-xl font-black tracking-widest uppercase">使用手冊 Manual</h2>
+                        </div>
+                        <button @click="isManualOpen = false"
+                            class="p-2 rounded-full hover:bg-white/10 transition-colors">
+                            <span class="material-icons-outlined">close</span>
+                        </button>
+                    </div>
+
+                    <!-- Manual Content -->
+                    <div class="flex-1 overflow-y-auto p-6 md:p-12 custom-scrollbar">
+                        <div class="max-w-2xl mx-auto space-y-12 pb-20">
+                            <!-- Intro -->
+                            <section>
+                                <h3 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                                    <span class="text-teal-500">01</span> 歡迎使用
+                                </h3>
+                                <p class="text-slate-200 leading-relaxed text-2xl">
+                                    「西藏旅伴」是專為 12 日西藏深度旅遊設計的數位助手。我們整合了行程管理、氣象更新、健康追蹤與安全工具，助您安心探索世界屋脊。
+                                </p>
+                            </section>
+
+                            <!-- Feature 1: Itinerary -->
+                            <section>
+                                <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                                    <span class="text-teal-500">02</span> 行程管理與攻略
+                                </h3>
+                                <div class="bg-slate-900/50 p-8 rounded-3xl border border-white/10 space-y-6 shadow-xl">
+                                    <p class="text-white text-xl font-medium">每一天都有專屬的座標、海拔與景點簡介：</p>
+                                    <ul class="list-disc list-inside text-slate-200 space-y-4 ml-4 text-xl">
+                                        <li><strong class="text-teal-400">開啟地圖</strong>：一鍵導航至當天目的地。</li>
+                                        <li><strong class="text-teal-400">精選攻略</strong>：點擊帶有底線的景點名稱，開啟玩家視角的圖文介紹。</li>
+                                    </ul>
+                                </div>
+                            </section>
+
+                            <!-- Feature 2: Weather & Health -->
+                            <section>
+                                <h3 class="text-3xl font-bold text-white mb-4 flex items-center gap-3">
+                                    <span class="text-teal-500">03</span> 即時天氣與健康監控
+                                </h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="bg-slate-900/50 p-8 rounded-3xl border border-white/10 shadow-xl">
+                                        <h4 class="font-bold text-emerald-400 mb-3 text-2xl">氣象穿衣</h4>
+                                        <p class="text-lg text-slate-200 leading-relaxed">對接 Open-Meteo
+                                            API，顯示當前降雨機率與氣溫，並提供專業穿搭建議。</p>
+                                    </div>
+                                    <div class="bg-slate-900/50 p-8 rounded-3xl border border-white/10 shadow-xl">
+                                        <h4 class="font-bold text-cyan-400 mb-3 text-2xl">健康追蹤</h4>
+                                        <p class="text-lg text-slate-200 leading-relaxed">每日記錄血氧 (SpO2)
+                                            與心率，支援一鍵複製整日數據發送給親友。</p>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Feature 3: Toolkit -->
+                            <section>
+                                <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                                    <span class="text-teal-500">04</span> 安全工具箱 (V9.0+)
+                                </h3>
+                                <div
+                                    class="bg-indigo-950/30 border border-indigo-500/20 rounded-2xl p-6 mb-8 flex items-start gap-4 shadow-xl">
+                                    <span class="material-icons-outlined text-indigo-500 text-4xl">photo_camera</span>
+                                    <div>
+                                        <h5 class="font-bold text-white text-xl">攝影與民俗 (V11.0)</h5>
+                                        <p class="text-lg text-slate-200">實時查詢日出日落時間，並提供攝影建議與西藏民俗禁忌小抄。</p>
+                                    </div>
+                                </div>
+                                <div class="space-y-8">
+                                    <div class="flex items-start gap-4">
+                                        <span class="material-icons-outlined text-amber-500 text-4xl">translate</span>
+                                        <div>
+                                            <h5 class="font-bold text-white text-xl">藏語字卡與發音</h5>
+                                            <p class="text-lg text-slate-200">點擊字卡可全螢幕顯示並發出藏式語調，方便溝通。</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <span class="material-icons-outlined text-cyan-500 text-4xl">air</span>
+                                        <div>
+                                            <h5 class="font-bold text-white text-xl">4-4-4 呼吸引導</h5>
+                                            <p class="text-lg text-slate-200">跟隨圓圈律動吸氣、憋氣、吐氣，能有效穩定心跳並緩解高原反應。</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <span
+                                            class="material-icons-outlined text-emerald-500 text-4xl">inventory_2</span>
+                                        <div>
+                                            <h5 class="font-bold text-white text-xl">互動式行李清單</h5>
+                                            <p class="text-lg text-slate-200">內建必備藥品與裝備清單，支援勾選並自動保存您的打包進度。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Tips -->
+                            <section class="bg-teal-500/10 p-8 rounded-[2.5rem] border border-teal-500/20 shadow-lg">
+                                <h4 class="text-2xl font-bold text-teal-400 mb-4 items-center flex gap-2">
+                                    <span class="material-icons-outlined">tips_and_updates</span>
+                                    安全小筆記
+                                </h4>
+                                <p class="text-teal-100/90 text-lg leading-relaxed">
+                                    進藏初期請避免大力活動與頻繁洗頭。若血氧低於 80% 且伴隨劇烈頭痛，請務必立即吸氧並通知領隊。祝您在雪域高原擁有一段難忘的純粹時光！
+                                </p>
+                            </section>
+
+                            <div class="flex flex-col items-center pt-8">
+                                <button @click="isManualOpen = false"
+                                    class="text-slate-400 hover:text-white transition-all underline underline-offset-8 text-lg">
+                                    回到封面 Back to Home
+                                </button>
+                                <p class="text-slate-700 text-sm mt-12 font-mono uppercase tracking-[0.2em]">© 2026
+                                    Tibet Companion v11.0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+
+            <!-- Fullscreen Phrase Display -->
+            <teleport to="body">
+                <transition name="fade">
+                    <div v-if="fullscreenPhrase"
+                        class="fixed inset-0 bg-black/90 backdrop-blur-md z-[130] flex flex-col items-center justify-center p-4"
+                        @click="fullscreenPhrase = null">
+                        <div class="text-center">
+                            <p class="text-slate-400 text-2xl mb-4">{{ fullscreenPhrase.ch }}</p>
+                            <p class="text-white text-6xl font-black mb-6">{{ fullscreenPhrase.tib }}</p>
+                            <p class="text-cyan-400 text-4xl font-bold">發音: {{ fullscreenPhrase.pron }}</p>
+                            <p v-if="fullscreenPhrase.urgent" class="text-red-500 text-xl mt-8">🚨 緊急用語</p>
+                        </div>
+                        <button @click="fullscreenPhrase = null"
+                            class="absolute top-6 right-6 text-slate-400 hover:text-white p-3 rounded-full hover:bg-slate-800 transition-colors">
+                            <span class="material-icons-outlined text-3xl">close</span>
+                        </button>
+                    </div>
+                </transition>
+            </teleport>
+    </div><!-- End #app -->
+
+    <style>
+        /* Toolkit CSS */
+        .breathing-circle {
+            animation: breathe 12s infinite ease-in-out;
+        }
+
+        .breathing-inhale {
+            transform: scale(1.2);
+            background-color: #06b6d4;
+            /* cyan-500 */
+        }
+
+        .breathing-hold {
+            transform: scale(1.2);
+            background-color: #0891b2;
+            /* cyan-600 */
+        }
+
+        .breathing-exhale {
+            transform: scale(0.8);
+            background-color: #0e7490;
+            /* cyan-700 */
+        }
+
+        @keyframes breathe {
+            0% {
+                transform: scale(1);
+                background-color: #06b6d4;
+            }
+
+            /* Start (inhale) */
+            33% {
+                transform: scale(1.2);
+                background-color: #0891b2;
+            }
+
+            /* Hold */
+            66% {
+                transform: scale(0.8);
+                background-color: #0e7490;
+            }
+
+            /* Exhale */
+            100% {
+                transform: scale(1);
+                background-color: #06b6d4;
+            }
+
+            /* Return to start */
+        }
+    </style>
 
     <script>
-        const { createApp, ref, computed, onMounted, onUnmounted } = Vue;
+        // Landing Page Logic (V5.0)
+        (function () {
+            const landingPage = document.getElementById('landing-page');
+            const countdownNumber = document.getElementById('countdown-number');
+            const countdownText = document.getElementById('countdown-text');
+
+            const targetDate = new Date('2026-03-27T00:00:00');
+            const now = new Date();
+            const diffTime = targetDate - now;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Round up for "days left"
+
+            if (diffDays <= 0) {
+                // Trip Started or Passed -> Hide Landing Page Immediately
+                if (landingPage) landingPage.style.display = 'none';
+            } else {
+                // Show Countdown
+                if (countdownNumber) countdownNumber.innerText = diffDays;
+                if (countdownText) countdownText.innerText = `距離 2026.03.27 出發還有 ${diffDays} 天`;
+            }
+        })();
+
+        function enterApp() {
+            const landingPage = document.getElementById('landing-page');
+            if (landingPage) {
+                // Add fade-out transition
+                landingPage.style.transition = 'opacity 1s ease-out';
+                landingPage.style.opacity = '0';
+                landingPage.style.pointerEvents = 'none'; // Prevent clicks during fade out
+
+                // Reset to Day 1
+                if (window.resetToDayOne) window.resetToDayOne();
+
+                // Remove from DOM/Display None after transition
+                setTimeout(() => {
+                    landingPage.style.display = 'none';
+                }, 1000);
+            }
+        }
+
+        const { createApp, ref, computed, watch, onMounted, onUnmounted } = Vue;
 
         // Inline Data to Prevent Fetch Errors or CORS issues on Mobile Browsers
         const itineraryData = [
@@ -458,23 +1160,39 @@
                 "title": "啟程：前往轉機點",
                 "locations": ["桃園", "深圳"],
                 "altitude": { "avg": 50, "max": 100, "sleep": 50 },
-                "weather_advice": "舒適 (20°C)，穿著輕便，準備明天早起。",
-                "highlights": ["桃園機場出發 (13:40)", "抵達深圳 (15:50)", "享用當地素食晚餐"],
+                "coords": { "lat": 22.5431, "lon": 114.0579 },
+                "weather_advice": "舒適 (20°C)，穿著輕便。",
                 "stay": "深圳凱悅嘉軒酒店",
-                "tips": "今晚請早點休息，明天一早要飛往高原，睡眠充足是預防高反的第一步。",
-                "map_url": "https://www.google.com/maps/search/?api=1&query=深圳凱悅嘉軒酒店"
+                "tips": "今晚請早點休息，明天一早要飛往高原。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=深圳凱悅嘉軒酒店",
+                "flight": { "code": "CZ3088", "from": "TPE 桃園", "to": "SZX 深圳", "dep": "13:40", "arr": "15:50", "airline": "南方航空" },
+                "highlights": [
+                    { "label": "桃園機場出發" },
+                    { "label": "抵達深圳" },
+                    { "label": "素食晚餐" }
+                ],
+                "description": "<p>今日集合於桃園國際機場，搭機飛往深圳，為前往青藏高原前的過境調整日。</p><p>晚餐安排當地素食料理，提前感受華南城市風味。</p>"
             },
             {
                 "day": 2,
                 "date": "2026-03-28",
                 "title": "初抵高原：西藏江南",
-                "locations": ["深圳", "林芝", "魯朗"],
+                "locations": ["深圳", "林芝"],
                 "altitude": { "avg": 3000, "max": 4720, "sleep": 2900 },
-                "weather_advice": "涼爽 (5-15°C)，抵達後立刻穿上防風外套，戴帽子。",
-                "highlights": ["飛越雪山抵達林芝 (11:00)", "哈達迎賓儀式", "色季拉山口遠眺南迦巴瓦峰", "魯朗林海觀景台"],
+                "coords": { "lat": 29.6500, "lon": 94.3667 },
+                "weather_advice": "涼爽 (5-15°C)，抵達後穿防風外套。",
                 "stay": "林芝博泰林芝大酒店",
-                "tips": "今日動作要慢！切記不要洗澡洗頭，多喝水，適應海拔 3000m。",
-                "map_url": "https://www.google.com/maps/search/?api=1&query=林芝博泰林芝大酒店"
+                "tips": "今日動作要慢！切記不要洗澡洗頭，多喝水。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=林芝博泰林芝大酒店",
+                "flight": { "code": "CZ5417", "from": "SZX 深圳", "to": "LZY 林芝", "dep": "06:20", "arr": "11:00", "airline": "南方航空" },
+                "highlights": [
+                    { "label": "飛越雪山抵達林芝" },
+                    { "label": "哈達迎賓" },
+                    { "label": "雅尼濕地" },
+                    { "label": "色季拉山口 (觀南迦巴瓦)", "url": "https://www.tibet.tw/gonglue/370.html" },
+                    { "label": "魯朗林海", "url": "https://www.tibet.tw/gonglue/255.html" }
+                ],
+                "description": "<p>清晨飛往有「西藏江南」之稱的林芝。抵達後由藏族導遊以<b>哈達迎賓</b>。</p><p>前往<b>【雅尼濕地】</b>與<b>【色季拉山口】</b>，天氣好可遠眺南迦巴瓦峰。接著來到<b>【魯朗林海】</b>，感受高原森林的芬多精。</p>"
             },
             {
                 "day": 3,
@@ -482,11 +1200,18 @@
                 "title": "前往聖城：林拉公路",
                 "locations": ["林芝", "拉薩"],
                 "altitude": { "avg": 3200, "max": 5013, "sleep": 3650 },
-                "weather_advice": "日照強 (3-16°C)，洋蔥式穿搭，墨鏡必備。",
-                "highlights": ["林拉高等級公路 (最美景觀大道)", "色拉寺 (下午看辯經)", "八廓街轉經道", "藏裝旅拍體驗"],
-                "stay": "拉薩瑞吉度假酒店 (五星)",
-                "tips": "今晚入住拉薩 (3650m)，可能會感到輕微頭痛或睡不好，屬正常現象。動作放慢。",
-                "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店"
+                "coords": { "lat": 29.6516, "lon": 91.1721 },
+                "weather_advice": "日照強，墨鏡必備。",
+                "stay": "拉薩瑞吉度假酒店",
+                "tips": "今晚入住拉薩 (3650m)，可能會頭痛，屬正常現象。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店",
+                "highlights": [
+                    { "label": "林拉景觀大道" },
+                    { "label": "色拉寺 (精彩辯經)", "url": "https://travel.line.me/article/4434" },
+                    { "label": "八廓街", "url": "https://www.tibet.tw/gonglue/383.html" },
+                    { "label": "藏裝旅拍體驗" }
+                ],
+                "description": "<p>沿著「最美景觀大道」林拉公路前往拉薩。</p><p>下午參觀<b>【色拉寺】</b>，若機緣俱足可欣賞精彩的辯經儀式。晚上漫步<b>【八廓街】</b>，並特別安排<b>【藏裝旅拍】</b>，留下最美的回憶。</p>"
             },
             {
                 "day": 4,
@@ -494,35 +1219,53 @@
                 "title": "聖城巡禮：世界遺產",
                 "locations": ["拉薩"],
                 "altitude": { "avg": 3650, "max": 3700, "sleep": 3650 },
-                "weather_advice": "乾燥 (2-15°C)，加強保濕，注意防曬。",
-                "highlights": ["布達拉宮 (需攀爬階梯，請慢行)", "大昭寺 (覺沃佛)", "藥王山觀景台 (拍布達拉宮倒影)"],
+                "coords": { "lat": 29.6516, "lon": 91.1721 },
+                "weather_advice": "乾燥，加強保濕防曬。",
                 "stay": "拉薩瑞吉度假酒店",
-                "tips": "布達拉宮階梯多，請調整呼吸，不要逞強。多喝水代謝乳酸。",
-                "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩布達拉宮"
+                "tips": "布達拉宮階梯多，請調整呼吸，不要逞強。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩布達拉宮",
+                "highlights": [
+                    { "label": "布達拉宮 (參觀攻略)", "url": "https://www.findchina.tw/2021/12/potala-palace.html" },
+                    { "label": "大昭寺 (覺沃佛)", "url": "https://vocus.cc/article/69776507fd89780001a57cbf" },
+                    { "label": "藥王山觀景台", "url": "https://www.chinatibet.tw/jingdian/566.html" }
+                ],
+                "description": "<p>今日深度遊覽。攀登 world 最高宮殿<b>【布達拉宮】</b>，俯瞰拉薩城。</p><p>隨後參拜藏傳佛教中心<b>【大昭寺】</b>，在<b>【藥王山觀景台】</b>拍攝布達拉宮經典角度。</p>"
             },
             {
                 "day": 5,
                 "date": "2026-03-31",
-                "title": "聖湖與冰川：後藏之路",
-                "locations": ["拉薩", "羊卓雍措", "日喀則"],
+                "title": "聖湖與冰川",
+                "locations": ["拉薩", "羊湖", "日喀則"],
                 "altitude": { "avg": 4000, "max": 5030, "sleep": 3840 },
-                "weather_advice": "風大寒冷 (0-12°C)，山口風非常大，務必戴毛帽圍巾。",
-                "highlights": ["崗巴拉山口 (俯瞰羊湖)", "羊卓雍措 (三大聖湖之一)", "卡若拉冰川 (乃欽康桑雪山)", "江孜宗山古堡 (遠眺)"],
+                "coords": { "lat": 29.2667, "lon": 88.8833 },
+                "weather_advice": "山口風大，戴毛帽圍巾。",
                 "stay": "日喀則希爾頓酒店",
-                "tips": "今日車程較長，會翻越海拔 5000m 的山口，下車拍照動作要慢。",
-                "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店"
+                "tips": "翻越 5000m 山口，下車拍照動作要慢。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店",
+                "highlights": [
+                    { "label": "崗巴拉山口" },
+                    { "label": "羊卓雍措 (最美聖湖)", "url": "https://www.greattibettour.com/tw/tibet-attractions/yamdroktso-lake-365" },
+                    { "label": "卡若拉冰川", "url": "https://www.travel168.com.tw/blogInfo?n=35" }
+                ],
+                "description": "<p>翻越崗巴拉山口，抵達碧藍的<b>【羊卓雍措】</b>，它是西藏三大聖湖之一。</p><p>途經壯麗的<b>【卡若拉冰川】</b>，遠眺江孜宗山古堡，前往後藏重鎮日喀則。</p>"
             },
             {
                 "day": 6,
                 "date": "2026-04-01",
                 "title": "巔峰挑戰：珠峰大本營",
-                "locations": ["日喀則", "珠峰大本營"],
+                "locations": ["日喀則", "珠峰"],
                 "altitude": { "avg": 4500, "max": 5200, "sleep": 5200 },
-                "weather_advice": "極寒 (-10 ~ 5°C)，羽絨衣、發熱褲全副武裝。",
-                "highlights": ["加烏拉山口 (觀賞 4 座 8000m 雪山)", "絨布寺 (世界最高寺廟)", "珠峰大本營 (等待日落金山)"],
+                "coords": { "lat": 28.1408, "lon": 86.8450 },
+                "weather_advice": "極寒 (-10°C)，全副武裝。",
                 "stay": "珠峰大本營帳篷/民宿",
-                "tips": "今晚睡在 5200m，是全程最高挑戰。隨身攜帶氧氣瓶，半夜上廁所要穿暖。",
-                "map_url": "https://www.google.com/maps/search/?api=1&query=珠峰大本營"
+                "tips": "全程最高挑戰 5200m。隨身攜帶氧氣瓶。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=珠峰大本營",
+                "highlights": [
+                    { "label": "加烏拉山口 (8000m雪山群)", "url": "https://www.greattibettour.com/tw/tibet-attractions/gawu-la-pass.html" },
+                    { "label": "絨布寺", "url": "https://vacation.eztravel.com.tw/sight/plc0000087590/rongbuk-monastery-%E7%B5%A8%E5%B8%83%E5%AF%BA" },
+                    { "label": "珠峰大本營 (住宿攻略)", "url": "https://www.tibet.tw/gonglue/tibet-ebc-accommodation.html" }
+                ],
+                "description": "<p>途經<b>【加烏拉山口】</b>，天氣好開同時看見 4 座 8000 米級雪山。</p><p>抵達<b>【珠峰大本營】</b>，參拜世界最高寺廟<b>【絨布寺】</b>，等待震撼的日落金山。</p>"
             },
             {
                 "day": 7,
@@ -530,71 +1273,106 @@
                 "title": "告別珠峰：返回日喀則",
                 "locations": ["珠峰", "日喀則"],
                 "altitude": { "avg": 4200, "max": 5200, "sleep": 3840 },
-                "weather_advice": "寒冷回暖 (-5 ~ 10°C)，清晨看日出極冷。",
-                "highlights": ["珠峰日出 (視天氣)", "返回日喀則休整", "扎什倫布寺 (班禪駐錫地)"],
+                "coords": { "lat": 29.2667, "lon": 88.8833 },
+                "weather_advice": "清晨極冷，回暖。",
                 "stay": "日喀則希爾頓酒店",
-                "tips": "回到 3840m 會覺得呼吸順暢很多，今晚可以洗個熱水澡好好睡一覺。",
-                "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店"
+                "tips": "回到 3840m 會覺得呼吸順暢很多，今晚好好洗澡。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店",
+                "highlights": [
+                    { "label": "珠峰日出" },
+                    { "label": "扎什倫布寺 (歷代班禪)", "url": "https://www.greattibettour.com/tw/tibet-attractions/tashilhunpo-monastery-369" }
+                ],
+                "description": "<p>若天氣許可，欣賞完珠峰日出後下撤。</p><p>回到日喀則，參觀班禪大師駐錫地<b>【扎什倫布寺】</b>，感受與前藏截然不同的寺院風格。</p>"
             },
             {
                 "day": 8,
                 "date": "2026-04-03",
-                "title": "穿越藏北：前往當雄",
-                "locations": ["日喀則", "尼木", "當雄"],
+                "title": "穿越藏北",
+                "locations": ["日喀則", "當雄"],
                 "altitude": { "avg": 4000, "max": 4500, "sleep": 4200 },
-                "weather_advice": "風大乾燥 (0-10°C)，草原風大。",
-                "highlights": ["沿途藏北草原風光", "雪古拉山口", "當雄縣城 (納木措的門戶)"],
+                "coords": { "lat": 30.4833, "lon": 91.1000 },
+                "weather_advice": "草原風大乾燥。",
                 "stay": "當雄四季富氧酒店",
-                "tips": "當雄海拔 4200m，比日喀則高，今晚還是要注意保暖和供氧。",
-                "map_url": "https://www.google.com/maps/search/?api=1&query=當雄四季富氧酒店"
+                "tips": "當雄海拔 4200m 仍高，注意保暖。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=當雄四季富氧酒店",
+                "highlights": [
+                    { "label": "藏北草原風光" },
+                    { "label": "雪古拉山口" },
+                    { "label": "當雄 (納木措門戶)" }
+                ],
+                "description": "<p>今日沿著藏北線前行，欣賞遼闊的草原風光與成群的牛羊。</p><p>翻越雪古拉山口，抵達納木措的門戶——當雄縣。</p>"
             },
             {
                 "day": 9,
                 "date": "2026-04-04",
-                "title": "天湖納木措：返回拉薩",
+                "title": "天湖納木措",
                 "locations": ["當雄", "納木措", "拉薩"],
                 "altitude": { "avg": 4000, "max": 5190, "sleep": 3650 },
-                "weather_advice": "湖邊極冷 (-5 ~ 8°C)，納木措湖邊風如刀割。",
-                "highlights": ["那根拉山口 (遠眺納木措)", "納木措 (天湖，三大聖湖之首)", "文成公主實景劇 (晚上回到拉薩)"],
+                "coords": { "lat": 30.7200, "lon": 90.9600 },
+                "weather_advice": "湖邊風如刀割，極冷。",
                 "stay": "拉薩瑞吉度假酒店",
-                "tips": "行程最後的高海拔挑戰。看完文成公主秀較晚，注意保暖。",
-                "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店"
+                "tips": "行程最後的高海拔挑戰。晚上看秀注意保暖。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店",
+                "highlights": [
+                    { "label": "那根拉山口" },
+                    { "label": "納木措 (天湖)", "url": "https://www.chinatibet.tw/jingdian/130.html" },
+                    { "label": "文成公主實景劇", "url": "https://www.sunnyhousetours.com/chinese/explore/detail.php?PID=412" }
+                ],
+                "description": "<p>翻越那根拉山口，抵達天湖<b>【納木措】</b>，感受海天一色的震撼。</p><p>返回拉薩，晚間欣賞大型實景劇<b>《文成公主》</b>。</p>"
             },
             {
                 "day": 10,
                 "date": "2026-04-05",
-                "title": "告別高原：青藏鐵路",
+                "title": "青藏鐵路",
                 "locations": ["拉薩", "火車上"],
                 "altitude": { "avg": 4000, "max": 5072, "sleep": 3000 },
+                "coords": { "lat": 32.7000, "lon": 92.4333 },
                 "weather_advice": "車內舒適，車外寒冷。",
-                "highlights": ["青藏鐵路軟臥體驗", "唐古拉山口 (鐵路最高點 5072m)", "可可西里無人區 (看藏羚羊)"],
-                "stay": "青藏鐵路軟臥 (四人一室)",
-                "tips": "火車上有供氧口。放鬆心情欣賞窗外流動的風景大片。",
-                "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩火車站"
+                "stay": "青藏鐵路軟臥",
+                "tips": "火車上有供氧. 放鬆欣賞窗外流動的風景大片。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩火車站",
+                "highlights": [
+                    { "label": "青藏鐵路 (沿途美景)", "url": "https://www.findchina.tw/2021/12/qinghai-tibet-railway-guide.html" },
+                    { "label": "唐古拉山口", "url": "https://vacation.eztravel.com.tw/sight/plc0000088371/tanggula-pass-%E5%94%90%E5%8F%A4%E6%8B%89%E5%B1%B1%E5%8F%A3" },
+                    { "label": "可可西里 (藏羚羊)", "url": "https://www.greattibettour.com/tw/tibet-travel-tips/tibetan-antelope.html" }
+                ],
+                "description": "<p>搭乘<b>【青藏鐵路】</b>軟臥列車，穿越世界屋脊。</p><p>沿途經過唐古拉山口、可可西里無人區，有機會看到藏羚羊等野生動物。</p>"
             },
             {
                 "day": 11,
                 "date": "2026-04-06",
-                "title": "抵達西寧：轉機廣州",
+                "title": "抵達西寧：轉機",
                 "locations": ["西寧", "廣州"],
                 "altitude": { "avg": 2200, "max": 3000, "sleep": 50 },
-                "weather_advice": "回暖 (15-25°C)，抵達廣州後變熱。",
-                "highlights": ["青海湖 (車窗遠眺)", "抵達西寧 (海拔 2200m)", "飛往廣州"],
+                "coords": { "lat": 36.6209, "lon": 101.7801 },
+                "weather_advice": "抵達廣州後變熱。",
                 "stay": "廣州花都白雲國際機場逸扉酒店",
-                "tips": "回到平原可能會出現「醉氧」嗜睡反應，好好休息。",
-                "map_url": "https://www.google.com/maps/search/?api=1&query=廣州花都白雲國際機場逸扉酒店"
+                "tips": "回到平原可能會嗜睡，好好休息。",
+                "map_url": "https://www.google.com/maps/search/?api=1&query=廣州花都白雲國際機場逸扉酒店",
+                "flight": { "code": "CZ6394", "from": "XNN 西寧", "to": "CAN 廣州", "dep": "16:15", "arr": "21:10", "airline": "南方航空" },
+                "highlights": [
+                    { "label": "青海湖遠眺" },
+                    { "label": "西寧市區" }
+                ],
+                "description": "<p>火車抵達西寧. 視時間安排市區遊覽，隨後前往機場轉機飛往廣州。</p>"
             },
             {
                 "day": 12,
                 "date": "2026-04-07",
-                "title": "滿載而歸：返抵家園",
+                "title": "滿載而歸",
                 "locations": ["廣州", "桃園"],
                 "altitude": { "avg": 50, "max": 50, "sleep": 50 },
-                "weather_advice": "溫暖舒適 (22-28°C)。",
-                "highlights": ["廣州白雲機場", "抵達桃園機場 (13:30)", "搭高鐵回溫暖的家"],
+                "coords": { "lat": 23.1291, "lon": 113.2644 },
+                "weather_advice": "溫暖舒適。",
                 "stay": "甜蜜的家",
                 "tips": "整理照片，分享西藏回憶！",
-                "map_url": "https://www.google.com/maps/search/?api=1&query=桃園國際機場"
+                "map_url": "https://www.google.com/maps/search/?api=1&query=桃園國際機場",
+                "flight": { "code": "CZ3097", "from": "CAN 廣州", "to": "TPE 桃園", "dep": "11:15", "arr": "13:30", "airline": "南方航空" },
+                "highlights": [
+                    { "label": "廣州白雲機場" },
+                    { "label": "抵達桃園機場" }
+                ],
+                "description": "<p>享用早餐後前往機場，搭機返回桃園，結束難忘的西藏之旅。</p>"
             }
         ];
 
@@ -605,6 +1383,142 @@
                 const loading = ref(true); // Still keep loading state for visual consistency
                 const error = ref(null);
                 const isDrawerOpen = ref(false);
+                const isManualOpen = ref(false);
+                const liveWeather = ref(null);
+                const weatherLoading = ref(false);
+                const countdown = ref(0);
+
+                const updateCountdown = () => {
+                    const target = new Date('2026-03-27T00:00:00');
+                    const now = new Date();
+                    const diff = target - now;
+                    countdown.value = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                };
+
+                const enterApp = () => {
+                    currentIndex.value = 0; // Reset to Day 1
+                    const lp = document.getElementById('landing-page');
+                    if (lp) {
+                        lp.classList.add('transition-all', 'duration-500', 'opacity-0', 'pointer-events-none');
+                        setTimeout(() => lp.style.display = 'none', 500);
+                    }
+                };
+
+                const fetchLiveWeather = async (lat, lon) => {
+                    if (!lat || !lon) {
+                        liveWeather.value = null;
+                        return;
+                    }
+                    weatherLoading.value = true;
+                    try {
+                        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,precipitation_probability&daily=sunrise,sunset&timezone=auto`;
+                        const res = await fetch(url);
+                        const data = await res.json();
+                        const formatTime = (isoStr) => {
+                            if (!isoStr) return '---';
+                            return isoStr.split('T')[1].substring(0, 5);
+                        };
+
+                        liveWeather.value = {
+                            temp: Math.round(data.current.temperature_2m),
+                            rain: data.current.precipitation_probability,
+                            sunrise: formatTime(data.daily.sunrise[0]),
+                            sunset: formatTime(data.daily.sunset[0])
+                        };
+                    } catch (err) {
+                        console.error("Weather fetch failed:", err);
+                        liveWeather.value = null;
+                    } finally {
+                        weatherLoading.value = false;
+                    }
+                };
+
+                watch(currentIndex, () => {
+                    if (currentDay.value && currentDay.value.coords) {
+                        fetchLiveWeather(currentDay.value.coords.lat, currentDay.value.coords.lon);
+                    } else {
+                        liveWeather.value = null;
+                    }
+                });
+
+                // Toolkit Logic (V5.0)
+                const isToolkitOpen = ref(false);
+                const toolkitView = ref('main'); // main, sos, tibetan, breathing, packing
+                const fullscreenPhrase = ref(null);
+                const breathingText = ref('準備開始');
+                const breathingSubtext = ref('即將開始呼吸引導');
+                const breathingIcon = ref('air');
+                const breathingStateClass = ref('');
+                let breathingTimer = null;
+
+                const tibetanPhrases = [
+                    { ch: "你好", tib: "Tashi Delek", pron: "扎西 德勒", urgent: false },
+                    { ch: "謝謝", tib: "Thu-chi-che", pron: "突其切", urgent: false },
+                    { ch: "我不舒服", tib: "Nga De-po Min-dug", pron: "拿 得波 民度", urgent: true },
+                    { ch: "我要去醫院", tib: "Nga Men-khang La Dro-gi Yin", pron: "拿 曼康 拉 卓吉 因", urgent: true },
+                    { ch: "廁所在哪裡？", tib: "Sang-chod Ka-par Yod?", pron: "桑決 嘎巴 有?", urgent: false },
+                    { ch: "這裡海拔多少？", tib: "Di Sa-cha Sa-tho Tshad Ga-tshod Red?", pron: "滴 撒洽 撒脫 蔡 嘎切 瑞", urgent: false }
+                ];
+
+                const toggleToolkit = () => {
+                    isToolkitOpen.value = !isToolkitOpen.value;
+                    toolkitView.value = 'main';
+                    fullscreenPhrase.value = null;
+                    if (breathingTimer) {
+                        clearInterval(breathingTimer);
+                        breathingTimer = null;
+                        breathingText.value = '準備開始';
+                        breathingSubtext.value = '即將開始呼吸引導';
+                        breathingIcon.value = 'air';
+                        breathingStateClass.value = '';
+                    }
+                };
+
+                const startBreathing = () => {
+                    toolkitView.value = 'breathing';
+                    let step = 0;
+                    const runStep = () => {
+                        if (step === 0) { // Inhale
+                            breathingText.value = '吸氣 (Inhale)';
+                            breathingSubtext.value = '慢慢吸入冷冽清新的空氣';
+                            breathingIcon.value = 'expand';
+                            breathingStateClass.value = 'breathing-inhale';
+                            step = 1;
+                        } else if (step === 1) { // Hold
+                            breathingText.value = '憋氣 (Hold)';
+                            breathingSubtext.value = '感受氣息在體內流動';
+                            breathingIcon.value = 'pause';
+                            breathingStateClass.value = 'breathing-hold';
+                            step = 2;
+                        } else { // Exhale
+                            breathingText.value = '吐氣 (Exhale)';
+                            breathingSubtext.value = '帶走疲憊 降低壓力';
+                            breathingIcon.value = 'compress';
+                            breathingStateClass.value = 'breathing-exhale';
+                            step = 0;
+                        }
+                    };
+                    runStep(); // Run first step immediately
+                    breathingTimer = setInterval(runStep, 4000); // Then repeat every 4 seconds
+                };
+
+                const stopBreathing = () => {
+                    if (breathingTimer) {
+                        clearInterval(breathingTimer);
+                        breathingTimer = null;
+                    }
+                    toolkitView.value = 'main';
+                    breathingText.value = '準備開始';
+                    breathingSubtext.value = '即將開始呼吸引導';
+                    breathingIcon.value = 'air';
+                    breathingStateClass.value = '';
+                };
+
+                // Expose resetToDayOne globally so landing page can call it
+                window.resetToDayOne = () => {
+                    currentIndex.value = 0;
+                    window.scrollTo({ top: 0, behavior: 'smooth' }); // Also scroll to top
+                };
                 const simulatedToday = '2026-04-01';
                 const width = ref(window.innerWidth);
 
@@ -613,6 +1527,49 @@
                     if (width.value >= 768) {
                         isDrawerOpen.value = false;
                     }
+                };
+
+                // Packing List Data & Logic (V4.0)
+                const packingList = ref([
+                    { category: '必備證件', items: ['護照/台胞證', '入藏函 (正本)', '機票/火車票', '現金/信用卡'] },
+                    { category: '電子產品', items: ['手機 & 充電線', '行動電源 (10000mAh+)', '轉接頭 (中國規格)', '網卡/漫遊'] },
+                    { category: '個人藥品', items: ['紅景天 (提前吃)', '丹木斯 (高山症)', '感冒/腸胃藥', '維他命/B群'] },
+                    { category: '衣物裝備', items: ['羽絨外套 (防風防水)', '毛帽 & 圍巾', '墨鏡 (偏光)', '保暖好走鞋'] },
+                    { category: '日用品', items: ['保濕乳液/護唇膏', '防曬乳 (高係數)', '保溫瓶', '濕紙巾/衛生紙'] }
+                ]);
+                const isPackingListOpen = ref(false); // Used for backward compatibility or direct access if needed
+
+
+                const packedItems = ref({});
+
+                const loadPackingStatus = () => {
+                    try {
+                        const stored = localStorage.getItem('tibet_packing_v1');
+                        if (stored) {
+                            packedItems.value = JSON.parse(stored);
+                        }
+                    } catch (e) {
+                        console.error('Failed to load packing list', e);
+                    }
+                };
+
+                const savePackingStatus = () => {
+                    localStorage.setItem('tibet_packing_v1', JSON.stringify(packedItems.value));
+                };
+
+                const isPacked = (category, item) => {
+                    const key = `${category}_${item}`;
+                    return !!packedItems.value[key];
+                };
+
+                const togglePackingItem = (category, item) => {
+                    const key = `${category}_${item}`;
+                    if (packedItems.value[key]) {
+                        delete packedItems.value[key];
+                    } else {
+                        packedItems.value[key] = true;
+                    }
+                    savePackingStatus();
                 };
 
                 // Health Tracker Logic (V3.2)
@@ -695,6 +1652,21 @@
                     });
                 };
 
+                // Audio Pronunciation (V9.2)
+                const speak = (phrase) => {
+                    if (!window.speechSynthesis) return;
+                    window.speechSynthesis.cancel();
+
+                    // Tibetan tone simulation: slightly lower pitch, slower pace, and resonant
+                    const msg = new SpeechSynthesisUtterance(phrase.pron);
+                    msg.lang = 'zh-TW';
+                    msg.rate = 0.75;  // More deliberate pace
+                    msg.pitch = 0.85; // Lower resonance
+                    msg.volume = 1;
+
+                    window.speechSynthesis.speak(msg);
+                };
+
                 // Initialize Data
                 const init = () => {
                     try {
@@ -760,8 +1732,10 @@
                 };
 
                 onMounted(() => {
+                    updateCountdown();
                     init();
                     loadHealthData();
+                    loadPackingStatus();
                     window.addEventListener('resize', onResize);
                 });
 
@@ -785,6 +1759,7 @@
                     selectDay,
                     resetToToday,
                     formattedLocations,
+                    isManualOpen,
                     // Health Tracker
                     healthRecords,
                     newSpo2,
@@ -792,7 +1767,30 @@
                     currentDateRecords,
                     addHealthRecord,
                     deleteHealthRecord,
-                    copyHealthRecords
+                    copyHealthRecords,
+                    // Packing List
+                    packingList,
+                    packedItems,
+                    isPacked,
+                    togglePackingItem,
+                    // Toolkit
+                    isToolkitOpen,
+                    toolkitView,
+                    toggleToolkit,
+                    tibetanPhrases,
+                    fullscreenPhrase,
+                    breathingText,
+                    breathingSubtext,
+                    breathingIcon,
+                    breathingStateClass,
+                    startBreathing,
+                    stopBreathing,
+                    speak,
+                    countdown,
+                    enterApp,
+                    // Weather
+                    liveWeather,
+                    weatherLoading
                 };
             }
         }).mount('#app');
