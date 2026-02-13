@@ -28,3 +28,6 @@
     - [x] **[Critical Fix]** 解決白畫面問題 (V2.1 - Final)
         - [x] Inline JSON Data (排除 Fetch 錯誤)
         - [x] **Refactor**: Remove inline JS from template (Move `join` to `computed`) - 徹底移除 template 語法風險
+- [x] **備份 V2.0 穩定版**
+    - [x] Git Commit: "V2.0 Stable: Outdoor Friendly UI & Maps Integration (Fixed White Screen)"
+    - [x] Git Push to Origin Main
