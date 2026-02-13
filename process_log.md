@@ -31,3 +31,9 @@
 - [x] **備份 V2.0 穩定版**
     - [x] Git Commit: "V2.0 Stable: Outdoor Friendly UI & Maps Integration (Fixed White Screen)"
     - [x] Git Push to Origin Main
+- [x] **資料更新**
+    - [x] Update `map_url` in both `itinerary_data.json` and `index.html` to point to specific locations/hotels.
+    - [x] Git Commit & Push: "Update map URLs to specific locations"
+- [x] **文件維護**
+    - [x] 將 `task.md` 與 `implementation_plan.md` 全面繁體中文化
+    - [x] Git Commit & Push: "Docs: Translate all artifacts to Traditional Chinese"
