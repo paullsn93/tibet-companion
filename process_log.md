@@ -3,97 +3,18 @@
 ## 2026-02-13
 - [x] 初始化專案日誌 (process_log.md)
 - [x] 翻譯實作計畫書 (implementation_plan.md) - 完成
-- [x] 翻譯任務清單 (task.md) - 完成
-- [x] 翻譯啟動腳本訊息 (start_server.ps1) - 完成
-- [x] 使用者審核通過 (LGTM) - 完成
-- [x] 啟動本地伺服器並開啟瀏覽器 (http://localhost:8000) - 完成
-- [x] 新增快速跳轉選單 (Drawer) - 完成
-- [x] 實作響應式設計 (RWD) - 完成
-    - [x] 電腦版雙欄佈局
-    - [x] 手機版維持 Drawer 選單
-    - [x] 美化 Scrollbar 樣式
-- [x] 查詢手機連線方式 (Host IP: 192.168.50.54) - 完成
-- [/] 排除連線問題
-    - [ ] 執行指令開啟防火牆 Port 8000 (Allow TCP 8000)
-- [x] 全域視覺與操作優化 (V1) - 完成
-    - [x] 修復手機版捲動問題  (Flex + Overflow Fix)
-    - [x] 全域字體放大 (Mobile text-lg / Desktop text-xl)
-    - [x] 海拔與標題字體倍增
-    - [x] 新增地圖按鈕 (Google Maps)
-- [x] 備份專案至 GitHub - 完成
-    - [x] V1.0 Push to Origin
-- [x] V2.0 改版：戶外友善與地圖整合 - 完成
-    - [x] 更新資料結構 (itinerary_data.json) - Add map_url
-    - [x] 重寫介面 (index.html) - Fix Scrolling & Outdoor Mode Fonts
-    - [x] **[Critical Fix]** 解決白畫面問題 (V2.1 - Final)
-        - [x] Inline JSON Data (排除 Fetch 錯誤)
-        - [x] **Refactor**: Remove inline JS from template (Move `join` to `computed`) - 徹底移除 template 語法風險
-- [x] **備份 V2.0 穩定版**
-    - [x] Git Commit: "V2.0 Stable: Outdoor Friendly UI & Maps Integration (Fixed White Screen)"
-    - [x] Git Push to Origin Main
-- [x] **資料更新**
-    - [x] Update `map_url` in both `itinerary_data.json` and `index.html` to point to specific locations/hotels.
-    - [x] Git Commit & Push: "Update map URLs to specific locations"
-- [x] **文件維護**
-    - [x] 將 `task.md` 與 `implementation_plan.md` 全面繁體中文化
-    - [x] Git Commit & Push: "Docs: Translate all artifacts to Traditional Chinese"
-- [x] **[新增功能] V3.2 高原健康紀錄 (Health Tracker)**
-    - [x] 介面實作：在「貼心叮嚀」下方新增健康監控區塊 (Input + List)
-    - [x] 邏輯實作：使用 `localStorage` 儲存 SpO2 與 HR 紀錄
-    - [x] 功能實作：日期連動、增刪紀錄、複製文字至剪貼簿
-- [x] **V3.2 部署**
-    - [x] Git Commit & Push: Feat(V3.2): Add Health Tracker with LocalStorage support
-- [x] **[UI 優化] V3.3 底部導航瘦身**
-    - [x] Bottom Nav 高度縮減 (Padding p-4 -> p-3)
-    - [x] 按鈕尺寸縮小 (w-16 -> w-12)
-    - [x] 調整內容區 pb 間距，加上導航列邊框
-- [x] **V3.3 部署**
-    - [x] Git Commit & Push: Style(V3.3): Optimize Bottom Navigation height and spacing
-- [x] **[新增功能] V4.0 最終大改版 (詳細行程與行李清單)**
-    - [x] 資料庫升級：`itinerary_data.json` 新增 `flight` 與 `description` 欄位
-    - [x] UI 升級：
-        - [x] 航班資訊卡 (Flight Widget) - Day 1, 2, 11, 12
-        - [x] 詳細行程折疊區 (Description Accordion)
-        - [x] 頂部工具列與行李清單按鈕 (Toolbar)
-        - [x] 行李清單模態視窗 (Packing List Modal, LocalStorage)
-    - [x] **[Bug Fix]** 修復航班卡片與背包按鈕未顯示的問題 (HTML 插入位置修正)
-    - [x] **[Critical Fix]** 重構 HTML 結構，解決航班日行程內容被覆蓋的問題 (Merged Flight Widget into Dashboard Grid)
-- [x] **[新增功能] V5.0 最終改版**
-    - [x] **Landing Page**：全螢幕倒數計時封面 (Background Cover, Glassmorphism)
-    - [x] **JS Logic**：自動計算距離 2026.03.27 天數，過期自動隱藏
-    - [x] **Animation**：點擊按鈕淡出進場效果
-    - [x] **[Bug Fix]** 解決 Landing Page 被 Bottom Nav 遮擋問題 (z-index: 50 -> 100)
-### 4. 🎨 視覺體驗與極致可讀性 (V10.3)
-- **字體二次加大**：應使用者要求，將內文字級再次提升至 `2xl` 與 `lg` 等級，確保年長者或在強光下也能輕鬆閱讀。
-- **對比度與間距優化**：亮化文字顏色，並加大段落間距與圖示尺寸，打造最舒適的數位閱讀環境。
-    - [x] **UI 優化**：
-        - [x] 詳細行程 (`description`) 字體加大 (`text-xl`)、行距寬鬆 (`leading-loose`)
-        - [x] 今日亮點 (`highlights`) 支援維基百科連結跳轉
-- [x] **[體驗優化] V5.2 修正與資料補全**
-    - [x]- **V5.2 Fixes** (2026-02-13): 飛機圖示遮擋修正、啟程按鈕重置、健康監控標題縮小、補回遺漏資料。
-- **V5.3 Polish** (2026-02-13): 健康監控字體再縮小 (text-base)、航班資訊卡片加註航空公司 (南方航空)、貼心叮嚀顯示邏輯強化與 fallback 處理。
-- **V5.4 UI Polish** (2026-02-13): 將航空公司名稱與航班代號調整至同一排顯示，並放大「查看完整行程 (Read More)」的按鈕字體。
-- **V5.5 Content Upgrade** (2026-02-13): 將行程中的維基百科連結全面替換為精選的「圖文並茂深度旅遊攻略」。
-- **V7.0 Real-time Weather** (2026-02-13): 整合 Open-Meteo API，實現「穿衣指引」即時氣象更新。
-- **V7.1 Bug Fix & Scale** (2026-02-13): 修復 `watch` 引用錯誤，並放大穿衣指引區塊標題與建議文字，提升可讀性。
-- **V7.2 Final Content Polish** (2026-02-13): 導入「玩家視角」高質感旅遊攻略連結。
-- **V9.0-V9.4 Safety & Utility Toolkit** (2026-02-13): 實作 SOS 緊急中心、藏語教學、及呼吸引導。
-- **V9.6 Final Content Cleanup** (2026-02-13): 移除雅尼濕地、林拉公路等 4 個不穩定連結，回歸純文字顯示以確保穩定性。
-- **V10.0 Comprehensive User Manual** (2026-02-13): 整合完整使用手冊。新增首頁「使用手冊」入口，實作互動式說明介面，涵蓋所有功能教學與安全指南。
-- **V10.1 Bug Fix & Architecture Refactor** (2026-02-13): 修復封面「使用手冊」按鈕失效問題。將 Landing Page 納入 Vue 管理範疇，並重構倒數分秒與轉場邏輯至 Vue 生命周期中，確保交互穩定。
-- [x] [V10.2] User Manual UI Polish: Font size & Contrast optimization
-- [x] [V10.3] Extra Large Manual Font: UI Scale Up
-- [x] Finalize documentation
-- **V10.2 User Manual UI Polish** (2026-02-13): 增加文字對比度與初步加大字體。
-- **V10.3 Extra Large Manual Font** (2026-02-13): 二次優化手冊可讀性，全面提升字級（內文升至 `text-2xl`，描述升至 `text-lg`），提供極致清晰的閱讀體驗。
-- **V11.0 Feature Swap: SOS to Photo & Culture** (2026-02-13): 考慮到導遊陪同，將「緊急求助」功能替換為實用性更高的「攝影與民俗」。整合 Open-Meteo 日出日落數據，並提供攝影建議與西藏旅遊禁忌小抄。
-- **V11.1 UI & Logic Fix** (2026-02-13): 修復 V11.0 更新導致的標籤閉合錯誤（造成 Vue 渲染失效見亂碼）及修正封面「開啟旅程」進入天數錯誤。現在進入 App 會固定重置回第一天行程。
-- **V11.2 Manual Content Restoration** (2026-02-13): 補回使用手冊中遺漏的「互動式行李清單」說明，確保手冊內容與工具箱功能完全同步。
-- **V11.3 Photo & Culture UI Polish** (2026-02-13): 加大「攝影與民俗」模組的字體（時間升至 `3xl`，禁念升至 `text-lg`），確保在戶外強光下也能清晰閱讀攝影建議。
-- **V11.4 Toolkit Bug Fix: Breathing Mode** (2026-02-13): 修復工具箱中「呼吸練習」無法進入的問題。補全了遺漏的定時器 (`setInterval`) 邏輯與 `stopBreathing` 函數，並確保所有響應式屬性正確導出至模板。
-- **V12.0 Tour Info & Logistics Upgrade** (2026-02-13): 補強「阿玩旅遊」官網承諾資訊。新增「團務與福利」模組（小費全包、無購物、贈送網卡/氧氣/哈達），優化行李清單警語並預設勾選贈送網卡，同步更新 Day 1-3 行程細節（含客製化素食與旅拍精修說明）。
-- **V12.1 Emergency UI Fix** (2026-02-13): 緊急修復因 HTML 標籤嵌套錯誤（多餘的 `</div>`）導致 Vue 無法掛載的問題。同時補全 `isPackingListOpen` 屬性導出，恢復 App 正常運作。
-，提供更實用的參觀建議與精美報導。
-    - [x] **[Bug Fix]** 入口按鈕 (`Enter`) 現在會正確重置到第一天行程
-    - [x] **[UI Tweak]** 縮小「健康監控」標題字體，避免換行
-    - [x] **[Data Fix]** 恢復遺失的「貼心叮嚀 (Tips)」資料
+- [x] 任務清單與開發環境準備 (task.md, start_server.ps1)
+- [x] 快速跳轉選單 (Drawer) & RWD 響應式佈局優化
+- [x] 全域視覺與操作優化 (V1)：字體加大、地圖整合、手機捲動修復
+- [x] **V2.0 改版**：戶外友善與地圖整合，解決白畫面與 JSON Fetch 錯誤 (Refactored to Inline Data)
+- [x] **V3.2 高原健康紀錄 (Health Tracker)**：LocalStorage 儲存、SpO2/HR 追蹤、複製紀錄功能
+- [x] **V3.3 底部導航優化**：縮減高度與間距，提升內容區可視空間
+- [x] **V4.0 航班與詳細行程**：航班資訊卡 (Flight Widget)、行程折疊區 (Accordion)、行李清單
+- [x] **V5.0 轉場與倒數封面**：全螢幕 Glassmorphism 封面、出發倒數計時、淡入進場動畫
+- [x] **V5.2 - V5.5 UI 拋光**：航空公司資訊優化、健康監控縮標、深度攻略連結替換
+- [x] **V7.0 - V7.2 即時氣象與穿衣指引**：Open-Meteo API 整合、穿衣建議字體加大、玩家視角攻略
+- [x] **V9.0 - V10.3 安全工具箱與完整手冊**：SOS 中心、藏語教學、呼吸引導、互動式使用手冊、極致大字體
+- [x] **V11.0 - V11.4 攝影民俗與功能修補**：攝影小抄、藏式禁忌、修復呼吸模式定時器、修復進入 App 重置天數邏輯
+- [x] **V12.0 團務與物流升級**：隱形福利模組（小費/無購物/贈送項目）、行李清單自動扣除贈送品、Day 1-3 素食與旅拍補全
+- [x] **V12.1 - V12.3 導航結構重大修復**：修正 Toolkit 標籤嵌套錯誤（漏關閉 `</div>`）、解耦「使用手冊」Modal 至 Teleport 渲染，恢復封面按鈕功能與層級獨立。
+- [x] **V12.4 團務與福利區塊字體加大**：根據使用者反饋，將補強模組的標題級距升至 `text-2xl`，內容文字升至 `text-xl`，確保強光下易讀。
