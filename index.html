@@ -137,7 +137,8 @@
     class="bg-slate-950 text-slate-100 h-screen w-screen overflow-hidden flex flex-col items-center selection:bg-cyan-500/30 touch-none">
 
     <div id="app"
-        class="w-full max-w-[1600px] h-full flex flex-col md:flex-row md:gap-8 md:p-8 relative overflow-hidden">
+        class="w-full max-w-[1600px] h-full flex flex-col md:flex-row md:gap-8 md:p-8 relative overflow-hidden pt-12 md:pt-8"
+        style="padding-top: max(3.5rem, env(safe-area-inset-top));">
         <!-- Landing Page (V5.0) -->
         <div id="landing-page"
             class="fixed inset-0 z-[100] bg-black flex flex-col justify-center items-center text-white bg-[url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Potala_palace23.jpg/3840px-Potala_palace23.jpg')] bg-cover bg-center bg-no-repeat">
@@ -510,10 +511,11 @@
 
                             <!-- Official External Link (V12.0 Cloud Migration) -->
                             <div class="mt-8 border-t border-slate-700/50 pt-8 flex justify-center">
-                                <button @click="openOfficialItinerary(currentDay.day)"
-                                    class="inline-flex items-center gap-3 px-8 py-5 rounded-2xl bg-slate-800 border border-amber-500/30 hover:border-amber-500/60 text-amber-200 text-xl md:text-2xl font-bold shadow-xl active:scale-95 transition-all w-full md:w-auto justify-center">
+                                <a :href="`https://wannavegtour.com/product/0327cz/#:~:text=第${currentDay.day<10?'0'+currentDay.day:currentDay.day}天`"
+                                    target="_blank"
+                                    class="inline-flex items-center gap-3 px-8 py-5 rounded-2xl bg-slate-800 border border-amber-500/30 hover:border-amber-500/60 text-amber-200 text-xl md:text-2xl font-bold shadow-xl active:scale-95 transition-all w-full md:w-auto justify-center no-underline">
                                     📖 查看官網當日行程 (Official)
-                                </button>
+                                </a>
                             </div>
                         </div>
 
@@ -1303,7 +1305,7 @@
 
         const { createApp, ref, computed, watch, onMounted, onUnmounted } = Vue;
 
-        // Inline Data to Prevent Fetch Errors or CORS issues on Mobile Browsers
+        // --- DO NOT REMOVE THIS LINE: itineraryData Start ---
         const itineraryData = [
   {
     "day": 1,
@@ -1831,6 +1833,7 @@
     ]
   }
 ];
+        // --- DO NOT REMOVE THIS LINE: itineraryData End ---
 
         createApp({
             setup() {
