@@ -137,8 +137,8 @@
     class="bg-slate-950 text-slate-100 h-screen w-screen overflow-hidden flex flex-col items-center selection:bg-cyan-500/30 touch-none">
 
     <div id="app"
-        class="w-full max-w-[1600px] h-full flex flex-col md:flex-row md:gap-8 md:p-8 relative overflow-hidden pt-12 md:pt-8"
-        style="padding-top: max(1.5rem, env(safe-area-inset-top));">
+        class="w-full max-w-[1600px] h-full flex flex-col md:flex-row md:gap-8 md:p-8 relative overflow-hidden pt-0 md:pt-8"
+        style="padding-top: max(1rem, env(safe-area-inset-top));">
         <!-- Landing Page (V5.0) -->
         <div id="landing-page"
             class="fixed inset-0 z-[100] bg-black flex flex-col justify-center items-center text-white bg-[url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Potala_palace23.jpg/3840px-Potala_palace23.jpg')] bg-cover bg-center bg-no-repeat">
@@ -239,7 +239,7 @@
 
                     <!-- Header Section -->
                     <header
-                        class="text-center space-y-4 mt-12 md:mt-0 transition-all duration-300 cursor-pointer md:cursor-default active:scale-95 md:active:scale-100 group flex-none"
+                        class="text-center space-y-4 mt-2 md:mt-0 transition-all duration-300 cursor-pointer md:cursor-default active:scale-95 md:active:scale-100 group flex-none"
                         v-if="currentDay" @click="width < 768 ? isDrawerOpen = true : null">
                         <!-- Top Info Bar + Menu Trigger -->
                         <div class="flex items-center justify-center gap-3 relative">
