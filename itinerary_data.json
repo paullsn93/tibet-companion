@@ -19,6 +19,7 @@
     "weather_advice": "舒適 (20°C)，穿著輕便。",
     "stay": "深圳凱悅嘉軒酒店",
     "tips": "今晚請早點休息，明天一早要飛往高原。阿玩旅遊承諾：若當地無素食餐廳，將會安排一般餐廳並「客製化素食餐點」，請放心用餐。",
+    "web_anchor": "第一天：桃園",
     "map_url": "https://www.google.com/maps/search/?api=1&query=深圳凱悅嘉軒酒店",
     "route": {
       "end": "深圳宝安国际机场",
@@ -64,6 +65,7 @@
     "weather_advice": "涼爽 (5-15°C)，抵達後穿防風外套。",
     "stay": "林芝博泰林芝大酒店",
     "tips": "今日動作要慢！切記不要洗澡洗頭，多喝水。",
+    "web_anchor": "第二天：深圳",
     "map_url": "https://www.google.com/maps/search/?api=1&query=林芝博泰林芝大酒店",
     "route": {
       "start": "林芝米林机场",
@@ -119,6 +121,7 @@
     "weather_advice": "日照強，墨鏡必備。",
     "stay": "拉薩瑞吉度假酒店",
     "tips": "今晚入住拉薩 (3650m)，可能會頭痛，屬正常現象。",
+    "web_anchor": "第三天：林芝",
     "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店",
     "route": {
       "start": "林芝市",
@@ -182,7 +185,8 @@
         "label": "藥王山觀景台",
         "url": "https://www.chinatibet.tw/jingdian/566.html"
       }
-    ]
+    ],
+    "web_anchor": "第四天：拉薩"
   },
   {
     "day": 5,
@@ -205,6 +209,7 @@
     "weather_advice": "山口風大，戴毛帽圍巾。",
     "stay": "日喀則希爾頓酒店",
     "tips": "翻越 5000m 山口，下車拍照動作要慢。",
+    "web_anchor": "第五天：拉薩",
     "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店",
     "route": {
       "start": "拉萨市",
@@ -246,6 +251,7 @@
     "weather_advice": "極寒 (-10°C)，全副武裝。",
     "stay": "珠峰大本營帳篷/民宿",
     "tips": "全程最高挑戰 5200m。隨身攜帶氧氣瓶。",
+    "web_anchor": "第六天：日喀則",
     "map_url": "https://www.google.com/maps/search/?api=1&query=珠峰大本營",
     "route": {
       "start": "日喀则市",
@@ -288,6 +294,7 @@
     "weather_advice": "清晨極冷，回暖。",
     "stay": "日喀則希爾頓酒店",
     "tips": "回到 3840m 會覺得呼吸順暢很多，今晚好好洗澡。",
+    "web_anchor": "第七天：珠峰小鎮",
     "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店",
     "route": {
       "start": "珠峰大本营",
@@ -324,6 +331,7 @@
     "weather_advice": "草原風大乾燥。",
     "stay": "當雄四季富氧酒店",
     "tips": "當雄海拔 4200m 仍高，注意保暖。",
+    "web_anchor": "第八天：日喀則",
     "map_url": "https://www.google.com/maps/search/?api=1&query=當雄四季富氧酒店",
     "route": {
       "start": "日喀则市",
@@ -364,6 +372,7 @@
     "weather_advice": "湖邊風如刀割，極冷。",
     "stay": "拉薩瑞吉度假酒店",
     "tips": "行程最後的高海拔挑戰。晚上看秀注意保暖。",
+    "web_anchor": "第九天：當雄",
     "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店",
     "route": {
       "start": "拉萨市",
@@ -404,6 +413,7 @@
     "weather_advice": "車內舒適，車外寒冷。",
     "stay": "青藏鐵路軟臥",
     "tips": "火車上有供氧. 放鬆欣賞窗外流動的風景大片。",
+    "web_anchor": "第十天",
     "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩火車站",
     "route": {
       "start": "拉萨站",
@@ -446,6 +456,7 @@
     "weather_advice": "抵達廣州後變熱。",
     "stay": "廣州花都白雲國際機場逸扉酒店",
     "tips": "回到平原可能會嗜睡，好好休息。",
+    "web_anchor": "第十一天",
     "map_url": "https://www.google.com/maps/search/?api=1&query=廣州花都白雲國際機場逸扉酒店",
     "route": {
       "start": "西宁站",
@@ -490,6 +501,7 @@
     "weather_advice": "溫暖舒適。",
     "stay": "甜蜜的家",
     "tips": "整理照片，分享西藏回憶！",
+    "web_anchor": "第十二天",
     "map_url": "https://www.google.com/maps/search/?api=1&query=桃園國際機場",
     "route": {
       "end": "桃园国际机场",

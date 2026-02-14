@@ -19,6 +19,7 @@
     "weather_advice": "舒適 (20°C)，穿著輕便。",
     "stay": "深圳凱悅嘉軒酒店",
     "tips": "今晚請早點休息，明天一早要飛往高原。阿玩旅遊承諾：若當地無素食餐廳，將會安排一般餐廳並「客製化素食餐點」，請放心用餐。",
+    "web_anchor": "第一天：桃園",
     "map_url": "https://www.google.com/maps/search/?api=1&query=深圳凱悅嘉軒酒店",
     "route": {
       "end": "深圳宝安国际机场",
@@ -42,8 +43,7 @@
       {
         "label": "素食晚餐"
       }
-    ],
-    "description": "<p>今日集合於桃園國際機場，搭機飛往深圳，為前往青藏高原前的過境調整日。</p><p>晚餐安排當地素食料理，提前感受華南城市風味。</p>"
+    ]
   },
   {
     "day": 2,
@@ -65,6 +65,7 @@
     "weather_advice": "涼爽 (5-15°C)，抵達後穿防風外套。",
     "stay": "林芝博泰林芝大酒店",
     "tips": "今日動作要慢！切記不要洗澡洗頭，多喝水。",
+    "web_anchor": "第二天：深圳",
     "map_url": "https://www.google.com/maps/search/?api=1&query=林芝博泰林芝大酒店",
     "route": {
       "start": "林芝米林机场",
@@ -98,8 +99,7 @@
         "label": "魯朗林海",
         "url": "https://www.tibet.tw/gonglue/255.html"
       }
-    ],
-    "description": "<p>清晨飛往有「西藏江南」之稱的林芝。抵達後由藏族導遊以<b>哈達迎賓</b>。</p><p>前往<b>【雅尼濕地】</b>與<b>【色季拉山口】</b>，天氣好可遠眺南迦巴瓦峰。接著來到<b>【魯朗林海】</b>，感受高原森林的芬多精。</p>"
+    ]
   },
   {
     "day": 3,
@@ -121,6 +121,7 @@
     "weather_advice": "日照強，墨鏡必備。",
     "stay": "拉薩瑞吉度假酒店",
     "tips": "今晚入住拉薩 (3650m)，可能會頭痛，屬正常現象。",
+    "web_anchor": "第三天：林芝",
     "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店",
     "route": {
       "start": "林芝市",
@@ -143,8 +144,7 @@
       {
         "label": "藏裝旅拍體驗 (含造型與精修)"
       }
-    ],
-    "description": "<p>沿著「最美景觀大道」林拉公路前往拉薩。</p><p>下午參觀<b>【色拉寺】</b>，若機緣俱足可欣賞精彩的辯經儀式。晚上漫步<b>【八廓街】</b>，並特別安排<b>【藏裝旅拍】(含造型與精修)</b>，留下最美的回憶。</p>"
+    ]
   },
   {
     "day": 4,
@@ -186,7 +186,7 @@
         "url": "https://www.chinatibet.tw/jingdian/566.html"
       }
     ],
-    "description": "<p>今日深度遊覽。攀登 world 最高宮殿<b>【布達拉宮】</b>，俯瞰拉薩城。</p><p>隨後參拜藏傳佛教中心<b>【大昭寺】</b>，在<b>【藥王山觀景台】</b>拍攝布達拉宮經典角度。</p>"
+    "web_anchor": "第四天：拉薩"
   },
   {
     "day": 5,
@@ -209,6 +209,7 @@
     "weather_advice": "山口風大，戴毛帽圍巾。",
     "stay": "日喀則希爾頓酒店",
     "tips": "翻越 5000m 山口，下車拍照動作要慢。",
+    "web_anchor": "第五天：拉薩",
     "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店",
     "route": {
       "start": "拉萨市",
@@ -228,8 +229,7 @@
         "label": "卡若拉冰川",
         "url": "https://www.travel168.com.tw/blogInfo?n=35"
       }
-    ],
-    "description": "<p>翻越崗巴拉山口，抵達碧藍的<b>【羊卓雍措】</b>，它是西藏三大聖湖之一。</p><p>途經壯麗的<b>【卡若拉冰川】</b>，遠眺江孜宗山古堡，前往後藏重鎮日喀則。</p>"
+    ]
   },
   {
     "day": 6,
@@ -251,6 +251,7 @@
     "weather_advice": "極寒 (-10°C)，全副武裝。",
     "stay": "珠峰大本營帳篷/民宿",
     "tips": "全程最高挑戰 5200m。隨身攜帶氧氣瓶。",
+    "web_anchor": "第六天：日喀則",
     "map_url": "https://www.google.com/maps/search/?api=1&query=珠峰大本營",
     "route": {
       "start": "日喀则市",
@@ -271,8 +272,7 @@
         "label": "珠峰大本營 (住宿攻略)",
         "url": "https://www.tibet.tw/gonglue/tibet-ebc-accommodation.html"
       }
-    ],
-    "description": "<p>途經<b>【加烏拉山口】</b>，天氣好開同時看見 4 座 8000 米級雪山。</p><p>抵達<b>【珠峰大本營】</b>，參拜世界最高寺廟<b>【絨布寺】</b>，等待震撼的日落金山。</p>"
+    ]
   },
   {
     "day": 7,
@@ -294,6 +294,7 @@
     "weather_advice": "清晨極冷，回暖。",
     "stay": "日喀則希爾頓酒店",
     "tips": "回到 3840m 會覺得呼吸順暢很多，今晚好好洗澡。",
+    "web_anchor": "第七天：珠峰小鎮",
     "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店",
     "route": {
       "start": "珠峰大本营",
@@ -308,8 +309,7 @@
         "label": "扎什倫布寺 (歷代班禪)",
         "url": "https://www.greattibettour.com/tw/tibet-attractions/tashilhunpo-monastery-369"
       }
-    ],
-    "description": "<p>若天氣許可，欣賞完珠峰日出後下撤。</p><p>回到日喀則，參觀班禪大師駐錫地<b>【扎什倫布寺】</b>，感受與前藏截然不同的寺院風格。</p>"
+    ]
   },
   {
     "day": 8,
@@ -331,6 +331,7 @@
     "weather_advice": "草原風大乾燥。",
     "stay": "當雄四季富氧酒店",
     "tips": "當雄海拔 4200m 仍高，注意保暖。",
+    "web_anchor": "第八天：日喀則",
     "map_url": "https://www.google.com/maps/search/?api=1&query=當雄四季富氧酒店",
     "route": {
       "start": "日喀则市",
@@ -348,8 +349,7 @@
       {
         "label": "當雄 (納木措門戶)"
       }
-    ],
-    "description": "<p>今日沿著藏北線前行，欣賞遼闊的草原風光與成群的牛羊。</p><p>翻越雪古拉山口，抵達納木措的門戶——當雄縣。</p>"
+    ]
   },
   {
     "day": 9,
@@ -372,6 +372,7 @@
     "weather_advice": "湖邊風如刀割，極冷。",
     "stay": "拉薩瑞吉度假酒店",
     "tips": "行程最後的高海拔挑戰。晚上看秀注意保暖。",
+    "web_anchor": "第九天：當雄",
     "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店",
     "route": {
       "start": "拉萨市",
@@ -390,8 +391,7 @@
         "label": "文成公主實景劇",
         "url": "https://www.sunnyhousetours.com/chinese/explore/detail.php?PID=412"
       }
-    ],
-    "description": "<p>翻越那根拉山口，抵達天湖<b>【納木措】</b>，感受海天一色的震撼。</p><p>返回拉薩，晚間欣賞大型實景劇<b>《文成公主》</b>。</p>"
+    ]
   },
   {
     "day": 10,
@@ -413,6 +413,7 @@
     "weather_advice": "車內舒適，車外寒冷。",
     "stay": "青藏鐵路軟臥",
     "tips": "火車上有供氧. 放鬆欣賞窗外流動的風景大片。",
+    "web_anchor": "第十天",
     "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩火車站",
     "route": {
       "start": "拉萨站",
@@ -433,8 +434,7 @@
         "label": "可可西里 (藏羚羊)",
         "url": "https://www.greattibettour.com/tw/tibet-travel-tips/tibetan-antelope.html"
       }
-    ],
-    "description": "<p>搭乘<b>【青藏鐵路】</b>軟臥列車，穿越世界屋脊。</p><p>沿途經過唐古拉山口、可可西里無人區，有機會看到藏羚羊等野生動物。</p>"
+    ]
   },
   {
     "day": 11,
@@ -456,6 +456,7 @@
     "weather_advice": "抵達廣州後變熱。",
     "stay": "廣州花都白雲國際機場逸扉酒店",
     "tips": "回到平原可能會嗜睡，好好休息。",
+    "web_anchor": "第十一天",
     "map_url": "https://www.google.com/maps/search/?api=1&query=廣州花都白雲國際機場逸扉酒店",
     "route": {
       "start": "西宁站",
@@ -478,8 +479,7 @@
       {
         "label": "西寧市區"
       }
-    ],
-    "description": "<p>火車抵達西寧. 視時間安排市區遊覽，隨後前往機場轉機飛往廣州。</p>"
+    ]
   },
   {
     "day": 12,
@@ -501,6 +501,7 @@
     "weather_advice": "溫暖舒適。",
     "stay": "甜蜜的家",
     "tips": "整理照片，分享西藏回憶！",
+    "web_anchor": "第十二天",
     "map_url": "https://www.google.com/maps/search/?api=1&query=桃園國際機場",
     "route": {
       "end": "桃园国际机场",
@@ -521,7 +522,6 @@
       {
         "label": "抵達桃園機場"
       }
-    ],
-    "description": "<p>享用早餐後前往機場，搭機返回桃園，結束難忘的西藏之旅。</p>"
+    ]
   }
 ]
