@@ -458,8 +458,10 @@
     "tips": "回到平原可能會嗜睡，好好休息。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=廣州花都白雲國際機場逸扉酒店",
     "route": {
-      "end": "广州白云国际机场",
-      "mode": "flight"
+      "start": "西宁站",
+      "end": "西宁曹家堡国际机场",
+      "waypoints": "麒麟湾公园|水井巷",
+      "mode": "driving"
     },
     "flight": {
       "code": "CZ6394",
