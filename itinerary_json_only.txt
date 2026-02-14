@@ -296,9 +296,8 @@
     "tips": "回到 3840m 會覺得呼吸順暢很多，今晚好好洗澡。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店",
     "route": {
-      "start": "珠穆朗玛峰大本营",
-      "end": "日喀则市",
-      "waypoints": "扎什伦布寺",
+      "start": "珠峰大本营",
+      "end": "扎什伦布寺",
       "mode": "driving"
     },
     "highlights": [
@@ -335,8 +334,8 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=當雄四季富氧酒店",
     "route": {
       "start": "日喀则市",
-      "end": "当雄县",
-      "waypoints": "雪古拉山口",
+      "end": "当雄站",
+      "waypoints": "雪古拉山",
       "mode": "driving"
     },
     "highlights": [
@@ -375,9 +374,9 @@
     "tips": "行程最後的高海拔挑戰。晚上看秀注意保暖。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店",
     "route": {
-      "start": "当雄县",
-      "end": "拉萨市",
-      "waypoints": "那根拉山口|纳木错",
+      "start": "当雄站",
+      "end": "布达拉宫",
+      "waypoints": "纳木错",
       "mode": "driving"
     },
     "highlights": [
