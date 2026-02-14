@@ -256,11 +256,11 @@
                                 <span class="material-icons-outlined text-2xl">widgets</span>
                             </button>
 
-                            <!-- Map Button (New) -->
-                            <button v-if="currentDay.map_url || currentDay.route" @click.stop="openMap(currentDay)"
+                            <!-- Map Button (V11.1 Dynamic) -->
+                            <button v-if="mapButtonInfo" @click.stop="openMap(currentDay)"
                                 class="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-teal-600 hover:bg-teal-500 text-white text-base md:text-lg font-bold shadow-lg shadow-teal-500/20 active:scale-95 transition-all">
-                                <span class="material-icons-outlined text-xl">map</span>
-                                開啟地圖
+                                <span class="material-icons-outlined text-xl">{{ mapButtonInfo.icon }}</span>
+                                {{ mapButtonInfo.label }}
                             </button>
                         </div>
 
@@ -1294,7 +1294,7 @@
                 "stay": "深圳凱悅嘉軒酒店",
                 "tips": "今晚請早點休息，明天一早要飛往高原。阿玩旅遊承諾：若當地無素食餐廳，將會安排一般餐廳並「客製化素食餐點」，請放心用餐。",
                 "map_url": "https://www.google.com/maps/search/?api=1&query=深圳凱悅嘉軒酒店",
-                "route": { "start": "桃園國際機場", "end": "深圳凱悅嘉軒酒店", "mode": "flight" },
+                "route": { "end": "深圳宝安国际机场", "mode": "flight" },
                 "flight": { "code": "CZ3088", "from": "TPE 桃園", "to": "SZX 深圳", "dep": "13:40", "arr": "15:50", "airline": "南方航空" },
                 "highlights": [
                     { "label": "桃園機場出發" },
@@ -1314,7 +1314,7 @@
                 "stay": "林芝博泰林芝大酒店",
                 "tips": "今日動作要慢！切記不要洗澡洗頭，多喝水。",
                 "map_url": "https://www.google.com/maps/search/?api=1&query=林芝博泰林芝大酒店",
-                "route": { "start": "林芝米林機場", "end": "林芝博泰林芝大酒店", "waypoints": "雅尼國家濕地公園|色季拉山口|魯朗林海", "mode": "driving" },
+                "route": { "start": "林芝米林机场", "end": "鲁朗林海", "waypoints": "雅尼国家湿地公园|色季拉山", "mode": "driving" },
                 "flight": { "code": "CZ5417", "from": "SZX 深圳", "to": "LZY 林芝", "dep": "06:20", "arr": "11:00", "airline": "南方航空" },
                 "highlights": [
                     { "label": "飛越雪山抵達林芝" },
@@ -1336,7 +1336,7 @@
                 "stay": "拉薩瑞吉度假酒店",
                 "tips": "今晚入住拉薩 (3650m)，可能會頭痛，屬正常現象。",
                 "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店",
-                "route": { "start": "林芝博泰林芝大酒店", "end": "拉薩瑞吉度假酒店", "waypoints": "巴松措|米拉山口|色拉寺", "mode": "driving" },
+                "route": { "start": "林芝博泰林芝大酒店", "end": "拉萨瑞吉度假酒店", "waypoints": "巴松措|米拉山|色拉寺", "mode": "driving" },
                 "highlights": [
                     { "label": "林拉景觀大道" },
                     { "label": "色拉寺 (精彩辯經)", "url": "https://travel.line.me/article/4434" },
@@ -1356,7 +1356,7 @@
                 "stay": "拉薩瑞吉度假酒店",
                 "tips": "布達拉宮階梯多，請調整呼吸，不要逞強。",
                 "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩布達拉宮",
-                "route": { "start": "拉薩瑞吉度假酒店", "end": "拉薩瑞吉度假酒店", "waypoints": "布達拉宮|大昭寺|藥王山觀景台", "mode": "walking" },
+                "route": { "start": "拉薩瑞吉度假酒店", "end": "大昭寺", "waypoints": "布達拉宮|藥王山觀景台", "mode": "walking" },
                 "highlights": [
                     { "label": "布達拉宮 (參觀攻略)", "url": "https://www.findchina.tw/2021/12/potala-palace.html" },
                     { "label": "大昭寺 (覺沃佛)", "url": "https://vocus.cc/article/69776507fd89780001a57cbf" },
@@ -1375,7 +1375,7 @@
                 "stay": "日喀則希爾頓酒店",
                 "tips": "翻越 5000m 山口，下車拍照動作要慢。",
                 "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店",
-                "route": { "start": "拉薩瑞吉度假酒店", "end": "日喀則希爾頓酒店", "waypoints": "崗巴拉山口|羊卓雍措|卡若拉冰川", "mode": "driving" },
+                "route": { "start": "拉萨瑞吉度假酒店", "end": "日喀则希尔顿酒店", "waypoints": "岗巴拉山口|羊卓雍措|卡若拉冰川", "mode": "driving" },
                 "highlights": [
                     { "label": "崗巴拉山口" },
                     { "label": "羊卓雍措 (最美聖湖)", "url": "https://www.greattibettour.com/tw/tibet-attractions/yamdroktso-lake-365" },
@@ -1431,7 +1431,7 @@
                 "stay": "當雄四季富氧酒店",
                 "tips": "當雄海拔 4200m 仍高，注意保暖。",
                 "map_url": "https://www.google.com/maps/search/?api=1&query=當雄四季富氧酒店",
-                "route": { "start": "日喀則希爾頓酒店", "end": "當雄四季富氧酒店", "waypoints": "雪古拉山口", "mode": "driving" },
+                "route": { "start": "日喀則希爾頓酒店", "end": "當雄四季富氧酒店", "waypoints": "雪古拉山", "mode": "driving" },
                 "highlights": [
                     { "label": "藏北草原風光" },
                     { "label": "雪古拉山口" },
@@ -1469,7 +1469,7 @@
                 "stay": "青藏鐵路軟臥",
                 "tips": "火車上有供氧. 放鬆欣賞窗外流動的風景大片。",
                 "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩火車站",
-                "route": { "start": "拉薩瑞吉度假酒店", "end": "拉薩火車站", "mode": "driving" },
+                "route": { "end": "拉萨火车站", "mode": "train" },
                 "highlights": [
                     { "label": "青藏鐵路 (沿途美景)", "url": "https://www.findchina.tw/2021/12/qinghai-tibet-railway-guide.html" },
                     { "label": "唐古拉山口", "url": "https://vacation.eztravel.com.tw/sight/plc0000088371/tanggula-pass-%E5%94%90%E5%8F%A4%E6%8B%89%E5%B1%B1%E5%8F%A3" },
@@ -1488,7 +1488,7 @@
                 "stay": "廣州花都白雲國際機場逸扉酒店",
                 "tips": "回到平原可能會嗜睡，好好休息。",
                 "map_url": "https://www.google.com/maps/search/?api=1&query=廣州花都白雲國際機場逸扉酒店",
-                "route": { "start": "西寧火車站", "end": "廣州花都白雲國際機場逸扉酒店", "waypoints": "西寧曹家堡機場", "mode": "mix" },
+                "route": { "end": "广州白云国际机场", "mode": "flight" },
                 "flight": { "code": "CZ6394", "from": "XNN 西寧", "to": "CAN 廣州", "dep": "16:15", "arr": "21:10", "airline": "南方航空" },
                 "highlights": [
                     { "label": "青海湖遠眺" },
@@ -1507,7 +1507,7 @@
                 "stay": "甜蜜的家",
                 "tips": "整理照片，分享西藏回憶！",
                 "map_url": "https://www.google.com/maps/search/?api=1&query=桃園國際機場",
-                "route": { "start": "廣州白雲機場", "end": "桃園國際機場", "mode": "flight" },
+                "route": { "end": "桃园国际机场", "mode": "flight" },
                 "flight": { "code": "CZ3097", "from": "CAN 廣州", "to": "TPE 桃園", "dep": "11:15", "arr": "13:30", "airline": "南方航空" },
                 "highlights": [
                     { "label": "廣州白雲機場" },
@@ -1847,43 +1847,55 @@
                     return currentDay.value.locations.join(' ➝ ');
                 });
 
-                const openMap = (day) => {
+                const mapButtonInfo = computed(() => {
+                    if (!currentDay.value) return null;
+                    const day = currentDay.value;
                     if (!day.route) {
-                        // Fallback for objects without new route structure
-                        if (day.map_url) window.open(day.map_url, '_blank');
-                        return;
+                        return {
+                            url: day.map_url || '',
+                            label: '開啟地圖',
+                            icon: 'map'
+                        };
                     }
 
-                    const origin = encodeURIComponent(day.route.start);
-                    const destination = encodeURIComponent(day.route.end);
-                    let mapUrl = '';
+                    let url = '';
+                    let label = '';
+                    let icon = '';
 
-                    if (day.route.mode === 'flight') {
-                        // Flight mode: Search for destination instead of directions
-                        mapUrl = `https://www.google.com/maps/search/?api=1&query=${destination}`;
-                    } else {
-                        const baseUrl = "https://www.google.com/maps/dir/?api=1";
-                        let params = `&origin=${origin}&destination=${destination}`;
+                    const start = day.route.start;
+                    const end = day.route.end;
 
-                        // Add Travel Mode
-                        if (day.route.mode === 'walking') {
-                            params += "&travelmode=walking";
-                        } else if (day.route.mode === 'driving' || day.route.mode === 'mix') {
-                            params += "&travelmode=driving";
-                        }
-
-                        // Add Waypoints
+                    if (day.route.mode === 'driving') {
+                        // Baidu Maps Web Direction
+                        url = `http://api.map.baidu.com/direction?origin=name:${start}&destination=name:${end}&mode=driving&region=西藏&output=html&src=webapp.tibet_companion`;
+                        label = '🚗 查看路線 (百度地圖)';
+                        icon = 'directions_car';
+                    } else if (day.route.mode === 'walking') {
+                        // Google Maps Walking
+                        const origin = encodeURIComponent(start);
+                        const destination = encodeURIComponent(end);
+                        let params = `api=1&origin=${origin}&destination=${destination}&travelmode=walking`;
                         if (day.route.waypoints) {
-                            const wps = day.route.waypoints.split('|')
-                                .map(wp => encodeURIComponent(wp))
-                                .join('|');
+                            const wps = day.route.waypoints.split('|').map(w => encodeURIComponent(w)).join('|');
                             params += `&waypoints=${wps}`;
                         }
-
-                        mapUrl = baseUrl + params;
+                        url = `https://www.google.com/maps/dir/?${params}`;
+                        label = '🚶 市區導覽 (Google)';
+                        icon = 'directions_walk';
+                    } else {
+                        // Fixed point (Flight/Train)
+                        url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(end)}`;
+                        label = day.route.mode === 'train' ? '🚂 查看車站位置' : '✈️ 查看機場位置';
+                        icon = day.route.mode === 'train' ? 'train' : 'flight_takeoff';
                     }
 
-                    window.open(mapUrl, '_blank');
+                    return { url, label, icon };
+                });
+
+                const openMap = (day) => {
+                    if (mapButtonInfo.value && mapButtonInfo.value.url) {
+                        window.open(mapButtonInfo.value.url, '_blank');
+                    }
                 };
 
                 const changeDay = (delta) => {
@@ -1939,6 +1951,7 @@
                     selectDay,
                     resetToToday,
                     formattedLocations,
+                    mapButtonInfo,
                     isManualOpen,
                     // Health Tracker
                     healthRecords,

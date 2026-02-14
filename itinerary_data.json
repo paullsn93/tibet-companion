@@ -21,8 +21,7 @@
     "tips": "今晚請早點休息，明天一早要飛往高原。阿玩旅遊承諾：若當地無素食餐廳，將會安排一般餐廳並「客製化素食餐點」，請放心用餐。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=深圳凱悅嘉軒酒店",
     "route": {
-      "start": "桃園國際機場",
-      "end": "深圳凱悅嘉軒酒店",
+      "end": "深圳宝安国际机场",
       "mode": "flight"
     },
     "flight": {
@@ -68,9 +67,9 @@
     "tips": "今日動作要慢！切記不要洗澡洗頭，多喝水。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=林芝博泰林芝大酒店",
     "route": {
-      "start": "林芝米林機場",
-      "end": "林芝博泰林芝大酒店",
-      "waypoints": "雅尼國家濕地公園|色季拉山口|魯朗林海",
+      "start": "林芝米林机场",
+      "end": "鲁朗林海",
+      "waypoints": "雅尼国家湿地公园|色季拉山",
       "mode": "driving"
     },
     "flight": {
@@ -125,8 +124,8 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店",
     "route": {
       "start": "林芝博泰林芝大酒店",
-      "end": "拉薩瑞吉度假酒店",
-      "waypoints": "巴松措|米拉山口|色拉寺",
+      "end": "拉萨瑞吉度假酒店",
+      "waypoints": "巴松措|米拉山|色拉寺",
       "mode": "driving"
     },
     "highlights": [
@@ -169,8 +168,8 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩布達拉宮",
     "route": {
       "start": "拉薩瑞吉度假酒店",
-      "end": "拉薩瑞吉度假酒店",
-      "waypoints": "布達拉宮|大昭寺|藥王山觀景台",
+      "end": "大昭寺",
+      "waypoints": "布達拉宮|藥王山觀景台",
       "mode": "walking"
     },
     "highlights": [
@@ -212,9 +211,9 @@
     "tips": "翻越 5000m 山口，下車拍照動作要慢。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店",
     "route": {
-      "start": "拉薩瑞吉度假酒店",
-      "end": "日喀則希爾頓酒店",
-      "waypoints": "崗巴拉山口|羊卓雍措|卡若拉冰川",
+      "start": "拉萨瑞吉度假酒店",
+      "end": "日喀则希尔顿酒店",
+      "waypoints": "岗巴拉山口|羊卓雍措|卡若拉冰川",
       "mode": "driving"
     },
     "highlights": [
@@ -337,7 +336,7 @@
     "route": {
       "start": "日喀則希爾頓酒店",
       "end": "當雄四季富氧酒店",
-      "waypoints": "雪古拉山口",
+      "waypoints": "雪古拉山",
       "mode": "driving"
     },
     "highlights": [
@@ -418,9 +417,8 @@
     "tips": "火車上有供氧. 放鬆欣賞窗外流動的風景大片。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩火車站",
     "route": {
-      "start": "拉薩瑞吉度假酒店",
-      "end": "拉薩火車站",
-      "mode": "driving"
+      "end": "拉萨火车站",
+      "mode": "train"
     },
     "highlights": [
       {
@@ -460,10 +458,8 @@
     "tips": "回到平原可能會嗜睡，好好休息。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=廣州花都白雲國際機場逸扉酒店",
     "route": {
-      "start": "西寧火車站",
-      "end": "廣州花都白雲國際機場逸扉酒店",
-      "waypoints": "西寧曹家堡機場",
-      "mode": "mix"
+      "end": "广州白云国际机场",
+      "mode": "flight"
     },
     "flight": {
       "code": "CZ6394",
@@ -505,8 +501,7 @@
     "tips": "整理照片，分享西藏回憶！",
     "map_url": "https://www.google.com/maps/search/?api=1&query=桃園國際機場",
     "route": {
-      "start": "廣州白雲機場",
-      "end": "桃園國際機場",
+      "end": "桃园国际机场",
       "mode": "flight"
     },
     "flight": {
