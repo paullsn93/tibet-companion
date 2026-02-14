@@ -138,7 +138,7 @@
 
     <div id="app"
         class="w-full max-w-[1600px] h-full flex flex-col md:flex-row md:gap-8 md:p-8 relative overflow-hidden pt-12 md:pt-8"
-        style="padding-top: max(3.5rem, env(safe-area-inset-top));">
+        style="padding-top: max(5.5rem, env(safe-area-inset-top));">
         <!-- Landing Page (V5.0) -->
         <div id="landing-page"
             class="fixed inset-0 z-[100] bg-black flex flex-col justify-center items-center text-white bg-[url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Potala_palace23.jpg/3840px-Potala_palace23.jpg')] bg-cover bg-center bg-no-repeat">
@@ -511,7 +511,7 @@
 
                             <!-- Official External Link (V12.0 Cloud Migration) -->
                             <div class="mt-8 border-t border-slate-700/50 pt-8 flex justify-center">
-                                <a :href="`https://wannavegtour.com/product/0327cz/#:~:text=第${currentDay.day<10?'0'+currentDay.day:currentDay.day}天`"
+                                <a :href="`https://wannavegtour.com/product/0327cz/#:~:text=${encodeURIComponent('第' + currentDay.day + '天')}`"
                                     target="_blank"
                                     class="inline-flex items-center gap-3 px-8 py-5 rounded-2xl bg-slate-800 border border-amber-500/30 hover:border-amber-500/60 text-amber-200 text-xl md:text-2xl font-bold shadow-xl active:scale-95 transition-all w-full md:w-auto justify-center no-underline">
                                     📖 查看官網當日行程 (Official)
@@ -1855,7 +1855,7 @@
                 };
 
                 const enterApp = () => {
-                    resetToToday();
+                    currentIndex.value = 0; // FIXED DAY 1
                     const lp = document.getElementById('landing-page');
                     if (lp) {
                         lp.classList.add('transition-all', 'duration-500', 'opacity-0', 'pointer-events-none');
@@ -2136,7 +2136,7 @@
                         loading.value = true;
                         // Use inline data
                         itinerary.value = itineraryData;
-                        resetToToday();
+                        currentIndex.value = 0; // FIXED DAY 1
                     } catch (e) {
                         console.error(e);
                         error.value = "資料載入失敗: " + e.message;
