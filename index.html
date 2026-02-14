@@ -288,6 +288,13 @@
                             <span class="material-icons-outlined text-amber-500">warning</span>
                             ⚠️ 百度地圖預設可能會導航經拉薩的高速公路，實際行程將走 S304 雪古拉山景觀公路。
                         </div>
+
+                        <!-- V11.4 Day 10 Specific Railway Warning -->
+                        <div v-if="currentDay.day === 10"
+                            class="mx-4 md:mx-20 mt-4 p-4 rounded-2xl bg-blue-950/30 border border-blue-500/30 text-blue-200 text-lg md:text-xl font-bold flex items-center justify-center gap-2">
+                            <span class="material-icons-outlined text-blue-400">directions_railway</span>
+                            *路徑為青藏公路 (G109)，與鐵路高度平行，供路線參考。
+                        </div>
                     </header>
 
                     <!-- Loading / Error States -->
@@ -1664,7 +1671,11 @@
     "stay": "拉薩瑞吉度假酒店",
     "tips": "行程最後的高海拔挑戰。晚上看秀注意保暖。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店",
-    "route": { "start": "拉萨市", "end": "纳木错", "mode": "driving" },
+    "route": {
+      "start": "拉萨市",
+      "end": "纳木错",
+      "mode": "driving"
+    },
     "highlights": [
       {
         "label": "那根拉山口"
@@ -2174,6 +2185,11 @@
                         url = `https://www.google.com/maps/dir/?${params}`;
                         label = '🚶 市區導覽 (Google)';
                         icon = 'directions_walk';
+                    } else if (day.route.mode === 'train_route') {
+                        // Special: Qinghai-Tibet Railway Simulation (Hidden driving route)
+                        url = `http://api.map.baidu.com/direction?origin=${start}&destination=${end}&mode=driving&region=西藏&output=html&src=webapp.tibet_companion`;
+                        label = '🚂 查看青藏鐵路路線 (百度)';
+                        icon = 'train';
                     } else {
                         // Fixed point (Flight/Train)
                         url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(end)}`;

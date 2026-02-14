@@ -415,8 +415,10 @@
     "tips": "火車上有供氧. 放鬆欣賞窗外流動的風景大片。",
     "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩火車站",
     "route": {
-      "end": "拉萨火车站",
-      "mode": "train"
+      "start": "拉萨站",
+      "end": "西宁站",
+      "waypoints": "那曲站|格尔木站",
+      "mode": "train_route"
     },
     "highlights": [
       {
