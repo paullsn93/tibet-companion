@@ -508,18 +508,15 @@
                                 </li>
                             </ul>
 
-                            <!-- Detailed Description Accordion -->
-                            <details v-if="currentDay.description"
-                                class="mt-8 group/accordion border-t border-slate-700/50 pt-4">
-                                <summary
-                                    class="list-none flex items-center gap-2 text-slate-400 hover:text-cyan-400 cursor-pointer transition-colors font-bold select-none text-xl md:text-2xl">
-                                    <span
-                                        class="material-icons-outlined transition-transform group-open/accordion:rotate-90 text-2xl md:text-3xl">chevron_right</span>
-                                    📖 查看完整行程 (Read More)
-                                </summary>
-                                <div class="mt-4 text-slate-300 space-y-4 leading-loose tracking-wide text-2xl bg-slate-900/50 p-6 rounded-2xl prose prose-invert prose-lg max-w-none"
-                                    v-html="currentDay.description"></div>
-                            </details>
+                            <!-- Official External Link (V12.0 Cloud Migration) -->
+                            <div class="mt-8 border-t border-slate-700/50 pt-8 flex justify-center">
+                                <button
+                                    @click="window.open(`https://wannavegtour.com/product/0327cz/#:~:text=第${currentDay.day}天`, '_blank')"
+                                    class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-amber-600 hover:bg-amber-500 text-white text-xl md:text-2xl font-bold shadow-xl shadow-amber-900/40 active:scale-95 transition-all w-full md:w-auto justify-center">
+                                    <span class="material-symbols-outlined text-2xl md:text-3xl">menu_book</span>
+                                    📖 查看官網當日行程 (Official)
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Safety Tips (Spans 2 columns on Desktop) -->
