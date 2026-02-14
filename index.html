@@ -2023,6 +2023,11 @@
 
                 // V14.0: KML Export
                 const downloadKML = () => {
+                    const safeText = (text) => {
+                        if (!text) return '';
+                        return `<![CDATA[${text}]]>`;
+                    };
+
                     let kmlContent = `<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
@@ -2032,8 +2037,8 @@
                     allMarkers.forEach(point => {
                         kmlContent += `
     <Placemark>
-      <name>${point.name}</name>
-      <description>${point.desc || ''}</description>
+      <name>${safeText(point.name)}</name>
+      <description>${safeText(point.desc)}</description>
       <Point>
         <coordinates>${point.lon},${point.lat},0</coordinates>
       </Point>
@@ -2053,7 +2058,7 @@
                     document.body.removeChild(link);
                 };
 
-                                // Expose resetToDayOne globally so landing page can call it
+                // Expose resetToDayOne globally so landing page can call it
                 window.resetToDayOne = () => {
                     currentIndex.value = 0;
                     window.scrollTo({ top: 0, behavior: 'smooth' }); // Also scroll to top
