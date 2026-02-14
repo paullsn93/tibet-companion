@@ -807,7 +807,7 @@
                                 </button>
                                 <button @click="downloadKML"
                                     class="flex flex-col items-center justify-center p-6 bg-emerald-900/50 border border-emerald-700 rounded-2xl text-white text-lg font-bold shadow-lg hover:bg-emerald-800/70 transition-all active:scale-95">
-                                    <span class="material-icons-outlined text-4xl mb-2 text-emerald-400">map</span>
+                                    <span class="material-icons-outlined text-4xl mb-2 text-emerald-400">public</span>
                                     下載全景地圖
                                 </button>
 
@@ -1844,33 +1844,42 @@
 
         // V14.0: All Markers for KML Export
         const allMarkers = [
-          // 機場 Airports
-          { name: "桃園國際機場", lat: 25.0797, lon: 121.2342, type: "airport" },
-          { name: "深圳寶安國際機場", lat: 22.6393, lon: 113.8107, type: "airport" },
-          { name: "林芝米林機場", lat: 29.3046, lon: 94.3367, type: "airport" },
-          { name: "拉薩貢嘎機場", lat: 29.2935, lon: 90.9123, type: "airport" },
-          { name: "西寧曹家堡機場", lat: 36.5284, lon: 102.0433, type: "airport" },
-          { name: "廣州白雲國際機場", lat: 23.3959, lon: 113.2988, type: "airport" },
-          // 飯店 Hotels
-          { name: "深圳凱悅嘉軒酒店", lat: 22.6450, lon: 113.8200, type: "hotel" },
-          { name: "林芝博泰林芝大酒店", lat: 29.6580, lon: 94.3680, type: "hotel" },
-          { name: "拉薩瑞吉度假酒店", lat: 29.6515, lon: 91.1390, type: "hotel" },
-          { name: "日喀則希爾頓酒店", lat: 29.2680, lon: 88.8850, type: "hotel" },
-          { name: "珠峰大本營帳篷區", lat: 28.1408, lon: 86.8450, type: "hotel" },
-          { name: "當雄四季富氧酒店", lat: 30.4850, lon: 91.1020, type: "hotel" },
-          { name: "廣州逸扉酒店", lat: 23.3850, lon: 113.3000, type: "hotel" },
-          // 景點 Attractions
-          { name: "雅尼國家濕地公園", lat: 29.4700, lon: 94.4000, type: "spot" },
-          { name: "魯朗林海", lat: 29.7300, lon: 94.7300, type: "spot" },
-          { name: "巴松措", lat: 29.9900, lon: 93.8800, type: "spot" },
-          { name: "布達拉宮", lat: 29.6555, lon: 91.1185, type: "spot" },
-          { name: "大昭寺", lat: 29.6533, lon: 91.1320, type: "spot" },
-          { name: "羊卓雍措", lat: 29.0700, lon: 90.6800, type: "spot" },
-          { name: "卡若拉冰川", lat: 28.9100, lon: 90.1700, type: "spot" },
-          { name: "絨布寺", lat: 28.1700, lon: 86.8300, type: "spot" },
-          { name: "扎什倫布寺", lat: 29.2690, lon: 88.8700, type: "spot" },
-          { name: "納木措", lat: 30.7200, lon: 90.9600, type: "spot" },
-          { name: "青海湖", lat: 36.8000, lon: 100.2000, type: "spot" }
+          // --- 機場 (Airports) ---
+          { name: "桃園國際機場", lat: 25.0797, lon: 121.2342, desc: "Day 1 & 12 起訖點" },
+          { name: "深圳寶安國際機場", lat: 22.6393, lon: 113.8107, desc: "Day 1 轉機" },
+          { name: "林芝米林機場", lat: 29.3046, lon: 94.3367, desc: "Day 2 抵達西藏" },
+          { name: "西寧曹家堡機場", lat: 36.5284, lon: 102.0433, desc: "Day 11 轉機" },
+          { name: "廣州白雲國際機場", lat: 23.3959, lon: 113.2988, desc: "Day 11 轉機" },
+
+          // --- 飯店 (Hotels) ---
+          { name: "深圳凱悅嘉軒酒店", lat: 22.6450, lon: 113.8200, desc: "Day 1 住宿" },
+          { name: "林芝博泰林芝大酒店", lat: 29.6580, lon: 94.3680, desc: "Day 2 住宿" },
+          { name: "拉薩瑞吉度假酒店", lat: 29.6515, lon: 91.1390, desc: "Day 3,4,9 連泊" },
+          { name: "日喀則希爾頓酒店", lat: 29.2680, lon: 88.8850, desc: "Day 5,7 住宿" },
+          { name: "珠峰大本營帳篷區", lat: 28.1408, lon: 86.8450, desc: "Day 6 住宿 (海拔5200m)" },
+          { name: "當雄四季富氧酒店", lat: 30.4850, lon: 91.1020, desc: "Day 8 住宿" },
+          { name: "廣州逸扉酒店", lat: 23.3850, lon: 113.3000, desc: "Day 11 住宿" },
+
+          // --- 景點 (Attractions) ---
+          { name: "雅尼國家濕地公園", lat: 29.4700, lon: 94.4000, desc: "Day 2" },
+          { name: "色季拉山口", lat: 29.6000, lon: 94.6300, desc: "Day 2 遠眺南迦巴瓦" },
+          { name: "魯朗林海", lat: 29.7300, lon: 94.7300, desc: "Day 2 東方瑞士" },
+          { name: "巴松措", lat: 29.9900, lon: 93.8800, desc: "Day 3 紅教聖湖" },
+          { name: "米拉山口", lat: 29.8300, lon: 92.3500, desc: "Day 3" },
+          { name: "布達拉宮", lat: 29.6555, lon: 91.1185, desc: "Day 4 世界遺產" },
+          { name: "大昭寺", lat: 29.6533, lon: 91.1320, desc: "Day 4 覺沃佛" },
+          { name: "藥王山觀景台", lat: 29.6540, lon: 91.1160, desc: "Day 4 拍攝點" },
+          { name: "崗巴拉山口", lat: 29.1800, lon: 90.6200, desc: "Day 5 俯瞰羊湖" },
+          { name: "羊卓雍措", lat: 29.0700, lon: 90.6800, desc: "Day 5 三大聖湖" },
+          { name: "卡若拉冰川", lat: 28.9100, lon: 90.1700, desc: "Day 5" },
+          { name: "加烏拉山口", lat: 28.5300, lon: 87.0800, desc: "Day 6 觀賞8000m雪山" },
+          { name: "絨布寺", lat: 28.1700, lon: 86.8300, desc: "Day 6 世界最高寺廟" },
+          { name: "扎什倫布寺", lat: 29.2690, lon: 88.8700, desc: "Day 7 班禪駐錫地" },
+          { name: "雪古拉山口", lat: 30.1500, lon: 90.5800, desc: "Day 8 穿越藏北" },
+          { name: "那根拉山口", lat: 30.5300, lon: 91.0700, desc: "Day 9 遠眺納木措" },
+          { name: "納木措", lat: 30.7200, lon: 90.9600, desc: "Day 9 天湖" },
+          { name: "唐古拉山口", lat: 32.8800, lon: 91.8200, desc: "Day 10 青藏鐵路最高點" },
+          { name: "青海湖", lat: 36.8000, lon: 100.2000, desc: "Day 11 車窗遠眺" }
         ];
 
         createApp({
@@ -2017,20 +2026,14 @@
                     let kmlContent = `<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
-    <name>西藏12日全景地圖</name>`;
+    <name>西藏12日全景地圖</name>
+    <description>由 Tibet Companion App 生成</description>`;
 
                     allMarkers.forEach(point => {
-                        let icon = '';
-                        if(point.type === 'airport') icon = 'http://maps.google.com/mapfiles/kml/shapes/airports.png';
-                        else if(point.type === 'hotel') icon = 'http://maps.google.com/mapfiles/kml/shapes/lodging.png';
-                        else icon = 'http://maps.google.com/mapfiles/kml/shapes/camera.png';
-
                         kmlContent += `
     <Placemark>
       <name>${point.name}</name>
-      <Style>
-        <IconStyle><Icon><href>${icon}</href></Icon></IconStyle>
-      </Style>
+      <description>${point.desc || ''}</description>
       <Point>
         <coordinates>${point.lon},${point.lat},0</coordinates>
       </Point>
@@ -2050,7 +2053,7 @@
                     document.body.removeChild(link);
                 };
 
-                // Expose resetToDayOne globally so landing page can call it
+                                // Expose resetToDayOne globally so landing page can call it
                 window.resetToDayOne = () => {
                     currentIndex.value = 0;
                     window.scrollTo({ top: 0, behavior: 'smooth' }); // Also scroll to top
