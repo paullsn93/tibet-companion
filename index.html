@@ -156,7 +156,7 @@
                 </div>
 
                 <p id="countdown-text" class="text-xl md:text-2xl font-light tracking-wide text-slate-200">
-                    距離 2026.03.27 出發還有 {{ countdown }} 天
+                    距離 2026.03.26 出發還有 {{ countdown }} 天
                 </p>
 
                 <div class="mt-16 flex flex-col items-center gap-4">
@@ -509,9 +509,27 @@
                                 </li>
                             </ul>
 
+                            <!-- 住宿飯店 (v15.0 新增) -->
+                            <div v-if="currentDay.stay && currentDay.show_hotel_map !== false"
+                                class="mt-6 p-5 rounded-2xl bg-gradient-to-r from-slate-800/80 to-slate-700/60 border border-slate-600/40">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="material-icons text-amber-400 text-xl">hotel</span>
+                                    <span
+                                        class="text-slate-400 text-base font-semibold tracking-wide uppercase">今晚住宿</span>
+                                </div>
+                                <div class="flex items-center justify-between gap-3 flex-wrap">
+                                    <span class="text-white text-xl font-bold">{{ currentDay.stay }}</span>
+                                    <a :href="'https://map.baidu.com/?newmap=1&ie=utf-8&s=s%26wd%3D' + encodeURIComponent(currentDay.stay)"
+                                        target="_blank"
+                                        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600/80 hover:bg-blue-500/80 text-white text-base font-semibold active:scale-95 transition-all no-underline shrink-0">
+                                        <span class="material-icons text-base">place</span>
+                                        百度地圖
+                                    </a>
+                                </div>
+                            </div>
                             <!-- Official External Link (V12.0 Cloud Migration) -->
                             <div class="mt-8 border-t border-slate-700/50 pt-8 flex justify-center">
-                                <a :href="`https://wannavegtour.com/product/0327cz/#:~:text=${encodeURIComponent('第' + currentDay.day + '天')}`"
+                                <a :href="`https://wannavegtour.com/product/0326cz/#:~:text=${encodeURIComponent(currentDay.day === 10 ? '第十天：拉薩→西寧' : '第' + currentDay.day + '天')}`"
                                     target="_blank"
                                     class="inline-flex items-center gap-3 px-8 py-5 rounded-2xl bg-slate-800 border border-amber-500/30 hover:border-amber-500/60 text-amber-200 text-xl md:text-2xl font-bold shadow-xl active:scale-95 transition-all w-full md:w-auto justify-center no-underline">
                                     📖 查看官網當日行程 (Official)
@@ -805,9 +823,9 @@
                                     <span class="material-icons-outlined text-4xl mb-2 text-teal-400">backpack</span>
                                     行李清單
                                 </button>
-                                <a href="https://earth.google.com/earth/d/17RseOVaMtPcovzugsf9PAYKp9bvaKcJ-?usp=sharing" 
-                                   target="_blank"
-                                   class="flex flex-col items-center justify-center p-6 bg-emerald-900/50 border border-emerald-800 rounded-2xl text-white text-lg font-bold shadow-lg hover:bg-emerald-800/70 transition-all active:scale-95 no-underline">
+                                <a href="https://earth.google.com/earth/d/17RseOVaMtPcovzugsf9PAYKp9bvaKcJ-?usp=sharing"
+                                    target="_blank"
+                                    class="flex flex-col items-center justify-center p-6 bg-emerald-900/50 border border-emerald-800 rounded-2xl text-white text-lg font-bold shadow-lg hover:bg-emerald-800/70 transition-all active:scale-95 no-underline">
                                     <span class="material-icons-outlined text-4xl mb-2 text-emerald-400">public</span>
                                     觀看全景地圖
                                 </a>
@@ -1277,7 +1295,7 @@
             const countdownNumber = document.getElementById('countdown-number');
             const countdownText = document.getElementById('countdown-text');
 
-            const targetDate = new Date('2026-03-27T00:00:00');
+            const targetDate = new Date('2026-03-26T00:00:00');
             const now = new Date();
             const diffTime = targetDate - now;
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Round up for "days left"
@@ -1288,7 +1306,7 @@
             } else {
                 // Show Countdown
                 if (countdownNumber) countdownNumber.innerText = diffDays;
-                if (countdownText) countdownText.innerText = `距離 2026.03.27 出發還有 ${diffDays} 天`;
+                if (countdownText) countdownText.innerText = `距離 2026.03.26 出發還有 ${diffDays} 天`;
             }
         })();
 
@@ -1314,536 +1332,559 @@
 
         // --- DO NOT REMOVE THIS LINE: itineraryData Start ---
         const itineraryData = [
-  {
-    "day": 1,
-    "date": "2026-03-27",
-    "title": "啟程：前往轉機點",
-    "locations": [
-      "桃園",
-      "深圳"
-    ],
-    "altitude": {
-      "avg": 50,
-      "max": 100,
-      "sleep": 50
+    {
+        "day": 1,
+        "date": "2026-03-26",
+        "title": "啟程：前往轉機點",
+        "locations": [
+            "桃園",
+            "廣州"
+        ],
+        "altitude": {
+            "avg": 50,
+            "max": 100,
+            "sleep": 50
+        },
+        "coords": {
+            "lat": 23.3924,
+            "lon": 113.2988
+        },
+        "weather_advice": "舒適 (15-20°C)，穿著輕便。",
+        "stay": "廣州花都白雲國際機場逸扉酒店",
+        "tips": "今晚請早點休息，明天一早要飛往高原。阿玩旅遊承諾：若當地無素食餐廳，將會安排一般餐廳並「客製化素食餐點」，請放心用餐。",
+        "web_anchor": "第1天｜桃園 ✈ 廣州（中轉）",
+        "map_url": "https://www.google.com/maps/search/?api=1&query=廣州花都白雲國際機場逸扉酒店",
+        "route": {
+            "end": "广州白云国际机场",
+            "mode": "flight"
+        },
+        "flight": {
+            "code": "CZ3098",
+            "from": "TPE 桃園",
+            "to": "CAN 廣州",
+            "dep": "14:55",
+            "arr": "17:20",
+            "airline": "南方航空"
+        },
+        "highlights": [
+            {
+                "label": "桃園機場出發"
+            },
+            {
+                "label": "抵達廣州"
+            },
+            {
+                "label": "素食晚餐"
+            }
+        ]
     },
-    "coords": {
-      "lat": 22.5431,
-      "lon": 114.0579
+    {
+        "day": 2,
+        "date": "2026-03-27",
+        "title": "初抵高原：西藏江南",
+        "locations": [
+            "廣州",
+            "林芝"
+        ],
+        "altitude": {
+            "avg": 3000,
+            "max": 4720,
+            "sleep": 2900
+        },
+        "coords": {
+            "lat": 29.65,
+            "lon": 94.3667
+        },
+        "weather_advice": "涼爽 (5-15°C)，抵達後穿防風外套。",
+        "stay": "林芝悅皇冠度假酒店",
+        "tips": "今日動作要慢！切記不要洗澡洗頭，多喝水。",
+        "web_anchor": "第2天｜廣州 ✈ 林芝・哈達迎賓・雅尼濕地・色季拉山・魯朗小鎮",
+        "map_url": "https://www.google.com/maps/search/?api=1&query=林芝悅皇冠度假酒店",
+        "route": {
+            "start": "林芝米林机场",
+            "end": "鲁朗林海风景区",
+            "waypoints": "雅尼国家湿地公园|色季拉山口",
+            "mode": "driving"
+        },
+        "flight": {
+            "code": "CZ3477",
+            "from": "CAN 廣州",
+            "to": "LZY 林芝",
+            "dep": "07:05",
+            "arr": "11:00",
+            "airline": "南方航空"
+        },
+        "highlights": [
+            {
+                "label": "飛越雪山抵達林芝"
+            },
+            {
+                "label": "哈達迎賓"
+            },
+            {
+                "label": "雅尼濕地玻璃觀景台"
+            },
+            {
+                "label": "色季拉山口 (觀南迦巴瓦)",
+                "url": "https://www.tibet.tw/gonglue/370.html"
+            },
+            {
+                "label": "魯朗林海",
+                "url": "https://www.tibet.tw/gonglue/255.html"
+            }
+        ]
     },
-    "weather_advice": "舒適 (20°C)，穿著輕便。",
-    "stay": "深圳凱悅嘉軒酒店",
-    "tips": "今晚請早點休息，明天一早要飛往高原。阿玩旅遊承諾：若當地無素食餐廳，將會安排一般餐廳並「客製化素食餐點」，請放心用餐。",
-    "web_anchor": "第一天：桃園",
-    "map_url": "https://www.google.com/maps/search/?api=1&query=深圳凱悅嘉軒酒店",
-    "route": {
-      "end": "深圳宝安国际机场",
-      "mode": "flight"
+    {
+        "day": 3,
+        "date": "2026-03-28",
+        "title": "前往聖城：林拉公路",
+        "locations": [
+            "林芝",
+            "拉薩"
+        ],
+        "altitude": {
+            "avg": 3200,
+            "max": 5013,
+            "sleep": 3650
+        },
+        "coords": {
+            "lat": 29.6516,
+            "lon": 91.1721
+        },
+        "weather_advice": "日照強，墨鏡必備。",
+        "stay": "拉薩聖地天堂洲際大飯店",
+        "tips": "今晚入住拉薩 (3650m)，可能會頭痛，屬正常現象。",
+        "web_anchor": "第3天｜林芝 → 拉薩・色拉寺參訪・藏裝旅拍",
+        "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩聖地天堂洲際大飯店",
+        "route": {
+            "start": "林芝市",
+            "end": "拉萨市",
+            "waypoints": "巴松措|米拉山口",
+            "mode": "driving"
+        },
+        "highlights": [
+            {
+                "label": "林拉景觀大道"
+            },
+            {
+                "label": "色拉寺 (精彩辯經)",
+                "url": "https://travel.line.me/article/4434"
+            },
+            {
+                "label": "八廓街",
+                "url": "https://www.tibet.tw/gonglue/383.html"
+            },
+            {
+                "label": "藏裝旅拍體驗 (含造型與精修)"
+            }
+        ]
     },
-    "flight": {
-      "code": "CZ3088",
-      "from": "TPE 桃園",
-      "to": "SZX 深圳",
-      "dep": "13:40",
-      "arr": "15:50",
-      "airline": "南方航空"
+    {
+        "day": 4,
+        "date": "2026-03-29",
+        "title": "聖城巡禮：世界遺產",
+        "locations": [
+            "拉薩"
+        ],
+        "altitude": {
+            "avg": 3650,
+            "max": 3700,
+            "sleep": 3650
+        },
+        "coords": {
+            "lat": 29.6516,
+            "lon": 91.1721
+        },
+        "weather_advice": "乾燥，加強保濕防曬。",
+        "stay": "拉薩聖地天堂洲際大飯店",
+        "tips": "布達拉宮階梯多，請調整呼吸，不要逞強。進入不可攜帶水、飲料、化妝品、刀具、打火機。",
+        "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩布達拉宮",
+        "route": {
+            "start": "拉薩聖地天堂洲際大飯店",
+            "end": "大昭寺",
+            "waypoints": "布達拉宮|藥王山觀景台",
+            "mode": "walking"
+        },
+        "highlights": [
+            {
+                "label": "布達拉宮 (含導覽耳機)",
+                "url": "https://www.findchina.tw/2021/12/potala-palace.html"
+            },
+            {
+                "label": "大昭寺 (覺沃佛・含導覽耳機)",
+                "url": "https://vocus.cc/article/69776507fd89780001a57cbf"
+            },
+            {
+                "label": "藥王山觀景台",
+                "url": "https://www.chinatibet.tw/jingdian/566.html"
+            },
+            {
+                "label": "八廓街轉經道",
+                "url": "https://www.tibet.tw/gonglue/383.html"
+            },
+            {
+                "label": "布達拉宮夜景 (晴天限定)",
+                "url": "https://www.findchina.tw/2021/12/potala-palace.html"
+            }
+        ],
+        "web_anchor": "第4天｜拉薩深度文化巡禮・布達拉宮・藥王山觀景台・大昭寺・八廓街・布達拉宮夜景"
     },
-    "highlights": [
-      {
-        "label": "桃園機場出發"
-      },
-      {
-        "label": "抵達深圳"
-      },
-      {
-        "label": "素食晚餐"
-      }
-    ]
-  },
-  {
-    "day": 2,
-    "date": "2026-03-28",
-    "title": "初抵高原：西藏江南",
-    "locations": [
-      "深圳",
-      "林芝"
-    ],
-    "altitude": {
-      "avg": 3000,
-      "max": 4720,
-      "sleep": 2900
+    {
+        "day": 5,
+        "date": "2026-03-30",
+        "title": "聖湖與冰川",
+        "locations": [
+            "拉薩",
+            "羊湖",
+            "日喀則"
+        ],
+        "altitude": {
+            "avg": 4000,
+            "max": 5030,
+            "sleep": 3840
+        },
+        "coords": {
+            "lat": 29.2667,
+            "lon": 88.8833
+        },
+        "weather_advice": "山口風大，戴毛帽圍巾。",
+        "stay": "日喀則希爾頓酒店",
+        "tips": "翻越 5030m 崗巴拉山口，下車拍照動作要慢。拍藏獒或犛牛需付費。",
+        "web_anchor": "第5天｜前往日喀則・羊卓雍措・卡若拉冰川・宗山遺址",
+        "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店",
+        "route": {
+            "start": "拉萨市",
+            "end": "日喀则市",
+            "waypoints": "羊卓雍措|卡若拉冰川",
+            "mode": "driving"
+        },
+        "highlights": [
+            {
+                "label": "崗巴拉山口"
+            },
+            {
+                "label": "羊卓雍措 (最美聖湖)",
+                "url": "https://www.greattibettour.com/tw/tibet-attractions/yamdroktso-lake-365"
+            },
+            {
+                "label": "卡若拉冰川",
+                "url": "https://www.travel168.com.tw/blogInfo?n=35"
+            },
+            {
+                "label": "宗山遺址"
+            }
+        ]
     },
-    "coords": {
-      "lat": 29.65,
-      "lon": 94.3667
+    {
+        "day": 6,
+        "date": "2026-03-31",
+        "title": "巔峰挑戰：珠峰大本營",
+        "locations": [
+            "日喀則",
+            "珠峰"
+        ],
+        "altitude": {
+            "avg": 4500,
+            "max": 5200,
+            "sleep": 5200
+        },
+        "coords": {
+            "lat": 28.1408,
+            "lon": 86.845
+        },
+        "weather_advice": "極寒 (-20~0°C)，全副武裝，備暖暖包。",
+        "stay": "維也納國際酒店（紮西宗鄉珠峰小鎮店）",
+        "tips": "全程最高挑戰 5200m。隨身攜帶氧氣瓶。若遇雲層或風雪，日落行程可能取消。",
+        "web_anchor": "第6天｜朝聖世界之巔・珠穆朗瑪峰・絨布寺・珠峰日落",
+        "map_url": "https://www.google.com/maps/search/?api=1&query=珠峰大本營",
+        "route": {
+            "start": "日喀则市",
+            "end": "珠穆朗玛峰大本营",
+            "waypoints": "加乌拉山口|绒布寺",
+            "mode": "driving"
+        },
+        "highlights": [
+            {
+                "label": "加烏拉山口 (8000m雪山群)",
+                "url": "https://www.greattibettour.com/tw/tibet-attractions/gawu-la-pass.html"
+            },
+            {
+                "label": "絨布寺",
+                "url": "https://vacation.eztravel.com.tw/sight/plc0000087590/rongbuk-monastery-%E7%B5%A8%E5%B8%83%E5%AF%BA"
+            },
+            {
+                "label": "珠峰大本營 (住宿攻略)",
+                "url": "https://www.tibet.tw/gonglue/tibet-ebc-accommodation.html"
+            },
+            {
+                "label": "珠峰日落 (晴天限定)"
+            }
+        ]
     },
-    "weather_advice": "涼爽 (5-15°C)，抵達後穿防風外套。",
-    "stay": "林芝博泰林芝大酒店",
-    "tips": "今日動作要慢！切記不要洗澡洗頭，多喝水。",
-    "web_anchor": "第二天：深圳",
-    "map_url": "https://www.google.com/maps/search/?api=1&query=林芝博泰林芝大酒店",
-    "route": {
-      "start": "林芝米林机场",
-      "end": "鲁朗林海风景区",
-      "waypoints": "雅尼国家湿地公园|色季拉山口",
-      "mode": "driving"
+    {
+        "day": 7,
+        "date": "2026-04-01",
+        "title": "告別珠峰：返回日喀則",
+        "locations": [
+            "珠峰",
+            "日喀則"
+        ],
+        "altitude": {
+            "avg": 4200,
+            "max": 5200,
+            "sleep": 3840
+        },
+        "coords": {
+            "lat": 29.2667,
+            "lon": 88.8833
+        },
+        "weather_advice": "清晨極冷，回暖。",
+        "stay": "日喀則希爾頓酒店",
+        "tips": "回到 3840m 會覺得呼吸順暢很多，今晚好好洗澡。",
+        "web_anchor": "第7天｜返回日喀則・加烏拉山口・遠眺珠峰群峰",
+        "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店",
+        "route": {
+            "start": "珠峰大本营",
+            "end": "日喀则市",
+            "waypoints": "加乌拉山口",
+            "mode": "driving"
+        },
+        "highlights": [
+            {
+                "label": "珠峰日出",
+                "url": "https://www.tibet.tw/gonglue/tibet-ebc-accommodation.html"
+            },
+            {
+                "label": "加烏拉山口 (五座八千米群峰)",
+                "url": "https://www.greattibettour.com/tw/tibet-attractions/gawu-la-pass.html"
+            }
+        ]
     },
-    "flight": {
-      "code": "CZ5417",
-      "from": "SZX 深圳",
-      "to": "LZY 林芝",
-      "dep": "06:20",
-      "arr": "11:00",
-      "airline": "南方航空"
+    {
+        "day": 8,
+        "date": "2026-04-02",
+        "title": "探索後藏：扎什倫布寺・藏北草原",
+        "locations": [
+            "日喀則",
+            "當雄"
+        ],
+        "altitude": {
+            "avg": 4000,
+            "max": 4500,
+            "sleep": 4200
+        },
+        "coords": {
+            "lat": 30.4833,
+            "lon": 91.1
+        },
+        "weather_advice": "草原風大乾燥，保暖防風。",
+        "stay": "當秀富氧酒店",
+        "tips": "當雄海拔 4200m 仍高，注意保暖。",
+        "web_anchor": "第8天｜探索後藏・扎什倫布寺・當雄・藏北草原",
+        "map_url": "https://www.google.com/maps/search/?api=1&query=當秀富氧酒店",
+        "route": {
+            "start": "日喀则市",
+            "end": "当雄站",
+            "waypoints": "扎什伦布寺|雪古拉山",
+            "mode": "driving"
+        },
+        "highlights": [
+            {
+                "label": "扎什倫布寺 (歷代班禪駐錫地)",
+                "url": "https://www.greattibettour.com/tw/tibet-attractions/tashilhunpo-monastery-369"
+            },
+            {
+                "label": "藏北草原風光"
+            },
+            {
+                "label": "當雄 (納木措門戶)",
+                "url": "https://www.chinatibet.tw/jingdian/130.html"
+            }
+        ]
     },
-    "highlights": [
-      {
-        "label": "飛越雪山抵達林芝"
-      },
-      {
-        "label": "哈達迎賓"
-      },
-      {
-        "label": "雅尼濕地"
-      },
-      {
-        "label": "色季拉山口 (觀南迦巴瓦)",
-        "url": "https://www.tibet.tw/gonglue/370.html"
-      },
-      {
-        "label": "魯朗林海",
-        "url": "https://www.tibet.tw/gonglue/255.html"
-      }
-    ]
-  },
-  {
-    "day": 3,
-    "date": "2026-03-29",
-    "title": "前往聖城：林拉公路",
-    "locations": [
-      "林芝",
-      "拉薩"
-    ],
-    "altitude": {
-      "avg": 3200,
-      "max": 5013,
-      "sleep": 3650
+    {
+        "day": 9,
+        "date": "2026-04-03",
+        "title": "天湖納木措",
+        "locations": [
+            "當雄",
+            "納木措",
+            "拉薩"
+        ],
+        "altitude": {
+            "avg": 4000,
+            "max": 5190,
+            "sleep": 3650
+        },
+        "coords": {
+            "lat": 30.72,
+            "lon": 90.96
+        },
+        "weather_advice": "湖邊風如刀割，極冷。",
+        "stay": "拉薩超五星瑞吉度假酒店",
+        "tips": "行程最後的高海拔挑戰。翻越 5190m 那根拉山口，如遇封路將調整替代景點。晚上看秀注意保暖。",
+        "web_anchor": "第9天｜朝聖納木措・天湖巡禮・返回拉薩・《文成公主》實景劇",
+        "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店",
+        "route": {
+            "start": "拉萨市",
+            "end": "纳木错",
+            "mode": "driving"
+        },
+        "highlights": [
+            {
+                "label": "那根拉山口 (5190m)",
+                "url": "https://www.chinatibet.tw/jingdian/namucuo.html"
+            },
+            {
+                "label": "納木措 (天湖・含景交車)",
+                "url": "https://www.chinatibet.tw/jingdian/130.html"
+            },
+            {
+                "label": "文成公主實景劇",
+                "url": "https://www.sunnyhousetours.com/chinese/explore/detail.php?PID=412"
+            }
+        ]
     },
-    "coords": {
-      "lat": 29.6516,
-      "lon": 91.1721
+    {
+        "day": 10,
+        "date": "2026-04-04",
+        "title": "青藏鐵路",
+        "locations": [
+            "拉薩",
+            "火車上"
+        ],
+        "altitude": {
+            "avg": 4000,
+            "max": 5072,
+            "sleep": 3000
+        },
+        "coords": {
+            "lat": 32.7,
+            "lon": 92.4333
+        },
+        "weather_advice": "車內舒適供氧供暖，車外寒冷。",
+        "stay": "青藏鐵路軟臥（四人一室）",
+        "tips": "火車上有供氧，放鬆欣賞窗外流動的風景大片。軟臥若供應不足將改硬臥或退差額 NT$1,500/人。",
+        "web_anchor": "第10天｜搭乘青藏鐵路・穿越世界屋脊・拉薩 → 西寧",
+        "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩火車站",
+        "route": {
+            "start": "拉萨站",
+            "end": "西宁站",
+            "waypoints": "那曲站|格尔木站",
+            "mode": "train_route"
+        },
+        "highlights": [
+            {
+                "label": "青藏鐵路 (沿途美景)",
+                "url": "https://www.findchina.tw/2021/12/qinghai-tibet-railway-guide.html"
+            },
+            {
+                "label": "唐古拉山口 (5072m世界最高車站)",
+                "url": "https://vacation.eztravel.com.tw/sight/plc0000088371/tanggula-pass-%E5%94%90%E5%8F%A4%E6%8B%89%E5%B1%B1%E5%8F%A3"
+            },
+            {
+                "label": "可可西里 (藏羚羊)"
+            }
+        ],
+        "show_hotel_map": false
     },
-    "weather_advice": "日照強，墨鏡必備。",
-    "stay": "拉薩瑞吉度假酒店",
-    "tips": "今晚入住拉薩 (3650m)，可能會頭痛，屬正常現象。",
-    "web_anchor": "第三天：林芝",
-    "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店",
-    "route": {
-      "start": "林芝市",
-      "end": "拉萨市",
-      "waypoints": "巴松措|米拉山口",
-      "mode": "driving"
+    {
+        "day": 11,
+        "date": "2026-04-05",
+        "title": "抵達西寧：轉機",
+        "locations": [
+            "西寧",
+            "廣州"
+        ],
+        "altitude": {
+            "avg": 2200,
+            "max": 3000,
+            "sleep": 50
+        },
+        "coords": {
+            "lat": 36.6209,
+            "lon": 101.7801
+        },
+        "weather_advice": "抵達廣州後變熱，注意衣著調整。",
+        "stay": "廣州花都白雲國際機場逸扉酒店",
+        "tips": "回到平原可能會嗜睡，好好休息。景點依火車抵達時間彈性調整。",
+        "web_anchor": "第11天｜青海湖沿線風光・抵達西寧・麒麟灣・水井巷・飛往廣州",
+        "map_url": "https://www.google.com/maps/search/?api=1&query=廣州花都白雲國際機場逸扉酒店",
+        "route": {
+            "start": "西宁站",
+            "end": "西宁曹家堡国际机场",
+            "waypoints": "麒麟湾公园|水井巷",
+            "mode": "driving"
+        },
+        "flight": {
+            "code": "CZ6394",
+            "from": "XNN 西寧",
+            "to": "CAN 廣州",
+            "dep": "16:15",
+            "arr": "21:10",
+            "airline": "南方航空（經停貴陽）"
+        },
+        "highlights": [
+            {
+                "label": "青海湖遠眺 (車窗風景)"
+            },
+            {
+                "label": "麒麟灣公園"
+            },
+            {
+                "label": "水井巷商圈 (伴手禮)"
+            }
+        ]
     },
-    "highlights": [
-      {
-        "label": "林拉景觀大道"
-      },
-      {
-        "label": "色拉寺 (精彩辯經)",
-        "url": "https://travel.line.me/article/4434"
-      },
-      {
-        "label": "八廓街",
-        "url": "https://www.tibet.tw/gonglue/383.html"
-      },
-      {
-        "label": "藏裝旅拍體驗 (含造型與精修)"
-      }
-    ]
-  },
-  {
-    "day": 4,
-    "date": "2026-03-30",
-    "title": "聖城巡禮：世界遺產",
-    "locations": [
-      "拉薩"
-    ],
-    "altitude": {
-      "avg": 3650,
-      "max": 3700,
-      "sleep": 3650
-    },
-    "coords": {
-      "lat": 29.6516,
-      "lon": 91.1721
-    },
-    "weather_advice": "乾燥，加強保濕防曬。",
-    "stay": "拉薩瑞吉度假酒店",
-    "tips": "布達拉宮階梯多，請調整呼吸，不要逞強。",
-    "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩布達拉宮",
-    "route": {
-      "start": "拉薩瑞吉度假酒店",
-      "end": "大昭寺",
-      "waypoints": "布達拉宮|藥王山觀景台",
-      "mode": "walking"
-    },
-    "highlights": [
-      {
-        "label": "布達拉宮 (參觀攻略)",
-        "url": "https://www.findchina.tw/2021/12/potala-palace.html"
-      },
-      {
-        "label": "大昭寺 (覺沃佛)",
-        "url": "https://vocus.cc/article/69776507fd89780001a57cbf"
-      },
-      {
-        "label": "藥王山觀景台",
-        "url": "https://www.chinatibet.tw/jingdian/566.html"
-      }
-    ],
-    "web_anchor": "第四天：拉薩"
-  },
-  {
-    "day": 5,
-    "date": "2026-03-31",
-    "title": "聖湖與冰川",
-    "locations": [
-      "拉薩",
-      "羊湖",
-      "日喀則"
-    ],
-    "altitude": {
-      "avg": 4000,
-      "max": 5030,
-      "sleep": 3840
-    },
-    "coords": {
-      "lat": 29.2667,
-      "lon": 88.8833
-    },
-    "weather_advice": "山口風大，戴毛帽圍巾。",
-    "stay": "日喀則希爾頓酒店",
-    "tips": "翻越 5000m 山口，下車拍照動作要慢。",
-    "web_anchor": "第五天：拉薩",
-    "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店",
-    "route": {
-      "start": "拉萨市",
-      "end": "日喀则市",
-      "waypoints": "羊卓雍措|卡若拉冰川",
-      "mode": "driving"
-    },
-    "highlights": [
-      {
-        "label": "崗巴拉山口"
-      },
-      {
-        "label": "羊卓雍措 (最美聖湖)",
-        "url": "https://www.greattibettour.com/tw/tibet-attractions/yamdroktso-lake-365"
-      },
-      {
-        "label": "卡若拉冰川",
-        "url": "https://www.travel168.com.tw/blogInfo?n=35"
-      }
-    ]
-  },
-  {
-    "day": 6,
-    "date": "2026-04-01",
-    "title": "巔峰挑戰：珠峰大本營",
-    "locations": [
-      "日喀則",
-      "珠峰"
-    ],
-    "altitude": {
-      "avg": 4500,
-      "max": 5200,
-      "sleep": 5200
-    },
-    "coords": {
-      "lat": 28.1408,
-      "lon": 86.845
-    },
-    "weather_advice": "極寒 (-10°C)，全副武裝。",
-    "stay": "珠峰大本營帳篷/民宿",
-    "tips": "全程最高挑戰 5200m。隨身攜帶氧氣瓶。",
-    "web_anchor": "第六天：日喀則",
-    "map_url": "https://www.google.com/maps/search/?api=1&query=珠峰大本營",
-    "route": {
-      "start": "日喀则市",
-      "end": "珠穆朗玛峰大本营",
-      "waypoints": "加乌拉山口|绒布寺",
-      "mode": "driving"
-    },
-    "highlights": [
-      {
-        "label": "加烏拉山口 (8000m雪山群)",
-        "url": "https://www.greattibettour.com/tw/tibet-attractions/gawu-la-pass.html"
-      },
-      {
-        "label": "絨布寺",
-        "url": "https://vacation.eztravel.com.tw/sight/plc0000087590/rongbuk-monastery-%E7%B5%A8%E5%B8%83%E5%AF%BA"
-      },
-      {
-        "label": "珠峰大本營 (住宿攻略)",
-        "url": "https://www.tibet.tw/gonglue/tibet-ebc-accommodation.html"
-      }
-    ]
-  },
-  {
-    "day": 7,
-    "date": "2026-04-02",
-    "title": "告別珠峰：返回日喀則",
-    "locations": [
-      "珠峰",
-      "日喀則"
-    ],
-    "altitude": {
-      "avg": 4200,
-      "max": 5200,
-      "sleep": 3840
-    },
-    "coords": {
-      "lat": 29.2667,
-      "lon": 88.8833
-    },
-    "weather_advice": "清晨極冷，回暖。",
-    "stay": "日喀則希爾頓酒店",
-    "tips": "回到 3840m 會覺得呼吸順暢很多，今晚好好洗澡。",
-    "web_anchor": "第七天：珠峰小鎮",
-    "map_url": "https://www.google.com/maps/search/?api=1&query=日喀則希爾頓酒店",
-    "route": {
-      "start": "珠峰大本营",
-      "end": "扎什伦布寺",
-      "mode": "driving"
-    },
-    "highlights": [
-      {
-        "label": "珠峰日出"
-      },
-      {
-        "label": "扎什倫布寺 (歷代班禪)",
-        "url": "https://www.greattibettour.com/tw/tibet-attractions/tashilhunpo-monastery-369"
-      }
-    ]
-  },
-  {
-    "day": 8,
-    "date": "2026-04-03",
-    "title": "穿越藏北",
-    "locations": [
-      "日喀則",
-      "當雄"
-    ],
-    "altitude": {
-      "avg": 4000,
-      "max": 4500,
-      "sleep": 4200
-    },
-    "coords": {
-      "lat": 30.4833,
-      "lon": 91.1
-    },
-    "weather_advice": "草原風大乾燥。",
-    "stay": "當雄四季富氧酒店",
-    "tips": "當雄海拔 4200m 仍高，注意保暖。",
-    "web_anchor": "第八天：日喀則",
-    "map_url": "https://www.google.com/maps/search/?api=1&query=當雄四季富氧酒店",
-    "route": {
-      "start": "日喀则市",
-      "end": "当雄站",
-      "waypoints": "雪古拉山",
-      "mode": "driving"
-    },
-    "highlights": [
-      {
-        "label": "藏北草原風光"
-      },
-      {
-        "label": "雪古拉山口"
-      },
-      {
-        "label": "當雄 (納木措門戶)"
-      }
-    ]
-  },
-  {
-    "day": 9,
-    "date": "2026-04-04",
-    "title": "天湖納木措",
-    "locations": [
-      "當雄",
-      "納木措",
-      "拉薩"
-    ],
-    "altitude": {
-      "avg": 4000,
-      "max": 5190,
-      "sleep": 3650
-    },
-    "coords": {
-      "lat": 30.72,
-      "lon": 90.96
-    },
-    "weather_advice": "湖邊風如刀割，極冷。",
-    "stay": "拉薩瑞吉度假酒店",
-    "tips": "行程最後的高海拔挑戰。晚上看秀注意保暖。",
-    "web_anchor": "第九天：當雄",
-    "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩瑞吉度假酒店",
-    "route": {
-      "start": "拉萨市",
-      "end": "纳木错",
-      "mode": "driving"
-    },
-    "highlights": [
-      {
-        "label": "那根拉山口"
-      },
-      {
-        "label": "納木措 (天湖)",
-        "url": "https://www.chinatibet.tw/jingdian/130.html"
-      },
-      {
-        "label": "文成公主實景劇",
-        "url": "https://www.sunnyhousetours.com/chinese/explore/detail.php?PID=412"
-      }
-    ]
-  },
-  {
-    "day": 10,
-    "date": "2026-04-05",
-    "title": "青藏鐵路",
-    "locations": [
-      "拉薩",
-      "火車上"
-    ],
-    "altitude": {
-      "avg": 4000,
-      "max": 5072,
-      "sleep": 3000
-    },
-    "coords": {
-      "lat": 32.7,
-      "lon": 92.4333
-    },
-    "weather_advice": "車內舒適，車外寒冷。",
-    "stay": "青藏鐵路軟臥",
-    "tips": "火車上有供氧. 放鬆欣賞窗外流動的風景大片。",
-    "web_anchor": "第十天",
-    "map_url": "https://www.google.com/maps/search/?api=1&query=拉薩火車站",
-    "route": {
-      "start": "拉萨站",
-      "end": "西宁站",
-      "waypoints": "那曲站|格尔木站",
-      "mode": "train_route"
-    },
-    "highlights": [
-      {
-        "label": "青藏鐵路 (沿途美景)",
-        "url": "https://www.findchina.tw/2021/12/qinghai-tibet-railway-guide.html"
-      },
-      {
-        "label": "唐古拉山口",
-        "url": "https://vacation.eztravel.com.tw/sight/plc0000088371/tanggula-pass-%E5%94%90%E5%8F%A4%E6%8B%89%E5%B1%B1%E5%8F%A3"
-      },
-      {
-        "label": "可可西里 (藏羚羊)",
-        "url": "https://www.greattibettour.com/tw/tibet-travel-tips/tibetan-antelope.html"
-      }
-    ]
-  },
-  {
-    "day": 11,
-    "date": "2026-04-06",
-    "title": "抵達西寧：轉機",
-    "locations": [
-      "西寧",
-      "廣州"
-    ],
-    "altitude": {
-      "avg": 2200,
-      "max": 3000,
-      "sleep": 50
-    },
-    "coords": {
-      "lat": 36.6209,
-      "lon": 101.7801
-    },
-    "weather_advice": "抵達廣州後變熱。",
-    "stay": "廣州花都白雲國際機場逸扉酒店",
-    "tips": "回到平原可能會嗜睡，好好休息。",
-    "web_anchor": "第十一天",
-    "map_url": "https://www.google.com/maps/search/?api=1&query=廣州花都白雲國際機場逸扉酒店",
-    "route": {
-      "start": "西宁站",
-      "end": "西宁曹家堡国际机场",
-      "waypoints": "麒麟湾公园|水井巷",
-      "mode": "driving"
-    },
-    "flight": {
-      "code": "CZ6394",
-      "from": "XNN 西寧",
-      "to": "CAN 廣州",
-      "dep": "16:15",
-      "arr": "21:10",
-      "airline": "南方航空"
-    },
-    "highlights": [
-      {
-        "label": "青海湖遠眺"
-      },
-      {
-        "label": "西寧市區"
-      }
-    ]
-  },
-  {
-    "day": 12,
-    "date": "2026-04-07",
-    "title": "滿載而歸",
-    "locations": [
-      "廣州",
-      "桃園"
-    ],
-    "altitude": {
-      "avg": 50,
-      "max": 50,
-      "sleep": 50
-    },
-    "coords": {
-      "lat": 23.1291,
-      "lon": 113.2644
-    },
-    "weather_advice": "溫暖舒適。",
-    "stay": "甜蜜的家",
-    "tips": "整理照片，分享西藏回憶！",
-    "web_anchor": "第十二天",
-    "map_url": "https://www.google.com/maps/search/?api=1&query=桃園國際機場",
-    "route": {
-      "end": "桃园国际机场",
-      "mode": "flight"
-    },
-    "flight": {
-      "code": "CZ3097",
-      "from": "CAN 廣州",
-      "to": "TPE 桃園",
-      "dep": "11:15",
-      "arr": "13:30",
-      "airline": "南方航空"
-    },
-    "highlights": [
-      {
-        "label": "廣州白雲機場"
-      },
-      {
-        "label": "抵達桃園機場"
-      }
-    ]
-  }
+    {
+        "day": 12,
+        "date": "2026-04-06",
+        "title": "滿載而歸",
+        "locations": [
+            "廣州",
+            "桃園"
+        ],
+        "altitude": {
+            "avg": 50,
+            "max": 50,
+            "sleep": 50
+        },
+        "coords": {
+            "lat": 23.1291,
+            "lon": 113.2644
+        },
+        "weather_advice": "溫暖舒適。",
+        "stay": "甜蜜的家",
+        "tips": "整理照片，分享西藏回憶！",
+        "web_anchor": "第12天｜廣州返家日・飛往桃園",
+        "map_url": "https://www.google.com/maps/search/?api=1&query=桃園國際機場",
+        "route": {
+            "end": "桃园国际机场",
+            "mode": "flight"
+        },
+        "flight": {
+            "code": "CZ3097",
+            "from": "CAN 廣州",
+            "to": "TPE 桃園",
+            "dep": "11:15",
+            "arr": "13:30",
+            "airline": "南方航空"
+        },
+        "highlights": [
+            {
+                "label": "廣州白雲機場"
+            },
+            {
+                "label": "抵達桃園機場"
+            }
+        ],
+        "show_hotel_map": false
+    }
 ];
         // --- DO NOT REMOVE THIS LINE: itineraryData End ---
 
 
-                createApp({
+        createApp({
             setup() {
                 const itinerary = ref([]);
                 const currentIndex = ref(0);
@@ -1856,7 +1897,7 @@
                 const countdown = ref(0);
 
                 const updateCountdown = () => {
-                    const target = new Date('2026-03-27T00:00:00');
+                    const target = new Date('2026-03-26T00:00:00');
                     const now = new Date();
                     const diff = target - now;
                     countdown.value = Math.ceil(diff / (1000 * 60 * 60 * 24));
@@ -2232,8 +2273,8 @@
 
                 const openOfficialItinerary = (dayNum) => {
                     const day = itinerary.value.find(d => d.day === dayNum);
-                    const anchor = day && day.web_anchor ? day.web_anchor : `第${dayNum}天`;
-                    const url = `https://wannavegtour.com/product/0327cz/#:~:text=${encodeURIComponent(anchor)}`;
+                    const anchor = `第${dayNum}天`;
+                    const url = `https://wannavegtour.com/product/0326cz/#:~:text=${encodeURIComponent(dayNum === 10 ? '第十天：拉薩→西寧' : anchor)}`;
                     window.open(url, '_blank');
                 };
 
