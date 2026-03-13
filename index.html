@@ -527,12 +527,12 @@
                                     </a>
                                 </div>
                             </div>
-                            <!-- Official External Link (V12.0 Cloud Migration) -->
+                            <!-- Official External Link (V12.0 Local PDF Integration) -->
                             <div class="mt-8 border-t border-slate-700/50 pt-8 flex justify-center">
-                                <a :href="`https://wannavegtour.com/product/0326cz/#:~:text=${encodeURIComponent(currentDay.day === 10 ? '第十天：拉薩→西寧' : '第' + currentDay.day + '天')}`"
+                                <a :href="`./20260326%E7%8E%A9%E7%B4%A0%E8%A5%BF%E8%97%8F%E7%8F%A0%E5%B3%B0%E5%B0%8F%E9%8E%AE%E7%B4%A0%E9%A3%9F%E6%96%87%E5%8C%96%E4%BA%A4%E6%B5%8112%E6%97%A5-LIST.pdf#page=${currentDay.day + 5}`"
                                     target="_blank"
-                                    class="inline-flex items-center gap-3 px-8 py-5 rounded-2xl bg-slate-800 border border-amber-500/30 hover:border-amber-500/60 text-amber-200 text-xl md:text-2xl font-bold shadow-xl active:scale-95 transition-all w-full md:w-auto justify-center no-underline">
-                                    📖 查看官網當日行程 (Official)
+                                    class="inline-flex items-center gap-3 px-8 py-5 rounded-2xl bg-slate-800 border border-emerald-500/30 hover:border-emerald-500/60 text-emerald-200 text-xl md:text-2xl font-bold shadow-xl active:scale-95 transition-all w-full md:w-auto justify-center no-underline">
+                                    📖 查看詳細行程 (PDF 第 {{ currentDay.day + 5 }} 頁)
                                 </a>
                             </div>
                         </div>
@@ -915,9 +915,41 @@
                                             </a>
                                         </div>
                                         <div
-                                            class="p-6 bg-slate-900/30 rounded-2xl border border-dashed border-slate-700 text-center">
-                                            <p class="text-slate-400 text-lg font-bold">領隊/導遊電話：</p>
-                                            <p class="text-slate-500 italic mt-2 text-base">(請於出發說明會後手動填入)</p>
+                                            class="flex justify-between items-center bg-indigo-900/40 p-5 rounded-2xl border border-indigo-500/50 shadow-lg shadow-indigo-500/10">
+                                            <div>
+                                                <p
+                                                    class="text-xs text-indigo-300 uppercase font-bold tracking-widest mb-1">
+                                                    素食管家</p>
+                                                <p class="text-white text-xl font-black">小甄 小姐</p>
+                                                <p class="text-indigo-200/70 text-lg font-mono tracking-tighter mt-1">0988-979702</p>
+                                            </div>
+                                            <a href="tel:0988979702"
+                                                class="w-12 h-12 flex items-center justify-center bg-emerald-600 hover:bg-emerald-500 rounded-full text-white transition-all shadow-lg active:scale-95">
+                                                <span class="material-icons-outlined text-2xl">call</span>
+                                            </a>
+                                        </div>
+
+                                        <!-- PDF Downloads (V12.0 Local Integration) -->
+                                        <div class="pt-4 border-t border-slate-700/50 space-y-3">
+                                            <p class="text-xs text-slate-500 font-bold uppercase tracking-[0.2em] mb-2">手冊連結 Documents</p>
+                                            <a href="./%E8%A5%BF%E8%97%8F%E5%9C%98%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85.pdf" target="_blank"
+                                                class="flex items-center gap-4 p-4 bg-slate-800 hover:bg-slate-700 rounded-2xl border border-slate-700 transition-all group">
+                                                <span class="material-icons-outlined text-red-400 group-hover:scale-110 transition-transform">picture_as_pdf</span>
+                                                <div class="flex-1">
+                                                    <p class="text-white font-bold text-sm">西藏注意事項 (團務須知)</p>
+                                                    <p class="text-slate-500 text-xs">健康預防與生活建議</p>
+                                                </div>
+                                                <span class="material-icons-outlined text-slate-600 text-sm">open_in_new</span>
+                                            </a>
+                                            <a href="./20260326%E7%8E%A9%E7%B4%A0%E8%A5%BF%E8%97%8F%E7%8F%A0%E5%B3%B0%E5%B0%8F%E9%8E%AE%E7%B4%A0%E9%A3%9F%E6%96%87%E5%8C%96%E4%BA%A4%E6%B5%8112%E6%97%A5-LIST.pdf" target="_blank"
+                                                class="flex items-center gap-4 p-4 bg-slate-800 hover:bg-slate-700 rounded-2xl border border-slate-700 transition-all group">
+                                                <span class="material-icons-outlined text-emerald-400 group-hover:scale-110 transition-transform">menu_book</span>
+                                                <div class="flex-1">
+                                                    <p class="text-white font-bold text-sm">2026/03/26 玩素西藏行程</p>
+                                                    <p class="text-slate-500 text-xs">詳細每日行程與福利</p>
+                                                </div>
+                                                <span class="material-icons-outlined text-slate-600 text-sm">open_in_new</span>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -1144,10 +1176,19 @@
                                 </div>
                             </section>
 
-                            <!-- Feature 3: Toolkit -->
-                            <section>
-                                <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                                    <span class="text-teal-500">04</span> 安全工具箱 (V9.0+)
+                             <!-- Feature 3: Toolkit -->
+                             <section>
+                                 <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                                     <span class="text-teal-500">04</span> 安全工具箱與相關文件
+                                 </h3>
+                                 <div class="bg-slate-900/50 p-8 rounded-3xl border border-white/10 space-y-6 shadow-xl">
+                                     <p class="text-white text-xl font-medium">整合多項實用工具，並提供官方文件下載：</p>
+                                     <ul class="list-disc list-inside text-slate-200 space-y-4 ml-4 text-xl">
+                                         <li><strong class="text-teal-400">團務與福利</strong>：包含緊急聯絡電話與 <span class="text-red-400">PDF 行前手冊連結</span>。</li>
+                                         <li><strong class="text-teal-400">行李清單</strong>：數位化勾選功能，確保不遺漏關鍵物品。</li>
+                                     </ul>
+                                 </div>
+                             </section>
                                 </h3>
                                 <div
                                     class="bg-indigo-950/30 border border-indigo-500/20 rounded-2xl p-6 mb-8 flex items-start gap-4 shadow-xl">
@@ -1397,7 +1438,7 @@
         },
         "weather_advice": "涼爽 (5-15°C)，抵達後穿防風外套。",
         "stay": "林芝悅皇冠度假酒店",
-        "tips": "今日動作要慢！切記不要洗澡洗頭，多喝水。",
+        "tips": "今日動作要慢！切記不要洗澡洗頭，多喝水。遵循「三不原則」：不快走、不洗澡、不喝酒。",
         "web_anchor": "第2天｜廣州 ✈ 林芝・哈達迎賓・雅尼濕地・色季拉山・魯朗小鎮",
         "map_url": "https://www.google.com/maps/search/?api=1&query=林芝悅皇冠度假酒店",
         "route": {
@@ -2043,8 +2084,8 @@
                     { category: '必備證件', items: ['護照/台胞證', '入藏函 (正本)', '機票/火車票', '現金/信用卡'] },
                     { category: '電子產品', items: ['手機 & 充電線', '行動電源 (⚠️ 須有清晰容量標示)', '變壓器/轉接頭 (中國電壓220V)', '網卡/Wifi機 (旅行社已贈送)'] },
                     { category: '個人藥品', items: ['紅景天 (提前吃)', '丹木斯 (高山症)', '感冒/腸胃藥', '維他命/B群'] },
-                    { category: '衣物裝備', items: ['羽絨外套 (防風防水)', '毛帽 & 圍巾', '墨鏡 (偏光)', '保暖好走鞋'] },
-                    { category: '日用品', items: ['保濕乳液/護唇膏', '防曬乳 (高係數)', '保溫瓶', '濕紙巾/衛生紙'] }
+                    { category: '衣物裝備', items: ['羽絨外套 (防風防水)', '毛帽 & 圍巾', '墨鏡 (偏光)', '保暖好走鞋', '穿著建議：洋蔥式穿法'] },
+                    { category: '日用品', items: ['保濕乳液/護唇膏', '防曬乳 (高係數)', '保溫瓶 (補充水分)', '濕紙巾/衛生紙', '個人盥洗用品 (牙刷/牙膏)'] }
                 ]);
                 const isPackingListOpen = ref(false); // Used for backward compatibility or direct access if needed
 

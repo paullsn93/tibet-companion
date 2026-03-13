@@ -1,0 +1,6 @@
+=== pos 31202 ===
+'icial External Link (V12.0 Cloud Migration) -->\n                            <div class="mt-8 border-t border-slate-700/50 pt-8 flex justify-center">\n                                <a :href="`https://wannavegtour.com/product/0326cz/#:~:text=${encodeURIComponent(\'第\' + currentDay.day + \'天\')}`"\n                                    target="_blank"\n                                    class="inline-flex items-center gap-3 px-8 py-5 rounded-2xl bg-slate-800 border border-amber-500/30 hover:border-amber-'
+
+=== pos 115100 ===
+"           const day = itinerary.value.find(d => d.day === dayNum);\n                    const anchor = day && day.web_anchor ? day.web_anchor : `第${dayNum}天`;\n                    const url = `https://wannavegtour.com/product/0326cz/#:~:text=${encodeURIComponent(anchor)}`;\n                    window.open(url, '_blank');\n                };\n\n                const changeDay = (delta) => {\n                    const newIndex = currentIndex.value + delta;\n                    if (newIndex >= 0 && newInd"
+
